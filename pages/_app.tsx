@@ -1,10 +1,9 @@
-import React from "react";
-import { AppProps } from "next/app";
-import "tailwindcss/tailwind.css";
-import "@styles/global.scss";
-import { appWithTranslation } from "@i18n";
+import React from 'react';
+import {AppProps} from 'next/app';
+import 'tailwindcss/tailwind.css';
+import '@styles/global.scss';
 
-function MyApp({ Component, pageProps }: AppProps): JSX.Element {
+function MyApp({Component, pageProps}: AppProps): JSX.Element {
   return <Component {...pageProps} />;
 }
 

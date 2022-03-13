@@ -1,3 +1,7 @@
-export const Container = ({ children }) => {
+type Props = {
+  children: React.FC[];
+}
+
+export const Container: React.FC = ({ children }) => {
   return <div className="min-h-screen flex flex-col">{children}</div>;
 };

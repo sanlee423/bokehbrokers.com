@@ -1,13 +1,15 @@
 import React from "react";
-import { NextjsIcon } from "@components/icons";
+import { CameraIcon } from "@components/icons";
 
 export const Logo: React.FC = () => {
   return (
-    <NextjsIcon
-      data-test="icon"
-      className="text-white mx-auto"
-      width="96"
-      height="58"
-    />
+    <div className="flex w-1/2 mx-2">
+      <CameraIcon
+        data-test="icon"
+        className="text-white"
+        width="58"
+        height="58"
+      />
+    </div>
   );
 };
