@@ -1,7 +1,7 @@
-import React from "react";
-import { TFunction } from "next-i18next";
+import React from 'react';
+import {TFunction} from 'next-i18next';
 
-import { withTranslation, i18n } from "@i18n";
+import {withTranslation, i18n} from '@/i18n';
 
 /**
  * This component is generated as en example usage of next-i18next
@@ -10,9 +10,9 @@ import { withTranslation, i18n } from "@i18n";
  * please visit https://github.com/isaachinman/next-i18next
  */
 
-const I18NExampleComponent: React.FC<{ t: TFunction }> = ({ t }) => {
+const I18NExampleComponent: React.FC<{t: TFunction}> = ({t}) => {
   const changeLanguage = () => {
-    i18n.changeLanguage(i18n.language === "tr" ? "en" : "tr");
+    i18n.changeLanguage(i18n.language === 'tr' ? 'en' : 'tr');
   };
   return (
     <div>
@@ -24,15 +24,14 @@ const I18NExampleComponent: React.FC<{ t: TFunction }> = ({ t }) => {
         </div>
       </header>
       <main>
-        <p>{t("common:greet", { name: t`common:world` })}</p>
+        <p>{t('common:greet', {name: t`common:world`})}</p>
         <p>{t`home:someText`}</p>
       </main>
       <footer>
         <a
           href="https://github.com/isaachinman/next-i18next"
           target="_blank"
-          rel="noopener noreferrer"
-        >
+          rel="noopener noreferrer">
           {t`common:documentation`}
         </a>
       </footer>
@@ -40,6 +39,6 @@ const I18NExampleComponent: React.FC<{ t: TFunction }> = ({ t }) => {
   );
 };
 
-export const I18NExample = withTranslation(["common", "home"])(
-  I18NExampleComponent
+export const I18NExample = withTranslation(['common', 'home'])(
+  I18NExampleComponent,
 );

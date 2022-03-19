@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 import {
   PankodIcon,
   GithubIcon,
   TwitterIcon,
   YoutubeIcon,
   LinkedinIcon,
-} from "@components/icons";
+} from '@/components/icons';
 
 export const Footer: React.FC = () => {
   return (
@@ -14,7 +14,7 @@ export const Footer: React.FC = () => {
         href="https://github.com/pankod"
         target="_blank"
         className="block mb-3"
-      >
+        rel="noreferrer">
         <PankodIcon
           data-test="icon"
           className="text-white mx-auto"

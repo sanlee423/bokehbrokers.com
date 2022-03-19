@@ -1,15 +1,27 @@
-import React from 'react';
-import Main from '@components/main';
-import {Container, Header, Footer, Cards} from '@components';
+import React, {useEffect, useState} from 'react';
+import Main from '@/components/main';
+import {Cards} from '@/components';
+import fetcher from '@/utils/fetcher';
+import useSWR from 'swr';
+import {FeaturedCard} from '@/components/featuredCard/featuredCard';
+import {BrandCard} from '@/components/brandCard';
 
 const Home: React.FC = () => {
+  // const [brands, setBrands] = useState<string[]>([]);
+  // const {data} = useSWR(`/api/brands/`, fetcher);
+
+  // useEffect(() => {
+  //   console.log(data);
+  //   setBrands(data?.brands ?? []);
+  // });
+
   return (
-    <Container>
-      <Header />
+    <div>
       <Main />
+      <FeaturedCard />
+      <BrandCard />
       <Cards />
-      <Footer />
-    </Container>
+    </div>
   );
 };
 

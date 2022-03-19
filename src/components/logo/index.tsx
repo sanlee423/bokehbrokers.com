@@ -1,5 +1,5 @@
-import React from "react";
-import { CameraIcon } from "@components/icons";
+import React from 'react';
+import {CameraIcon} from '@/components/icons';
 
 export const Logo: React.FC = () => {
   return (

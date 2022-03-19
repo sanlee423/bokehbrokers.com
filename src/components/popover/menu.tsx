@@ -1,45 +1,108 @@
+// @ts-nocheck
+import React, {useState} from 'react';
 import {Button, Menu, MenuItem} from '@mui/material';
-import React from 'react';
+import {makeStyles} from '@mui/styles';
 
-type Props = {
-  title: string;
+const useStyles = makeStyles(theme => ({
+  buttonParent: {
+    width: '25%',
+    height: '66%',
+
+    '&:hover': {
+      '--tw-bg-opacity': 1,
+      backgroundColor: 'rgba(17, 24, 39, var(--tw-bg-opacity))',
+    },
+  },
+  button: {
+    width: '100%',
+    color: 'white !important',
+    fontWeight: '700 !important',
+    fontSize: 'medium !important',
+    zIndex: 1301,
+    marginBottom: '4px !important',
+    textTransform: 'none !important',
+
+    '&:hover': {
+      marginBottom: '0px',
+      borderBottom: '4px solid white',
+      borderRadius: '0',
+    },
+  },
+}));
+
+type MenuProps = {
+  data: Object;
 };
-const PopoverMenu: React.FC<Props> = ({title}) => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [open, setOpen] = React.useState(false);
 
-  function handleClick(event) {
-    if (anchorEl !== event.currentTarget) {
-      setAnchorEl(event.currentTarget);
+const PopoverMenu: React.FC<MenuProps> = ({data}) => {
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = useState<EventTarget | undefined>(undefined);
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = (e: Event) => {
+    if (e.currentTarget) {
+      setAnchorEl(e.currentTarget);
       setOpen(true);
     }
-  }
+  };
 
-  function handleClose() {
-    setAnchorEl(null);
+  const handleClose = (e: any) => {
+    if (e.currentTarget && e.currentTarget.localName !== 'ul') {
+      const menu = document.getElementById('main-nav').children[2];
+      const menuBoundary: {
+        left: number;
+        top: number;
+        right: number;
+        bottom: number;
+      } = {
+        left: menu.offsetLeft,
+        top: e.currentTarget.offsetTop + e.currentTarget.offsetHeight,
+        right: menu.offsetLeft + menu.offsetHeight,
+        bottom: menu.offsetTop + menu.offsetHeight,
+      };
+      if (
+        e.clientX >= menuBoundary.left &&
+        e.clientX <= menuBoundary.right &&
+        e.clientY <= menuBoundary.bottom &&
+        e.clientY >= menuBoundary.top
+      ) {
+        return;
+      }
+    }
+
     setOpen(false);
-  }
+  };
 
   return (
-    <div className={`${anchorEl ? 'border-b-4 border-white pt-2' : 'py-2'}`}>
+    <div className={classes.buttonParent}>
       <Button
-        aria-owns={anchorEl ? 'simple-menu' : undefined}
+        hover
+        id="menu-button"
+        className={classes.button}
+        aria-owns={open ? 'nav-menu' : null}
         aria-haspopup="true"
-        className="text-white"
-        onClick={handleClick}
-        onMouseOver={handleClick}>
-        {title}
+        onMouseOver={handleOpen}
+        onMouseLeave={handleClose}
+        style={{zIndex: 1301}}>
+        {Object.keys(data)[0]}
       </Button>
       <Menu
-        id="simple-menu"
-        className="w-screen h-1/2 mt-3"
+        id="main-nav"
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose}
-        MenuListProps={{onMouseOut: handleClose, onMouseLeave: handleClose}}>
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}>
+        {Object.values(data)[0].map(item => {
+          return (
+            <MenuItem key={`${Object.keys(data)[0]}${item}`}>{item}</MenuItem>
+          );
+        })}
       </Menu>
     </div>
   );
