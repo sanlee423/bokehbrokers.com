@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
     position: 'relative',
     right: 0,
     bottom: 0,
-    height: '30vh',
+    height: '40vh',
     width: '100%',
     float: 'none',
     pointerEvents: 'none',

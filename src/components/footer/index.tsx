@@ -4,10 +4,8 @@ import cpTheme from 'src/theme/cpTheme';
 
 const useStyles = makeStyles(theme => ({
   footer: {
-    position: 'absolute',
-    left: 0,
-    bottom: 0,
-    right: 0,
+    marginTop: '8%',
+    width: '100vw',
     background: '#4a4848',
     height: 'auto',
   },
