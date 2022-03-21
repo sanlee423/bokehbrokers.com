@@ -1,9 +1,19 @@
-import Document, { DocumentContext, DocumentInitialProps } from "next/document";
+import {ServerStyleSheets} from '@mui/styles';
+import Document, {DocumentContext, DocumentInitialProps} from 'next/document';
 
 class CustomDocument extends Document {
   static async getInitialProps(
-    ctx: DocumentContext
+    ctx: DocumentContext,
   ): Promise<DocumentInitialProps> {
+    // Render app and page and get the context of the page with collected side effects.
+    const sheets = new ServerStyleSheets();
+    const originalRenderPage = ctx.renderPage;
+
+    ctx.renderPage = () =>
+      originalRenderPage({
+        enhanceApp: App => props => sheets.collect(<App {...props} />),
+      });
+
     const initialProps = await Document.getInitialProps(ctx);
 
     return initialProps;

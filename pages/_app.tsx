@@ -1,15 +1,19 @@
 import React from 'react';
-import {Container, Header, Footer, Cards} from '@/components';
+import {Container, Header, Footer} from '@/components';
 import {AppProps} from 'next/app';
 import 'tailwindcss/tailwind.css';
-import '@/styles/global.scss';
+import {ThemeProvider} from '@mui/styles';
+import cpTheme from 'src/theme/cpTheme';
+import Main from '@/components/main';
 
 function MyApp({Component, pageProps}: AppProps): JSX.Element {
   return (
     <Container>
-      <Header />
-      <Component {...pageProps} />
-      {/* <Footer /> */}
+      <ThemeProvider theme={cpTheme}>
+        <Header />
+        <Main />
+        <Component {...pageProps} />
+      </ThemeProvider>
     </Container>
   );
 }

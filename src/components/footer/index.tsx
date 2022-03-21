@@ -1,42 +1,40 @@
 import React from 'react';
-import {
-  PankodIcon,
-  GithubIcon,
-  TwitterIcon,
-  YoutubeIcon,
-  LinkedinIcon,
-} from '@/components/icons';
+import {makeStyles} from '@mui/styles';
+import cpTheme from 'src/theme/cpTheme';
+
+const useStyles = makeStyles(theme => ({
+  footer: {
+    position: 'absolute',
+    left: 0,
+    bottom: 0,
+    right: 0,
+    background: '#4a4848',
+    height: 'auto',
+  },
+  footerText: {
+    fontSize: '0.7rem',
+    margin: '2%',
+    paddingLeft: '2%',
+    color: 'white',
+    height: '100%',
+  },
+}));
+
+type Props = {
+  children: React.FC[];
+};
 
 export const Footer: React.FC = () => {
+  const classes = useStyles(cpTheme);
   return (
-    <div className="text-center py-5 bg-gray-800">
-      <a
-        href="https://github.com/pankod"
-        target="_blank"
-        className="block mb-3"
-        rel="noreferrer">
-        <PankodIcon
-          data-test="icon"
-          className="text-white mx-auto"
-          width="140"
-          height="28"
-        />
-      </a>
-
-      <ul className="flex justify-center list-none p-0 m-0">
-        <li className="mx-3">
-          <GithubIcon data-test="icon" color="white" width="28" height="29" />
-        </li>
-        <li className="mx-3">
-          <TwitterIcon data-test="icon" color="white" width="28" height="28" />
-        </li>
-        <li className="mx-3">
-          <YoutubeIcon data-test="icon" color="white" width="28" height="29" />
-        </li>
-        <li className="mx-3">
-          <LinkedinIcon data-test="icon" color="white" width="28" height="32" />
-        </li>
-      </ul>
+    <div className={classes.footer}>
+      <div className={classes.footerText}>
+        <strong className="copyright">
+          ©2022 Sanlee LLC. All rights reserved.
+        </strong>
+        <a href="/customer-service/terms-of-use"> | Terms of Use</a>
+        <a href="/customer-service/privacy-policy"> | Privacy Policy</a>
+      </div>
     </div>
   );
 };

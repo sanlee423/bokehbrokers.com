@@ -9,8 +9,7 @@ const useStyles = makeStyles(theme => ({
     height: '66%',
 
     '&:hover': {
-      '--tw-bg-opacity': 1,
-      backgroundColor: 'rgba(17, 24, 39, var(--tw-bg-opacity))',
+      backgroundColor: 'rgba(17, 24, 39, 1)',
     },
   },
   button: {
@@ -19,12 +18,13 @@ const useStyles = makeStyles(theme => ({
     fontWeight: '700 !important',
     fontSize: 'medium !important',
     zIndex: 1301,
-    marginBottom: '4px !important',
-    textTransform: 'none !important',
+    marginTop: '1%',
+    marginBottom: '3px',
+    textTransform: 'none',
 
     '&:hover': {
       marginBottom: '0px',
-      borderBottom: '4px solid white',
+      borderBottom: '3px solid white',
       borderRadius: '0',
     },
   },
