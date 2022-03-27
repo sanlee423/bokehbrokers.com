@@ -1,120 +1,97 @@
 import * as React from 'react';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
-import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
 import cpTheme from 'src/theme/cpTheme';
 import {makeStyles} from '@mui/styles';
-import {Icon} from '@mui/material';
-import Leica from 'icons/brand/leica.svg';
+import {Grid, Icon} from '@mui/material';
 
 const useStyles = makeStyles(theme => ({
   //sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}
-  listContainer: {
-    width: '20%',
+  gridContainer: {
+    width: '100%',
     height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    verticalAlign: 'center',
+    padding: '2%',
   },
-  listText: {
-    height: '100%',
+  gridRow: {
     width: '100%',
     display: 'flex',
-    marginLeft: '2%',
+    flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    verticalAlign: 'center',
+  },
+  listText: {
+    width: '10%',
+    display: 'flex',
+    margin: '2%',
+    marginLeft: '5%',
+    padding: '5%',
+    justifyContent: 'center',
   },
   brandIcon: {
-    width: '4rem',
-    height: '4rem',
-  },
-  imgContainer: {
-    width: '100%',
-    height: '100%',
+    width: '4.0rem',
+    height: '4.0rem',
   },
 }));
-
-const brandList = [
-  {
-    src: `icons/brand/canon.svg?w=40%&fit=crop&auto=format`,
-    srcSet: `icons/brand/canon.svg?w=20%&fit=crop&auto=format 2x`,
-    alt: 'Canon',
-  },
-  {
-    src: `icons/brand/fujifilm.svg?w=20%&fit=crop&auto=format`,
-    srcSet: `icons/brand/fujifilm.svg?w=20%&fit=crop&auto=format 2x`,
-    alt: 'Leica',
-  },
-  {
-    src: `icons/brand/leica.svg?w=20%&fit=crop&auto=format`,
-    srcSet: `icons/brand/leica.svg?w=20%&fit=crop&auto=format 2x`,
-    alt: 'Leica',
-  },
-  {
-    src: `icons/brand/nikon.svg?w=20%&fit=crop&auto=format`,
-    srcSet: `icons/brand/nikon.svg?w=20%&fit=crop&auto=format 2x`,
-    alt: 'Nikon',
-  },
-  {
-    src: `icons/brand/pentax.svg?w=20%&fit=crop&auto=format`,
-    srcSet: `icons/brand/pentax.svg?w=20%&fit=crop&auto=format 2x`,
-    alt: 'Pentax',
-  },
-];
 
 export default function PhotoList() {
   const classes = useStyles(cpTheme);
 
   return (
-    <List className={classes.listContainer}>
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Icon className={classes.brandIcon}>
-            <img
-              className={classes.imgContainer}
-              src={'icons/brand/leica.svg'}
-              alt={'Leica'}
-              loading="lazy"
-            />
-          </Icon>
-        </ListItemAvatar>
+    <Grid className={classes.gridContainer} container spacing={2} columns={6}>
+      <Grid className={classes.gridRow} item xs={2}>
+        <Icon className={classes.brandIcon}>
+          <img
+            className={classes.imgContainer}
+            src={'icons/brand/leica.png'}
+            alt={'Leica'}
+            loading="lazy"
+          />
+        </Icon>
         <div className={classes.listText}>Leica</div>
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Icon className={classes.brandIcon}>
-            <img
-              className={classes.imgContainer}
-              src={'icons/brand/fujifilm.svg'}
-              alt={'Leica'}
-              loading="lazy"
-            />
-          </Icon>
-        </ListItemAvatar>
-        <ListItemText primary="Leica" />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Icon className={classes.brandIcon}>
-            <img
-              className={classes.imgContainer}
-              src={'icons/brand/nikon.svg'}
-              alt={'Leica'}
-              loading="lazy"
-            />
-          </Icon>
-        </ListItemAvatar>
-        <ListItemText primary="Leica" />
-      </ListItem>
-    </List>
+      </Grid>
+      <Grid className={classes.gridRow} item xs={2}>
+        <Icon className={classes.brandIcon}>
+          <img
+            className={classes.imgContainer}
+            src={'icons/brand/nikon.png'}
+            alt={'Nikon'}
+            loading="lazy"
+          />
+        </Icon>
+        <div className={classes.listText}>Nikon</div>
+      </Grid>
+      <Grid className={classes.gridRow} item xs={2}>
+        <Icon className={classes.brandIcon}>
+          <img
+            className={classes.imgContainer}
+            src={'icons/brand/fuji.png'}
+            alt={'Fujifilm'}
+            loading="lazy"
+          />
+        </Icon>
+        <div className={classes.listText}>Fujifilm</div>
+      </Grid>
+      <Grid className={classes.gridRow} item xs={2}>
+        <Icon className={classes.brandIcon}>
+          <img
+            className={classes.imgContainer}
+            src={'icons/brand/pentax.png'}
+            alt={'Pentax'}
+            loading="lazy"
+          />
+        </Icon>
+        <div className={classes.listText}>Pentax</div>
+      </Grid>
+      <Grid className={classes.gridRow} item xs={2}>
+        <Icon className={classes.brandIcon}>
+          <img
+            className={classes.imgContainer}
+            src={'icons/brand/canon.png'}
+            alt={'Canon'}
+            loading="lazy"
+          />
+        </Icon>
+        <div className={classes.listText}>Canon</div>
+      </Grid>
+    </Grid>
   );
 }

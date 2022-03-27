@@ -1,5 +1,6 @@
 import {ImageList, ImageListItem} from '@mui/material';
 import {makeStyles} from '@mui/styles';
+import Link from 'next/link';
 import React from 'react';
 import cpTheme from 'src/theme/cpTheme';
 
@@ -23,6 +24,13 @@ const useStyles = makeStyles(theme => ({
   },
   imageListItem: {
     borderRadius: '0.5rem',
+    cursor:'pointer',
+
+    '&:hover': {
+      filter: 'brightness(90%)',
+      transition: '300ms',
+      backgroundColor: '#f0f0f0',
+    }
   },
 }));
 
@@ -30,26 +38,31 @@ const brandList = [
   {
     src: `icons/brand/canon.svg?w=20%&fit=crop&auto=format`,
     srcSet: `icons/brand/canon.svg?w=20%&fit=crop&auto=format 2x`,
+    id: 'abc',
     alt: 'Canon',
   },
   {
     src: `icons/brand/fujifilm.svg?w=20%&fit=crop&auto=format`,
     srcSet: `icons/brand/fujifilm.svg?w=20%&fit=crop&auto=format 2x`,
-    alt: 'Leica',
+    id: 'def',
+    alt: 'Fujifilm',
   },
   {
     src: `icons/brand/leica.svg?w=20%&fit=crop&auto=format`,
     srcSet: `icons/brand/leica.svg?w=20%&fit=crop&auto=format 2x`,
+    id: 'ghi',
     alt: 'Leica',
   },
   {
     src: `icons/brand/nikon.svg?w=20%&fit=crop&auto=format`,
     srcSet: `icons/brand/nikon.svg?w=20%&fit=crop&auto=format 2x`,
+    id: 'jkl',
     alt: 'Nikon',
   },
   {
     src: `icons/brand/pentax.svg?w=20%&fit=crop&auto=format`,
     srcSet: `icons/brand/pentax.svg?w=20%&fit=crop&auto=format 2x`,
+    id: 'mno',
     alt: 'Pentax',
   },
 ];
@@ -66,17 +79,20 @@ export const BrandCard: React.FC = () => {
         className={classes.imageList}>
         {brandList.map(data => {
           return (
-            <ImageListItem
-              key={data.alt}
-              sx={{boxShadow: 2}}
-              className={classes.imageListItem}>
-              <img
-                src={data.src}
-                srcSet={data.srcSet}
-                alt={data.alt}
-                loading="lazy"
-              />
-            </ImageListItem>
+            <Link key={data.alt} href={`/brands/${data.id}`} passHref>
+              <a>
+                <ImageListItem
+                  sx={{boxShadow: 2}}
+                  className={classes.imageListItem}>
+                  <img
+                    src={data.src}
+                    srcSet={data.srcSet}
+                    alt={data.alt}
+                    loading="lazy"
+                  />
+                </ImageListItem>
+              </a>
+            </Link>
           );
         })}
       </ImageList>
