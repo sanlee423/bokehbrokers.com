@@ -45,6 +45,7 @@ a {
   flex-direction: row;
   justify-content: flex-end;
 }
+
 .navbar-nav-left {
   width: 70%;
   height: 100%;
@@ -80,7 +81,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: filter 300ms;
+  transition: filter var(--speed);
 }
 
 .icon-button:hover {
@@ -97,7 +98,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: filter 300ms;
+  transition: filter var(--speed);
 }
 
 .text-button:hover {
@@ -126,7 +127,7 @@ a {
   padding: 1rem;
   overflow: hidden;
   transition: height var(--speed) ease;
-  z-index: 10000;
+  z-index: 1000;
 }
 
 .dropdown-left {
@@ -140,7 +141,7 @@ a {
   padding: 1rem;
   overflow: hidden;
   transition: height var(--speed) ease;
-  z-index: 10000;
+  z-index: 1000;
 }
 
 .menu {
@@ -191,6 +192,7 @@ a {
 
 .menu-secondary-enter {
   transform: translateX(110%);
+  transition: all var(--speed) ease;
 }
 .menu-secondary-enter-active {
   transform: translateX(0%);

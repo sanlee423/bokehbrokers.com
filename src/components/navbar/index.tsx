@@ -5,6 +5,7 @@ import BoltIcon from '@mui/icons-material/Bolt';
 
 import React, {useState, useEffect, useRef} from 'react';
 import {CSSTransition} from 'react-transition-group';
+import Link from 'next/link';
 
 export function Navbar(props) {
   return <ul className="navbar-nav">{props.children}</ul>;
@@ -16,28 +17,27 @@ export function NavbarLeft(props) {
 
 export function NavItemText(props) {
   const [open, setOpen] = useState(false);
+  const slug: string = props.text as string;
 
   return (
-    <li className="nav-item-text">
-      <a
-        href="#"
-        id={props.text}
-        className="text-button"
-        onClick={e => {
-          const data = ['Brands', 'Cameras', 'Lenses', 'Film', 'Settings'];
-
-          data.map(name => {
-            const navs: HTMLElement = document.getElementById(name);
-
-            console.log(navs.parentElement);
-            // if (navs) {
-            //   navs.parentNode.removeChild(navs);
-            // }
-          });
-          setOpen(!open);
-        }}>
-        {props.text}
-      </a>
+    <li
+      id={props.text}
+      key={props.text}
+      className="nav-item-text"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={e => {
+        if (!e.relatedTarget) {
+          return;
+        }
+        if (!e.currentTarget.contains(e.relatedTarget)) {
+          setOpen(false);
+        }
+      }}>
+      <Link href={`/${slug.toLowerCase()}`} passHref>
+        <a id={`${props.text}-button`} className="text-button">
+          {props.text}
+        </a>
+      </Link>
       {open && props.children}
     </li>
   );
@@ -47,8 +47,18 @@ export function NavItemIcon(props) {
   const [open, setOpen] = useState(false);
 
   return (
-    <li className="nav-item-icon">
-      <a href="#" className="icon-button" onClick={() => setOpen(!open)}>
+    <li
+      className="nav-item-icon"
+      onMouseEnter={() => setOpen(!open)}
+      onMouseLeave={e => {
+        if (!e.relatedTarget) {
+          return;
+        }
+        if (!e.currentTarget.contains(e.relatedTarget)) {
+          setOpen(false);
+        }
+      }}>
+      <a href="#" className="icon-button">
         {props.icon}
       </a>
       {open && props.children}
