@@ -25,15 +25,19 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const featuredVideoData = ['eE6xWnLfJho', 'e92dppDp6L8', 'wNNiS6UILS0'];
+
 export const FeaturedCard: React.FC = () => {
   const classes = useStyles(cpTheme);
+
+  const videoId =
+    featuredVideoData[Math.floor(Math.random() * featuredVideoData.length)];
 
   return (
     <div className={classes.videoContainer}>
       <iframe
-        allowTransparency={true}
         className={classes.videoIFrame}
-        src="https://www.youtube.com/embed/eE6xWnLfJho?autoplay=1&loop=1&color=white&controls=0&showinfo=0&mute=1&disablekb=1&enablejsapi=1&fs=0&modestbranding=1&playlist=eE6xWnLfJho"
+        src={`https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&color=white&controls=0&showinfo=0&mute=1&disablekb=1&enablejsapi=1&fs=0&modestbranding=1&playlist=${videoId}`}
         frameBorder="0"
         scrolling="no"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>

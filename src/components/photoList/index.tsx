@@ -3,25 +3,32 @@ import cpTheme from 'src/theme/cpTheme';
 import {makeStyles} from '@mui/styles';
 import {Grid, Icon} from '@mui/material';
 import getWindowDimensions from '@/utils/windowDimensions';
+import Link from 'next/link';
 
 const useStyles = makeStyles(theme => ({
   gridContainer: {
-    width: '100%',
+    margin: '2%',
+    width: '100vw',
     height: '100%',
-    padding: '2%',
   },
-  gridItem: {
-    cursor: 'pointer',
+  gridLink: {
+    height: '100%',
     width: '100%',
+    color: 'black',
     display: 'flex',
-    margin: '1%',
-    paddingBottom: '0.6%',
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    verticalAlign: 'center',
+    verticalAlign: 'middle',
     alignItems: 'center',
+  },
+  gridItem: {
+    marginLeft: '1%',
+    marginRight: '1%',
+    paddingLeft: '1%',
+    paddingRight: '1%',
+    height: '5rem',
+    cursor: 'pointer',
     borderRadius: '0.5rem',
-    border: '1px solid white',
     boxShadow:
       '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
 
@@ -30,31 +37,60 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: '#393a3b',
       transition: '300ms ease',
 
-      "& $listText": {
+      '& $listText': {
         color: 'white',
-      }
-    }
+      },
+    },
   },
   listText: {
     width: '10%',
     display: 'flex',
-    marginLeft: '10%',
+    marginLeft: '20%',
     justifyContent: 'center',
     fontWeight: 600,
   },
   brandIcon: {
     width: '4.0rem',
-    height: '100%',
+    height: '4.0rem',
+    alignItems: 'center',
     backgroundColor: 'white',
     borderRadius: '0.5rem',
   },
 }));
 
+const brandData = [
+  {
+    slug: 'leica',
+    alt: 'Leica',
+    icon: 'icons/brand/leica.png',
+  },
+  {
+    slug: 'nikon',
+    alt: 'Nikon',
+    icon: 'icons/brand/nikon.png',
+  },
+  {
+    slug: 'fuji',
+    alt: 'Fujifilm',
+    icon: 'icons/brand/fuji.png',
+  },
+  {
+    slug: 'pentax',
+    alt: 'Pentax',
+    icon: 'icons/brand/pentax.png',
+  },
+  {
+    slug: 'canon',
+    alt: 'Canon',
+    icon: 'icons/brand/canon.png',
+  },
+];
+
 export default function PhotoList() {
   const classes = useStyles(cpTheme);
 
   const [columns, setColumns] = React.useState(6);
-  const [spacing, setSpacing] = React.useState(1.5);
+  const [xs, setXs] = React.useState(1);
   const [windowDimensions, setWindowDimensions] = React.useState({
     width: 700,
     height: -1,
@@ -72,72 +108,36 @@ export default function PhotoList() {
   }, []);
 
   React.useEffect(() => {
-    if(windowDimensions.width < 700) {
+    if (windowDimensions.width < 700) {
       setColumns(2);
-      setSpacing(0);
+      setXs(0.8);
     } else {
       setColumns(6);
-      setSpacing(1.5);
+      setXs(1);
     }
-  }, []);
+  }, [windowDimensions]);
 
   return (
-    <Grid className={classes.gridContainer} container spacing={spacing} columns={columns}>
-      <Grid className={classes.gridItem} item xs={1}>
-        <Icon className={classes.brandIcon}>
-          <img
-            className={classes.imgContainer}
-            src={'icons/brand/leica.png'}
-            alt={'Leica'}
-            loading="lazy"
-          />
-        </Icon>
-        <div className={classes.listText}>Leica</div>
-      </Grid>
-      <Grid className={classes.gridItem} item xs={1}>
-        <Icon className={classes.brandIcon}>
-          <img
-            className={classes.imgContainer}
-            src={'icons/brand/nikon.png'}
-            alt={'Nikon'}
-            loading="lazy"
-          />
-        </Icon>
-        <div className={classes.listText}>Nikon</div>
-      </Grid>
-      <Grid className={classes.gridItem} item xs={1}>
-        <Icon className={classes.brandIcon}>
-          <img
-            className={classes.imgContainer}
-            src={'icons/brand/fuji.png'}
-            alt={'Fujifilm'}
-            loading="lazy"
-          />
-        </Icon>
-        <div className={classes.listText}>Fujifilm</div>
-      </Grid>
-      <Grid className={classes.gridItem} item xs={1}>
-        <Icon className={classes.brandIcon}>
-          <img
-            className={classes.imgContainer}
-            src={'icons/brand/pentax.png'}
-            alt={'Pentax'}
-            loading="lazy"
-          />
-        </Icon>
-        <div className={classes.listText}>Pentax</div>
-      </Grid>
-      <Grid className={classes.gridItem} item xs={1}>
-        <Icon className={classes.brandIcon}>
-          <img
-            className={classes.imgContainer}
-            src={'icons/brand/canon.png'}
-            alt={'Canon'}
-            loading="lazy"
-          />
-        </Icon>
-        <div className={classes.listText}>Canon</div>
-      </Grid>
+    <Grid className={classes.gridContainer} container columns={columns}>
+      {brandData.map(data => {
+        return (
+          <Grid key={data.alt} className={classes.gridItem} item xs={xs}>
+            <Link href={`/brands/${data.slug}`} passHref>
+              <a className={classes.gridLink}>
+                <Icon className={classes.brandIcon}>
+                  <img
+                    className={classes.imgContainer}
+                    src={data.icon}
+                    alt={data.alt}
+                    loading="lazy"
+                  />
+                </Icon>
+                <div className={classes.listText}>{data.alt}</div>
+              </a>
+            </Link>
+          </Grid>
+        );
+      })}
     </Grid>
   );
 }

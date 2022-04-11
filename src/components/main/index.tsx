@@ -2,20 +2,15 @@ import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@mui/styles';
 import cpTheme from 'src/theme/cpTheme';
 import {
-  DropdownMenu,
-  DropdownMenuLeft,
   Navbar,
   NavbarLeft,
   NavItemIcon,
   NavItemText,
 } from '../navbar';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import EmailIcon from '@mui/icons-material/Email';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import AddBoxIcon from '@mui/icons-material/AddBox';
 import getWindowDimensions from '@/utils/windowDimensions';
 import {CircularProgress} from '@mui/material';
-import {Link} from '@/i18n';
+import { SettingsDropdown, DropdownMenuLeft } from '../dropdown';
 
 const useStyles = makeStyles(theme => ({
   mainNav: {
@@ -62,7 +57,7 @@ const Main: React.FC = () => {
             </NavbarLeft>
             <Navbar>
               <NavItemIcon icon={<KeyboardArrowDownIcon />}>
-                <DropdownMenu></DropdownMenu>
+                <SettingsDropdown></SettingsDropdown>
               </NavItemIcon>
             </Navbar>
           </nav>
