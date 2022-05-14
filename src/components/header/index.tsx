@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
-
-import {Logo} from '@/components';
 import {Hamburger} from '@/components/hamburger';
 import getWindowDimensions from '@/utils/windowDimensions';
 import {CircularProgress} from '@mui/material';
 import {makeStyles} from '@mui/styles';
 import cpTheme from 'src/theme/cpTheme';
+import {Logo} from '../logo';
 
 const useStyles = makeStyles(theme => ({
   //bg-white flex flex-row justify-between items-center

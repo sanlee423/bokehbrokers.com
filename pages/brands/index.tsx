@@ -1,22 +1,22 @@
-import React, {useEffect, useState} from 'react';
-import {Footer} from '@/components';
-import fetcher from '@/utils/fetcher';
-import useSWR from 'swr';
-import {FeaturedCard} from '@/components/featuredCard/featuredCard';
-import {BrandCard} from '@/components/brandCard';
+import React from 'react';
 import {makeStyles} from '@mui/styles';
 import cpTheme from 'src/theme/cpTheme';
-import CameraBanner from '@/components/cameraBanner/cameraBanner';
 import PhotoList from '@/components/photoList';
+import {Typography} from '@mui/material';
+import {Footer} from '@/components/footer';
 
 const useStyles = makeStyles(theme => ({
-  homeContainer: {
+  brandContainer: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'start',
     width: '100%',
     height: '100%',
     overflowX: 'hidden',
+  },
+  brandHeading: {
+    fontSize: '2rem',
+    margin: '2rem 3rem',
   },
 }));
 
@@ -31,7 +31,10 @@ const Brands: React.FC = () => {
   // });
 
   return (
-    <div className={classes.homeContainer}>
+    <div className={classes.brandContainer}>
+      <Typography className={classes.brandHeading}>
+        Camera Manufacturers
+      </Typography>
       <PhotoList />
       <Footer />
     </div>

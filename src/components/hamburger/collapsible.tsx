@@ -36,29 +36,3 @@ export const Collapsible: React.FC<Props> = ({data}) => {
     </>
   );
 };
-
-{
-  /* <ListItemButton onClick={handleExpand}>
-              {expand ? <KeyboardArrowDownIcon /> : <KeyboardArrowRightIcon />}
-              <ListItemText className="mx-4" primary="Brands" />
-            </ListItemButton>
-            <Collapse in={expand} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{pl: 4}}>
-                  <ListItemText primary="Canon" />
-                </ListItemButton>
-                <ListItemButton sx={{pl: 4}}>
-                  <ListItemText primary="Fujifilm" />
-                </ListItemButton>
-                <ListItemButton sx={{pl: 4}}>
-                  <ListItemText primary="Sony" />
-                </ListItemButton>
-                <ListItemButton sx={{pl: 4}}>
-                  <ListItemText primary="Nikon" />
-                </ListItemButton>
-                <ListItemButton sx={{pl: 4}}>
-                  <ListItemText primary="View all brands" />
-                </ListItemButton>
-              </List>
-            </Collapse> */
-}

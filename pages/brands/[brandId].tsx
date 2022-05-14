@@ -1,10 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import {Footer} from '@/components';
-import fetcher from '@/utils/fetcher';
-import useSWR from 'swr';
+import React from 'react';
 import {makeStyles} from '@mui/styles';
 import cpTheme from 'src/theme/cpTheme';
-import CameraSections from '@/components/cameraSections/cameraSections';
 import {useRouter} from 'next/router';
 import {Typography} from '@mui/material';
 
@@ -44,22 +40,22 @@ const Brands: React.FC = () => {
           Leica
         </Typography>
         <Typography>
-          Leica Camera AG (/ˈlaɪkʌ/) is a German company that manufactures
+          {`Leica Camera AG (/ˈlaɪkʌ/) is a German company that manufactures
           cameras, optical lenses, photographic lenses, binoculars, rifle scopes
           and microscopes. The company was founded by Ernst Leitz in 1869 (Ernst
           Leitz Wetzlar), in Wetzlar, Germany. In 1986, the Leitz company
           changed its name to Leica, due to the fame of the Leica trade-name.
           The name Leica is derived from the first three letters of the
-          founder's surname (Leitz) and the first two of the word camera: lei-ca
-          (LEItz CAmera). At this time, Leica relocated its factory from Wetzlar
-          to the nearby town of Solms. Leica Camera AG is 45% owned by The
-          Blackstone Group which licenses the Leica brand name from the Danaher
-          Corporation-owned Leica Microsystems GmbH.
+          founder's surname (Leitz) and the first two of the word camera:
+          lei-ca (LEItz CAmera). At this time, Leica relocated its factory from
+          Wetzlar to the nearby town of Solms. Leica Camera AG is 45% owned by
+          The Blackstone Group which licenses the Leica brand name from the
+          Danaher Corporation-owned Leica Microsystems GmbH.`}
         </Typography>
         <br />
         <Typography variant="h5">History</Typography>
         <Typography>
-          From the year 1907 to the 1950s, the buildings that formed Leica
+          {`From the year 1907 to the 1950s, the buildings that formed Leica
           factory were built on Ernst Leitz Street in Wetzlar, and remained
           until 1986, when the factory was moved to the city of Solms. The
           Wetzlar factory was located on the opposite side of the administrative
@@ -112,7 +108,7 @@ const Brands: React.FC = () => {
           a simple and unsatisfactory exterior design. Even so, the building was
           built in 1938 between the two oldest skyscrapers. In 1950, west of the
           skyscraper of 1911, a skyscraper of similar construction with nine
-          floors was added.[4]
+          floors was added.[4]`}
         </Typography>
       </div>
     </div>

@@ -1,10 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {Footer} from '@/components';
-import fetcher from '@/utils/fetcher';
-import useSWR from 'swr';
+import React from 'react';
 import {makeStyles} from '@mui/styles';
 import cpTheme from 'src/theme/cpTheme';
 import CameraSections from '@/components/cameraSections/cameraSections';
+import {Footer} from '@/components/footer';
 
 const useStyles = makeStyles(theme => ({
   homeContainer: {

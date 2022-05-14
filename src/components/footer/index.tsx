@@ -28,7 +28,7 @@ export const Footer: React.FC = () => {
     <div className={classes.footer}>
       <div className={classes.footerText}>
         <strong className="copyright">
-          ©2022 Sanlee LLC. All rights reserved.
+          ©{new Date().getFullYear()} Sanlee LLC. All rights reserved.
         </strong>
         <a href="/customer-service/terms-of-use"> | Terms of Use</a>
         <a href="/customer-service/privacy-policy"> | Privacy Policy</a>

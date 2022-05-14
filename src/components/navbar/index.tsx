@@ -1,43 +1,55 @@
 import React, {useState} from 'react';
 import Link from 'next/link';
 
-export function Navbar(props) {
-  return <ul className="navbar-nav">{props.children}</ul>;
+export function Navbar({children}: {children: React.ReactNode}) {
+  return <ul className="navbar-nav">{children}</ul>;
 }
 
-export function NavbarLeft(props) {
-  return <ul className="navbar-nav-left">{props.children}</ul>;
+export function NavbarLeft({children}: {children: React.ReactNode}) {
+  return <ul className="navbar-nav-left">{children}</ul>;
 }
 
-export function NavItemText(props) {
+export function NavItemText({
+  text,
+  children,
+}: {
+  text: string;
+  children: React.ReactNode;
+}) {
   const [open, setOpen] = useState(false);
-  const slug: string = props.text as string;
+  const slug: string = text;
 
   return (
     <li
-      id={props.text}
-      key={props.text}
+      id={text}
+      key={text}
       className="nav-item-text"
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={e => {
         if (!e.relatedTarget) {
           return;
         }
-        if (!e.currentTarget.contains(e.relatedTarget)) {
+        if (!e.currentTarget.contains(e.relatedTarget as any)) {
           setOpen(false);
         }
       }}>
       <Link href={`/${slug.toLowerCase()}`} passHref>
-        <a id={`${props.text}-button`} className="text-button">
-          {props.text}
+        <a id={`${text}-button`} className="text-button">
+          {text}
         </a>
       </Link>
-      {open && props.children}
+      {open && children}
     </li>
   );
 }
 
-export function NavItemIcon(props) {
+export function NavItemIcon({
+  icon,
+  children,
+}: {
+  icon: JSX.Element;
+  children: React.ReactNode;
+}) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -64,9 +76,9 @@ export function NavItemIcon(props) {
         }
       }}>
       <a href="#" className="icon-button">
-        {props.icon}
+        {icon}
       </a>
-      {open && props.children}
+      {open && children}
     </li>
   );
 }

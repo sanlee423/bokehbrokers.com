@@ -125,12 +125,7 @@ export default function PhotoList() {
             <Link href={`/brands/${data.slug}`} passHref>
               <a className={classes.gridLink}>
                 <Icon className={classes.brandIcon}>
-                  <img
-                    className={classes.imgContainer}
-                    src={data.icon}
-                    alt={data.alt}
-                    loading="lazy"
-                  />
+                  <img src={data.icon} alt={data.alt} loading="lazy" />
                 </Icon>
                 <div className={classes.listText}>{data.alt}</div>
               </a>
