@@ -4,6 +4,8 @@ import {makeStyles} from '@mui/styles';
 import {Grid, Icon} from '@mui/material';
 import getWindowDimensions from '@/utils/windowDimensions';
 import Link from 'next/link';
+import {BrandResponse} from 'pages/api/brands';
+import SquareImage from './canvas';
 
 const useStyles = makeStyles(theme => ({
   gridContainer: {
@@ -24,6 +26,7 @@ const useStyles = makeStyles(theme => ({
   gridItem: {
     marginLeft: '1%',
     marginRight: '1%',
+    marginBottom: '1%',
     paddingLeft: '1%',
     paddingRight: '1%',
     height: '5rem',
@@ -43,10 +46,10 @@ const useStyles = makeStyles(theme => ({
     },
   },
   listText: {
-    width: '10%',
+    width: 'auto',
     display: 'flex',
-    marginLeft: '20%',
-    justifyContent: 'center',
+    marginLeft: '10%',
+    justifyContent: 'flex-start',
     fontWeight: 600,
   },
   brandIcon: {
@@ -55,6 +58,9 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     backgroundColor: 'white',
     borderRadius: '0.5rem',
+  },
+  brandImage: {
+    objectFit: 'cover',
   },
 }));
 
@@ -86,7 +92,11 @@ const brandData = [
   },
 ];
 
-export default function PhotoList() {
+interface PhotoListProps {
+  brandList: BrandResponse;
+}
+
+export default function PhotoList(props: PhotoListProps) {
   const classes = useStyles(cpTheme);
 
   const [columns, setColumns] = React.useState(6);
@@ -119,15 +129,15 @@ export default function PhotoList() {
 
   return (
     <Grid className={classes.gridContainer} container columns={columns}>
-      {brandData.map(data => {
+      {props.brandList.map(data => {
         return (
           <Grid key={data.alt} className={classes.gridItem} item xs={xs}>
-            <Link href={`/brands/${data.slug}`} passHref>
+            <Link href={`/brands/${data.alt}`} passHref>
               <a className={classes.gridLink}>
                 <Icon className={classes.brandIcon}>
-                  <img src={data.icon} alt={data.alt} loading="lazy" />
+                  <SquareImage imgSrc={data.icon} />
                 </Icon>
-                <div className={classes.listText}>{data.alt}</div>
+                <div className={classes.listText}>{data.name}</div>
               </a>
             </Link>
           </Grid>

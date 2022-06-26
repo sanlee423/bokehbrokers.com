@@ -145,7 +145,9 @@ export function DropdownMenuLeft() {
         unmountOnExit
         onEnter={calcHeight}>
         <div className="menu">
-          <DropdownItem setActiveMenu={setActiveMenu}>My Profile</DropdownItem>
+          <DropdownItem setActiveMenu={setActiveMenu}>
+            View All Brands
+          </DropdownItem>
           <DropdownItem
             setActiveMenu={setActiveMenu}
             leftIcon={<SettingsIcon />}

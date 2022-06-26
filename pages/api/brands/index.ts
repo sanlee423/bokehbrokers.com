@@ -1,37 +1,30 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import {db} from '@/utils/firebase';
-import {
-  getDocsFromCache,
-  getDocsFromServer,
-  query,
-  collection,
-  orderBy,
-} from 'firebase/firestore';
+import axios from 'axios';
+import {NextApiRequest, NextApiResponse} from 'next';
 
-export default async (req, res) => {
+const CAMPEDIA_API_URL = process.env.CAMPEDIA_API_URL;
+
+export interface BrandObject {
+  id: number;
+  name: string;
+  alt: string;
+  icon: string;
+  hasDigitalCameras: 0 | 1;
+  hasLens: 0 | 1;
+  hasAccessories: 0 | 1;
+  hasFilmCameras: 0 | 1;
+}
+
+export type BrandResponse = BrandObject[];
+
+export default async function brandHandler(
+  req: NextApiRequest,
+  res: NextApiResponse<BrandResponse>,
+) {
   if (req.method === 'GET') {
-    const q = query(collection(db, 'brands'), orderBy('name', 'asc'));
+    const brandResponse = await axios.get<BrandResponse>(
+      CAMPEDIA_API_URL + '/brands',
+    );
 
-    let querySnapshot;
-    try {
-      querySnapshot = await getDocsFromCache(q);
-      if (querySnapshot.empty) {
-        console.log(`[Failed Fetch from Cache] Pulling from Server...`);
-        querySnapshot = await getDocsFromServer(q);
-      }
-    } catch (err) {
-      console.log(`[Failed Fetch from Cache] Pulling from Server...`);
-      querySnapshot = await getDocsFromServer(q);
-    }
-
-    const brands = querySnapshot.docs.map(doc => {
-      return {
-        ...doc.data(),
-      };
-    });
-
-    return res.status(200).json({
-      brands: brands,
-    });
+    return res.status(200).json(brandResponse.data);
   }
-};
+}

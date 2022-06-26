@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@mui/styles';
 import cpTheme from 'src/theme/cpTheme';
 import CameraSections from '@/components/cameraSections/cameraSections';
 import {Footer} from '@/components/footer';
+import useSWR from 'swr';
+import {CameraResponse} from 'pages/api/cameras';
+import {Typography} from '@mui/material';
 
 const useStyles = makeStyles(theme => ({
   homeContainer: {
@@ -16,19 +19,28 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const fetcher = (url: string) => fetch(url).then(res => res.json());
+
 const Brands: React.FC = () => {
   const classes = useStyles(cpTheme);
-  // const [brands, setBrands] = useState<string[]>([]);
-  // const {data} = useSWR(`/api/brands/`, fetcher);
+  const [cameras, setCameras] = useState<CameraResponse | undefined>();
+  const {data} = useSWR(`/api/cameras/`, fetcher);
 
-  // useEffect(() => {
-  //   console.log(data);
-  //   setBrands(data?.brands ?? []);
-  // });
+  useEffect(() => {
+    setCameras(data);
+  }, [setCameras, data]);
 
   return (
     <div className={classes.homeContainer}>
-      <CameraSections />
+      {cameras &&
+        cameras.map(camera => {
+          return (
+            <>
+              <Typography>{camera.name}</Typography>
+            </>
+          );
+        })}
+      {/* <CameraSections /> */}
       <Footer />
     </div>
   );

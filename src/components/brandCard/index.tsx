@@ -24,13 +24,13 @@ const useStyles = makeStyles(theme => ({
   },
   imageListItem: {
     borderRadius: '0.5rem',
-    cursor:'pointer',
+    cursor: 'pointer',
 
     '&:hover': {
       filter: 'brightness(90%)',
       transition: '300ms',
       backgroundColor: '#f0f0f0',
-    }
+    },
   },
 }));
 
@@ -38,31 +38,31 @@ const brandList = [
   {
     src: `icons/brand/canon.svg?w=20%&fit=crop&auto=format`,
     srcSet: `icons/brand/canon.svg?w=20%&fit=crop&auto=format 2x`,
-    id: 'abc',
+    id: 'canon',
     alt: 'Canon',
   },
   {
     src: `icons/brand/fujifilm.svg?w=20%&fit=crop&auto=format`,
     srcSet: `icons/brand/fujifilm.svg?w=20%&fit=crop&auto=format 2x`,
-    id: 'def',
+    id: 'fujifilm',
     alt: 'Fujifilm',
   },
   {
     src: `icons/brand/leica.svg?w=20%&fit=crop&auto=format`,
     srcSet: `icons/brand/leica.svg?w=20%&fit=crop&auto=format 2x`,
-    id: 'ghi',
+    id: 'leicacamera',
     alt: 'Leica',
   },
   {
     src: `icons/brand/nikon.svg?w=20%&fit=crop&auto=format`,
     srcSet: `icons/brand/nikon.svg?w=20%&fit=crop&auto=format 2x`,
-    id: 'jkl',
+    id: 'nikon',
     alt: 'Nikon',
   },
   {
     src: `icons/brand/pentax.svg?w=20%&fit=crop&auto=format`,
     srcSet: `icons/brand/pentax.svg?w=20%&fit=crop&auto=format 2x`,
-    id: 'mno',
+    id: 'pentax',
     alt: 'Pentax',
   },
 ];
