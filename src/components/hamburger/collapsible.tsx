@@ -24,13 +24,14 @@ export const Collapsible: React.FC<Props> = ({data}) => {
       </ListItemButton>
       <Collapse in={expand} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
+          {/* TODO FIX 
           {Object.values(data)[0].map(item => {
             return (
               <ListItemButton key={item} sx={{pl: 4}}>
                 <ListItemText primary={item} />
               </ListItemButton>
             );
-          })}
+          })} */}
         </List>
       </Collapse>
     </>
