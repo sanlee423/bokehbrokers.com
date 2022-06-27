@@ -7,10 +7,7 @@
     "build": "next build",
     "start": "next start -p $PORT",
     "svgr": "npx @svgr/cli -d src/components/icons --ignore-existing --icon --typescript public/icons",
-    "test": "jest -c test/jest.config.js",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run --config video=false",
-    "cypress:test": "start-server-and-test start http://localhost:3000 cypress:run"
+    "test": "jest -c test/jest.config.js"
   },
   "dependencies": {
     "@emotion/react": "^11.8.2",
@@ -40,7 +37,6 @@
     "@typescript-eslint/eslint-plugin": "^5.14.0",
     "@typescript-eslint/parser": "^5.14.0",
     "autoprefixer": "^10.1.0",
-    "cypress": "^6.2.1",
     "dotenv": "^8.2.0",
     "eslint": "8.6.0",
     "eslint-config-next": "12.0.7",
