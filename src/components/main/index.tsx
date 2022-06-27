@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@mui/styles';
 import cpTheme from 'src/theme/cpTheme';
-import {
-  Navbar,
-  NavbarLeft,
-  NavItemIcon,
-  NavItemText,
-} from '../navbar';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import {Navbar, NavbarLeft, NavItemIcon, NavItemText} from '../navbar';
+import SettingsIcon from '@mui/icons-material/Settings';
 import getWindowDimensions from '@/utils/windowDimensions';
 import {CircularProgress} from '@mui/material';
-import { SettingsDropdown, DropdownMenuLeft } from '../dropdown';
+import {DropdownMenu} from '../dropdown/dropDownMenu';
+import {brandDropdown} from '../dropdown/types/brandDropdown';
+import {cameraDropdown} from '../dropdown/types/cameraDropdown';
+import {lensDropDown} from '../dropdown/types/lensDropdown';
+import {filmDropDown} from '../dropdown/types/filmDropdown';
+import {settingsDropdown} from '../dropdown/types/settingsDropdown';
 
 const useStyles = makeStyles(theme => ({
   mainNav: {
@@ -43,21 +43,31 @@ const Main: React.FC = () => {
           <nav className="navbar">
             <NavbarLeft>
               <NavItemText text={'Brands'}>
-                <DropdownMenuLeft></DropdownMenuLeft>
+                <DropdownMenu
+                  dropdown={brandDropdown}
+                  isLeft={true}></DropdownMenu>
               </NavItemText>
               <NavItemText text={'Cameras'}>
-                <DropdownMenuLeft></DropdownMenuLeft>
+                <DropdownMenu
+                  dropdown={cameraDropdown}
+                  isLeft={true}></DropdownMenu>
               </NavItemText>
               <NavItemText text={'Lenses'}>
-                <DropdownMenuLeft></DropdownMenuLeft>
+                <DropdownMenu
+                  dropdown={lensDropDown}
+                  isLeft={true}></DropdownMenu>
               </NavItemText>
               <NavItemText text={'Film'}>
-                <DropdownMenuLeft></DropdownMenuLeft>
+                <DropdownMenu
+                  dropdown={filmDropDown}
+                  isLeft={true}></DropdownMenu>
               </NavItemText>
             </NavbarLeft>
             <Navbar>
-              <NavItemIcon icon={<KeyboardArrowDownIcon />}>
-                <SettingsDropdown></SettingsDropdown>
+              <NavItemIcon icon={<SettingsIcon />}>
+                <DropdownMenu
+                  dropdown={settingsDropdown}
+                  isLeft={false}></DropdownMenu>
               </NavItemIcon>
             </Navbar>
           </nav>

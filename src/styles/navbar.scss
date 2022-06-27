@@ -129,18 +129,12 @@ a {
   z-index: 1000;
 }
 
+.dropdown-right {
+  transform: translateX(-45%);
+}
+
 .dropdown-left {
-  position: absolute;
-  top: 117px;
-  width: 500px;
   transform: translateX(35%);
-  background-color: var(--bg);
-  border: var(--border);
-  border-radius: var(--border-radius);
-  padding: 1rem;
-  overflow: hidden;
-  transition: height var(--speed) ease;
-  z-index: 1000;
 }
 
 .menu {

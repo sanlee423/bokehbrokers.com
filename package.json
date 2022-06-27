@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p $PORT",
     "svgr": "npx @svgr/cli -d src/components/icons --ignore-existing --icon --typescript public/icons",
     "test": "jest -c test/jest.config.js",
     "cypress:open": "cypress open",
