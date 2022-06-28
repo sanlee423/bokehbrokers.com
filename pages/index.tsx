@@ -20,19 +20,11 @@ const useStyles = makeStyles(theme => ({
 
 const Home: React.FC = () => {
   const classes = useStyles(cpTheme);
-  // const [brands, setBrands] = useState<string[]>([]);
-  // const {data} = useSWR(`/api/brands/`, fetcher);
-
-  // useEffect(() => {
-  //   console.log(data);
-  //   setBrands(data?.brands ?? []);
-  // });
 
   return (
     <div className={classes.homeContainer}>
       <FeaturedCard />
       <BrandCard />
-      <CameraBanner />
       <Footer />
     </div>
   );

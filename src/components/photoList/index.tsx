@@ -2,10 +2,10 @@ import * as React from 'react';
 import cpTheme from 'src/theme/cpTheme';
 import {makeStyles} from '@mui/styles';
 import {Grid, Icon} from '@mui/material';
-import getWindowDimensions from '@/utils/windowDimensions';
 import Link from 'next/link';
 import {BrandResponse} from 'pages/api/brands';
 import SquareImage from './canvas';
+import useWindowSize from '@/utils/windowDimensions';
 
 const useStyles = makeStyles(theme => ({
   gridContainer: {
@@ -101,31 +101,17 @@ export default function PhotoList(props: PhotoListProps) {
 
   const [columns, setColumns] = React.useState(6);
   const [xs, setXs] = React.useState(1);
-  const [windowDimensions, setWindowDimensions] = React.useState({
-    width: 700,
-    height: -1,
-  });
+  const {width} = useWindowSize();
 
   React.useEffect(() => {
-    setWindowDimensions(getWindowDimensions()!);
-
-    function handleResize() {
-      setWindowDimensions(getWindowDimensions()!);
-    }
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  React.useEffect(() => {
-    if (windowDimensions.width < 700) {
+    if (width < 700) {
       setColumns(2);
       setXs(0.8);
     } else {
       setColumns(6);
       setXs(1);
     }
-  }, [windowDimensions]);
+  }, [width]);
 
   return (
     <Grid className={classes.gridContainer} container columns={columns}>

@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Hamburger} from '@/components/hamburger';
-import getWindowDimensions from '@/utils/windowDimensions';
-import {CircularProgress} from '@mui/material';
 import {makeStyles} from '@mui/styles';
 import cpTheme from 'src/theme/cpTheme';
 import {Logo} from '../logo';
+import useWindowSize from '@/utils/windowDimensions';
 
 const useStyles = makeStyles(theme => ({
   //bg-white flex flex-row justify-between items-center
@@ -19,28 +18,12 @@ const useStyles = makeStyles(theme => ({
 
 export const Header: React.FC = () => {
   const classes = useStyles(cpTheme);
-  const [windowDimensions, setWindowDimensions] = useState({
-    width: 700,
-    height: -1,
-  });
-
-  useEffect(() => {
-    function handleResize() {
-      setWindowDimensions(getWindowDimensions()!);
-    }
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const {width} = useWindowSize();
 
   return (
     <div className={classes.headerContainer}>
       <Logo />
-      {windowDimensions ? (
-        windowDimensions.width < 670 && <Hamburger />
-      ) : (
-        <CircularProgress />
-      )}
+      {width < 670 && <Hamburger />}
     </div>
   );
 };
