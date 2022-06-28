@@ -1,12 +1,11 @@
 import React from 'react';
-import Link from 'next/link';
 import CameraIcon from '../icons/CameraIcon';
 import {useRouter} from 'next/router';
 
 export const Logo: React.FC = () => {
   const router = useRouter();
 
-  const handleClick = e => {
+  const handleClick = (e: React.ChangeEvent<any>) => {
     e.preventDefault();
     router.push('/');
   };

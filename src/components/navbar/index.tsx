@@ -29,7 +29,10 @@ export function NavItemText({
         if (!e.relatedTarget) {
           return;
         }
-        if (e.currentTarget instanceof Node && !e.currentTarget.contains(e.relatedTarget as any)) {
+        if (
+          e.currentTarget instanceof Node &&
+          !e.currentTarget.contains(e.relatedTarget as any)
+        ) {
           setOpen(false);
         }
       }}>
