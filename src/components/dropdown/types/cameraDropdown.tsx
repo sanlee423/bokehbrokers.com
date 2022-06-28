@@ -8,67 +8,61 @@ export const cameraDropdown: DropdownProps = {
     {
       title: 'View All',
       leftIcon: <ListItemIcon />,
+      link: '/cameras/list',
     },
     {
-      title: 'By Brand',
-      leftIcon: 'B',
+      title: 'Digital Camera',
+      leftIcon: 'D',
       rightIcon: <KeyboardArrowRightIcon />,
-      goToMenu: 'cameras',
+      goToMenu: 'digitalcamera',
+      link: '/cameras/digital',
     },
     {
-      title: 'Lens Manufacturers',
-      leftIcon: <CameraIndoor />,
+      title: 'Film Camera',
+      leftIcon: 'F',
       rightIcon: <KeyboardArrowRightIcon />,
-      goToMenu: 'lens',
-    },
-    {
-      title: 'Film Manufacturers',
-      leftIcon: <CameraRoll />,
-      rightIcon: <KeyboardArrowRightIcon />,
-      goToMenu: 'film',
+      goToMenu: 'filmcamera',
+      link: '/cameras/digital',
     },
   ],
   subMenuObj: [
     {
-      parentTitle: 'cameras',
+      parentTitle: 'digitalcamera',
       menuObj: [
         {
-          title: 'Digital Camera Brands',
+          title: 'Medium Format',
           leftIcon: <ListItemIcon />,
+          link: '/cameras/digital/medium',
         },
         {
-          title: 'Film Camera Brands',
+          title: 'APS-C',
           leftIcon: <ListItemIcon />,
+          link: '/cameras/digital/apsc',
+        },
+        {
+          title: 'Full Frame',
+          leftIcon: <ListItemIcon />,
+          link: '/cameras/digital/fullframe',
         },
       ],
     },
     {
-      parentTitle: 'lens',
+      parentTitle: 'filmcamera',
       menuObj: [
         {
-          title: 'View all lens manufacturers',
+          title: '35mm',
           leftIcon: <ListItemIcon />,
+          link: '/cameras/film/35mm',
         },
         {
-          title: 'Specialty lens manufacturers',
+          title: 'Medium Format',
           leftIcon: <ListItemIcon />,
+          link: '/cameras/film/mediumformat',
         },
         {
-          title: 'Lens by mount',
+          title: 'Large Format',
           leftIcon: <ListItemIcon />,
-        },
-      ],
-    },
-    {
-      parentTitle: 'film',
-      menuObj: [
-        {
-          title: 'View all film manufacturers',
-          leftIcon: <ListItemIcon />,
-        },
-        {
-          title: 'Discontinued film manufacturers',
-          leftIcon: <ListItemIcon />,
+          link: '/cameras/film/largeformat',
         },
       ],
     },

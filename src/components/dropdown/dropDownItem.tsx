@@ -1,8 +1,10 @@
 import {Dispatch, SetStateAction} from 'react';
+import Link from 'next/link';
 
 interface DropdownItemProps {
   setActiveMenu: Dispatch<SetStateAction<string>>;
   children: React.ReactNode;
+  link?: string;
   leftIcon?: JSX.Element | string;
   rightIcon?: JSX.Element | string;
   goToMenu?: string;
@@ -20,6 +22,7 @@ export interface subMenuItem {
 
 export interface menuItem {
   title: string;
+  link: string;
   leftIcon?: JSX.Element | string;
   rightIcon?: JSX.Element | string;
   goToMenu?: string;
@@ -27,13 +30,37 @@ export interface menuItem {
 
 export function DropdownItem(props: DropdownItemProps) {
   return (
-    <a
-      href="#"
-      className="menu-item"
-      onClick={() => props.goToMenu && props.setActiveMenu(props.goToMenu)}>
-      <span className="icon-button">{props.leftIcon}</span>
-      {props.children}
-      <span className="icon-right">{props.rightIcon}</span>
-    </a>
+    <>
+      {props.goToMenu === 'main' && (
+        <a
+          className="menu-item"
+          onClick={() => props.goToMenu && props.setActiveMenu(props.goToMenu)}>
+          <span className="icon-button">{props.leftIcon}</span>
+          {props.children}
+          <span className="icon-right">{props.rightIcon}</span>
+        </a>
+      )}
+      {props.rightIcon && (
+        <a
+          className="menu-item"
+          onClick={() => props.goToMenu && props.setActiveMenu(props.goToMenu)}>
+          <span className="icon-button">{props.leftIcon}</span>
+          {props.children}
+          <span className="icon-right">{props.rightIcon}</span>
+        </a>
+      )}
+      {props.link && props.rightIcon === undefined && (
+        <Link href={props.link} passHref>
+          <a
+            className="menu-item"
+            onClick={() =>
+              props.goToMenu && props.setActiveMenu(props.goToMenu)
+            }>
+            <span className="icon-button">{props.leftIcon}</span>
+            {props.children}
+          </a>
+        </Link>
+      )}
+    </>
   );
 }

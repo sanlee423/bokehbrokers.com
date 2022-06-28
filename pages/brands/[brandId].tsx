@@ -17,6 +17,7 @@ import LinkIcon from '@mui/icons-material/Link';
 import useSWR from 'swr';
 import {BrandDetailsResponse} from 'pages/api/brands/[brandId]';
 import {BrandCameraListResponse} from 'pages/api/brands/[brandId]/cameras';
+import Link from 'next/link';
 
 const useStyles = makeStyles(theme => ({
   homeContainer: {
@@ -142,12 +143,11 @@ const Brands: React.FC = () => {
                 </Typography>
                 {brandDetails.website && (
                   <Tooltip title={brandDetails.name + ' Official Website'}>
-                    <a
-                      className={classes.brandLinks}
+                    <Link
                       href={brandDetails.website}
                       aria-label="Official Website">
-                      Official Website
-                    </a>
+                      <a className={classes.brandLinks}>Official Website</a>
+                    </Link>
                   </Tooltip>
                 )}
               </div>

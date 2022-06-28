@@ -8,67 +8,39 @@ export const filmDropDown: DropdownProps = {
     {
       title: 'View All',
       leftIcon: <ListItemIcon />,
+      link: '/film/list',
     },
     {
-      title: 'Camera Manufacturers',
+      title: '120',
+      leftIcon: <PhotoCamera />,
+      link: '/film/120',
+    },
+    {
+      title: '35mm',
+      leftIcon: <PhotoCamera />,
+      link: '/film/35mm',
+    },
+    {
+      title: 'Specialty',
       leftIcon: <PhotoCamera />,
       rightIcon: <KeyboardArrowRightIcon />,
-      goToMenu: 'cameras',
-    },
-    {
-      title: 'Lens Manufacturers',
-      leftIcon: <CameraIndoor />,
-      rightIcon: <KeyboardArrowRightIcon />,
-      goToMenu: 'lens',
-    },
-    {
-      title: 'Film Manufacturers',
-      leftIcon: <CameraRoll />,
-      rightIcon: <KeyboardArrowRightIcon />,
-      goToMenu: 'film',
+      goToMenu: 'filmspecialty',
+      link: '/film/specialty',
     },
   ],
   subMenuObj: [
     {
-      parentTitle: 'cameras',
+      parentTitle: 'filmspecialty',
       menuObj: [
         {
-          title: 'Digital Camera Brands',
+          title: 'Large Format Film',
           leftIcon: <ListItemIcon />,
+          link: '/film/specialty/largeformat',
         },
         {
-          title: 'Film Camera Brands',
+          title: '220',
           leftIcon: <ListItemIcon />,
-        },
-      ],
-    },
-    {
-      parentTitle: 'lens',
-      menuObj: [
-        {
-          title: 'View all lens manufacturers',
-          leftIcon: <ListItemIcon />,
-        },
-        {
-          title: 'Specialty lens manufacturers',
-          leftIcon: <ListItemIcon />,
-        },
-        {
-          title: 'Lens by mount',
-          leftIcon: <ListItemIcon />,
-        },
-      ],
-    },
-    {
-      parentTitle: 'film',
-      menuObj: [
-        {
-          title: 'View all film manufacturers',
-          leftIcon: <ListItemIcon />,
-        },
-        {
-          title: 'Discontinued film manufacturers',
-          leftIcon: <ListItemIcon />,
+          link: '/film/specialty/220',
         },
       ],
     },

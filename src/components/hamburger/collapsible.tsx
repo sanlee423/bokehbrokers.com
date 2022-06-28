@@ -4,12 +4,14 @@ import ListItemText from '@mui/material/ListItemText';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {Collapse, ListItemButton} from '@mui/material';
+import {DropdownProps} from '../dropdown/dropDownItem';
 
 type Props = {
-  data: Object;
+  dropDownItems: DropdownProps;
+  title: string;
 };
 
-export const Collapsible: React.FC<Props> = ({data}) => {
+export const Collapsible: React.FC<Props> = ({dropDownItems, title}: Props) => {
   const [expand, setExpand] = React.useState(false);
 
   const handleExpand = () => {
@@ -20,18 +22,21 @@ export const Collapsible: React.FC<Props> = ({data}) => {
     <>
       <ListItemButton onClick={handleExpand}>
         {expand ? <KeyboardArrowDownIcon /> : <KeyboardArrowRightIcon />}
-        <ListItemText className="mx-4" primary={Object.keys(data)[0]} />
+        <ListItemText className="mx-4" primary={title} />
       </ListItemButton>
       <Collapse in={expand} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          {/* TODO FIX 
-          {Object.values(data)[0].map(item => {
+          {dropDownItems.menuObj.map(item => {
             return (
-              <ListItemButton key={item} sx={{pl: 4}}>
-                <ListItemText primary={item} />
+              <ListItemButton
+                component="a"
+                href={item.link}
+                key={item.title}
+                sx={{pl: 4}}>
+                <ListItemText primary={item.title} />
               </ListItemButton>
             );
-          })} */}
+          })}
         </List>
       </Collapse>
     </>

@@ -7,9 +7,13 @@ import Divider from '@mui/material/Divider';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import {Collapsible} from './collapsible';
-import {navSkeleton} from '@/utils/navSkeleton';
+import {brandDropdown} from '../dropdown/types/brandDropdown';
+import {cameraDropdown} from '../dropdown/types/cameraDropdown';
+import {lensDropDown} from '../dropdown/types/lensDropdown';
+import {filmDropDown} from '../dropdown/types/filmDropdown';
+import {CSSTransition} from 'react-transition-group';
 
-const drawerWidth = 240;
+const duration = 500;
 
 const DrawerHeader = styled('div')(({theme}) => ({
   display: 'flex',
@@ -21,7 +25,17 @@ const DrawerHeader = styled('div')(({theme}) => ({
 }));
 
 export const Hamburger: React.FC = ({}) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState<boolean>(false);
+  const [showHamburger, setShowHamburger] = React.useState<boolean>(true);
+  const [width, setWidth] = React.useState<number | null>(null);
+
+  const hamburgerClose = () => {
+    setShowHamburger(false);
+  };
+
+  const hamburgerOpen = () => {
+    setShowHamburger(true);
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -31,25 +45,43 @@ export const Hamburger: React.FC = ({}) => {
     setOpen(false);
   };
 
+  function calcWidth(el: HTMLElement) {
+    const width = 240;
+    setWidth(width);
+  }
+
   return (
     <>
       <div className="flex w-full justify-end mx-5">
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="end"
-          onClick={handleDrawerOpen}
-          sx={{...(open && {display: 'none'})}}>
-          <MenuIcon />
-        </IconButton>
+        {showHamburger && (
+          <IconButton
+            color="inherit"
+            aria-label="open hamburger"
+            edge="end"
+            onClick={handleDrawerOpen}
+            sx={{...(open && {display: 'none'})}}>
+            <MenuIcon />
+          </IconButton>
+        )}
       </div>
-      {open && (
+      <CSSTransition
+        in={open}
+        timeout={duration}
+        classNames=""
+        unmountOnExit
+        onExit={() => {
+          setTimeout(() => hamburgerOpen(), duration + 10);
+        }}
+        onEnter={(el: HTMLElement) => {
+          hamburgerClose();
+          calcWidth(el);
+        }}>
         <Drawer
           sx={{
-            width: drawerWidth,
+            width: width ?? 0,
             flexShrink: 0,
             '& .MuiDrawer-paper': {
-              width: drawerWidth,
+              width: width ?? 0,
             },
           }}
           variant="persistent"
@@ -62,14 +94,13 @@ export const Hamburger: React.FC = ({}) => {
           </DrawerHeader>
           <Divider />
           <List>
-            {navSkeleton.map(navItem => {
-              return (
-                <Collapsible key={Object.keys(navItem)[0]} data={navItem} />
-              );
-            })}
+            <Collapsible dropDownItems={brandDropdown} title={'Brands'} />
+            <Collapsible dropDownItems={cameraDropdown} title={'Cameras'} />
+            <Collapsible dropDownItems={lensDropDown} title={'Lens'} />
+            <Collapsible dropDownItems={filmDropDown} title={'Film'} />
           </List>
         </Drawer>
-      )}
+      </CSSTransition>
     </>
   );
 };

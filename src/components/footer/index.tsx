@@ -1,6 +1,7 @@
 import React from 'react';
 import {makeStyles} from '@mui/styles';
 import cpTheme from 'src/theme/cpTheme';
+import Link from 'next/link';
 
 const useStyles = makeStyles(theme => ({
   footer: {
@@ -30,8 +31,8 @@ export const Footer: React.FC = () => {
         <strong className="copyright">
           ©{new Date().getFullYear()} Sanlee LLC. All rights reserved.
         </strong>
-        <a href="/customer-service/terms-of-use"> | Terms of Use</a>
-        <a href="/customer-service/privacy-policy"> | Privacy Policy</a>
+        <Link href="/settings/privacy"> | Terms of Use</Link>
+        <Link href="/settings/privacy"> | Privacy Policy</Link>
       </div>
     </div>
   );

@@ -6,71 +6,28 @@ import {CameraIndoor, CameraRoll, PhotoCamera} from '@mui/icons-material';
 export const settingsDropdown: DropdownProps = {
   menuObj: [
     {
-      title: 'View All',
+      title: 'Account',
       leftIcon: <ListItemIcon />,
+      link: '/settings/account',
     },
     {
-      title: 'Camera Manufacturers',
-      leftIcon: <PhotoCamera />,
-      rightIcon: <KeyboardArrowRightIcon />,
-      goToMenu: 'cameras',
-    },
-    {
-      title: 'Lens Manufacturers',
-      leftIcon: <CameraIndoor />,
-      rightIcon: <KeyboardArrowRightIcon />,
-      goToMenu: 'lens',
-    },
-    {
-      title: 'Film Manufacturers',
+      title: 'Favorites',
       leftIcon: <CameraRoll />,
       rightIcon: <KeyboardArrowRightIcon />,
-      goToMenu: 'film',
+      link: '/settings/favorites',
+    },
+    {
+      title: 'Privacy Policy & Terms',
+      leftIcon: <CameraIndoor />,
+      rightIcon: <KeyboardArrowRightIcon />,
+      link: '/settings/privacy',
+    },
+    {
+      title: 'Log Out',
+      leftIcon: <PhotoCamera />,
+      rightIcon: <KeyboardArrowRightIcon />,
+      link: '/settings/logout',
     },
   ],
-  subMenuObj: [
-    {
-      parentTitle: 'cameras',
-      menuObj: [
-        {
-          title: 'Digital Camera Brands',
-          leftIcon: <ListItemIcon />,
-        },
-        {
-          title: 'Film Camera Brands',
-          leftIcon: <ListItemIcon />,
-        },
-      ],
-    },
-    {
-      parentTitle: 'lens',
-      menuObj: [
-        {
-          title: 'View all lens manufacturers',
-          leftIcon: <ListItemIcon />,
-        },
-        {
-          title: 'Specialty lens manufacturers',
-          leftIcon: <ListItemIcon />,
-        },
-        {
-          title: 'Lens by mount',
-          leftIcon: <ListItemIcon />,
-        },
-      ],
-    },
-    {
-      parentTitle: 'film',
-      menuObj: [
-        {
-          title: 'View all film manufacturers',
-          leftIcon: <ListItemIcon />,
-        },
-        {
-          title: 'Discontinued film manufacturers',
-          leftIcon: <ListItemIcon />,
-        },
-      ],
-    },
-  ],
+  subMenuObj: [],
 };

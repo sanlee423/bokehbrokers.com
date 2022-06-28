@@ -40,15 +40,16 @@ export function DropdownMenu({
         unmountOnExit
         onEnter={calcHeight}>
         <div className="menu">
-          {dropdown.menuObj.map(items => {
+          {dropdown.menuObj.map(item => {
             return (
               <DropdownItem
-                key={items.title}
+                key={item.title}
+                link={item.link}
                 setActiveMenu={setActiveMenu}
-                leftIcon={items.leftIcon}
-                rightIcon={items.rightIcon}
-                goToMenu={items.goToMenu}>
-                {items.title}
+                leftIcon={item.leftIcon}
+                rightIcon={item.rightIcon}
+                goToMenu={item.goToMenu}>
+                {item.title}
               </DropdownItem>
             );
           })}
@@ -77,6 +78,7 @@ export function DropdownMenu({
                     <DropdownItem
                       key={subItem.title}
                       setActiveMenu={setActiveMenu}
+                      link={subItem.link}
                       leftIcon={subItem.leftIcon}>
                       {subItem.title}
                     </DropdownItem>
