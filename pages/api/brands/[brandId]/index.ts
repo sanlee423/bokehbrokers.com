@@ -1,4 +1,4 @@
-import axios from 'axios';
+import {axInstance} from '@/utils/axiosInstance';
 import {NextApiRequest, NextApiResponse} from 'next';
 
 const CAMPEDIA_API_URL = process.env.CAMPEDIA_API_URL;
@@ -20,7 +20,7 @@ export default async function brandDetailsHandler(
 ) {
   if (req.method === 'GET') {
     const {brandId} = req.query;
-    const brandResponse = await axios.get<BrandDetailsResponse>(
+    const brandResponse = await axInstance.get<BrandDetailsResponse>(
       CAMPEDIA_API_URL + '/brands/' + brandId,
     );
 

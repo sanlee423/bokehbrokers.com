@@ -1,4 +1,4 @@
-import axios from 'axios';
+import {axInstance} from '@/utils/axiosInstance';
 import {NextApiRequest, NextApiResponse} from 'next';
 
 const CAMPEDIA_API_URL = process.env.CAMPEDIA_API_URL;
@@ -18,7 +18,7 @@ export default async function brandHandler(
   res: NextApiResponse<CameraResponse>,
 ) {
   if (req.method === 'GET') {
-    const cameraResponse = await axios.get<CameraResponse>(
+    const cameraResponse = await axInstance.get<CameraResponse>(
       CAMPEDIA_API_URL + '/cameras',
     );
 
