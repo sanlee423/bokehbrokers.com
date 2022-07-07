@@ -42,40 +42,6 @@ const Brands: React.FC = () => {
   console.log(brands);
   return (
     <div className={classes.brandContainer}>
-      {brands && (
-        <>
-          <Typography className={classes.brandHeading} variant="h4">
-            Digital Cameras
-          </Typography>
-          <PhotoList
-            brandList={brands.filter(brand => brand.hasDigitalCameras === 1)}
-          />
-          <br />
-
-          <Typography className={classes.brandHeading} variant="h4">
-            Lenses
-          </Typography>
-          <PhotoList brandList={brands.filter(brand => brand.hasLens === 1)} />
-          <br />
-
-          <Typography className={classes.brandHeading} variant="h4">
-            Film Cameras
-          </Typography>
-          <PhotoList
-            brandList={brands.filter(brand => brand.hasFilmCameras === 1)}
-          />
-          <br />
-
-          <Typography className={classes.brandHeading} variant="h4">
-            Accessories
-          </Typography>
-          <PhotoList
-            brandList={brands.filter(brand => brand.hasAccessories === 1)}
-          />
-          <br />
-        </>
-      )}
-
       {brands && <PhotoList brandList={brands} />}
       <Footer />
     </div>

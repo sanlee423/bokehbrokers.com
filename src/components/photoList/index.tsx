@@ -9,9 +9,16 @@ import useWindowSize from '@/utils/windowDimensions';
 
 const useStyles = makeStyles(theme => ({
   gridContainer: {
-    margin: '2%',
+    marginLeft: '2%',
+    marginTop: '2%',
     width: '100vw',
     height: '100%',
+
+    '@media (max-width: 700px)': {
+      justifyContent: 'center',
+      justifyItems: 'center',
+      alignItems: 'center',
+    },
   },
   gridLink: {
     height: '100%',
@@ -96,6 +103,10 @@ interface PhotoListProps {
   brandList: BrandResponse;
 }
 
+const truncate = (str: string, n: number) => {
+  return str.length > n ? str.substr(0, n - 1) + '...' : str;
+};
+
 export default function PhotoList(props: PhotoListProps) {
   const classes = useStyles(cpTheme);
 
@@ -123,7 +134,9 @@ export default function PhotoList(props: PhotoListProps) {
                 <Icon className={classes.brandIcon}>
                   <SquareImage alt={data.alt} />
                 </Icon>
-                <div className={classes.listText}>{data.name}</div>
+                <div className={classes.listText}>
+                  {truncate(data.name, 16)}
+                </div>
               </a>
             </Link>
           </Grid>

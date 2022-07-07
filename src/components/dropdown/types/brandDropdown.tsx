@@ -8,7 +8,7 @@ export const brandDropdown: DropdownProps = {
     {
       title: 'View All',
       leftIcon: <ListItemIcon />,
-      link: '/brands/list',
+      link: '/brands',
     },
     {
       title: 'Camera Manufacturers',
