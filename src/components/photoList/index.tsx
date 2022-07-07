@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
     marginRight: '1%',
     marginBottom: '1%',
     paddingLeft: '1%',
-    paddingRight: '1%',
+    paddingRight: '5%',
     height: '5rem',
     cursor: 'pointer',
     borderRadius: '0.5rem',
@@ -51,6 +51,8 @@ const useStyles = makeStyles(theme => ({
         color: 'white',
       },
     },
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
   },
   listText: {
     width: 'auto',
@@ -135,7 +137,7 @@ export default function PhotoList(props: PhotoListProps) {
                   <SquareImage alt={data.alt} />
                 </Icon>
                 <div className={classes.listText}>
-                  {truncate(data.name, 16)}
+                  {truncate(data.name, 10)}
                 </div>
               </a>
             </Link>
