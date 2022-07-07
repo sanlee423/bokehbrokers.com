@@ -18,6 +18,7 @@ import useSWR from 'swr';
 import {BrandDetailsResponse} from 'pages/api/brands/[brandId]';
 import {BrandCameraListResponse} from 'pages/api/brands/[brandId]/cameras';
 import Link from 'next/link';
+import {BrandImageResponse} from 'pages/api/image/brand/[brandAlt]';
 
 const useStyles = makeStyles(theme => ({
   homeContainer: {
@@ -113,19 +114,29 @@ const Brands: React.FC = () => {
   >();
 
   const [brandCameras, setBrandCameras] = useState<BrandCameraListResponse>();
+  const [image, setImage] = React.useState<BrandImageResponse | undefined>();
 
   const {data: brandData} = useSWR(`/api/brands/${brandId}`, fetcher);
   const {data: brandCameraData} = useSWR(
     `/api/brands/${brandId}/cameras`,
     fetcher,
   );
-
-  console.log(brandCameras);
+  const {data: brandImage} = useSWR<BrandImageResponse>(
+    `/api/image/brand/${brandId}`,
+    fetcher,
+  );
 
   useEffect(() => {
     setBrandDetails(brandData);
     setBrandCameras(brandCameraData);
-  }, [setBrandDetails, brandData, setBrandCameras, brandCameraData]);
+    setImage(brandImage);
+  }, [
+    setBrandDetails,
+    brandData,
+    setBrandCameras,
+    brandCameraData,
+    brandImage,
+  ]);
 
   return (
     <div className={classes.homeContainer}>
@@ -133,10 +144,9 @@ const Brands: React.FC = () => {
         {brandDetails && (
           <>
             <div className={classes.brandTitleSection}>
-              <img
-                className={classes.brandTitleImage}
-                src={brandDetails.icon}
-              />
+              {image && (
+                <img className={classes.brandTitleImage} src={image.imgSrc} />
+              )}
               <div>
                 <Typography className={classes.brandHeading} variant="h4">
                   {brandDetails.name}

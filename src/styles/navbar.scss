@@ -139,9 +139,11 @@ a {
 
 .menu {
   width: 100%;
+  cursor: pointer;
 }
 
 .menu-item {
+  cursor: pointer;
   height: 50px;
   display: flex;
   align-items: center;

@@ -121,7 +121,7 @@ export default function PhotoList(props: PhotoListProps) {
             <Link href={`/brands/${data.alt}`} passHref>
               <a className={classes.gridLink}>
                 <Icon className={classes.brandIcon}>
-                  <SquareImage imgSrc={data.icon} />
+                  <SquareImage alt={data.alt} />
                 </Icon>
                 <div className={classes.listText}>{data.name}</div>
               </a>

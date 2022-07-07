@@ -15,7 +15,7 @@ export const brandDropdown: DropdownProps = {
       leftIcon: <PhotoCamera />,
       rightIcon: <KeyboardArrowRightIcon />,
       goToMenu: 'cameras',
-      link: '/brands/camera',
+      link: '/brands/cameras',
     },
     {
       title: 'Lens Manufacturers',
@@ -39,12 +39,12 @@ export const brandDropdown: DropdownProps = {
         {
           title: 'Digital Camera Brands',
           leftIcon: <ListItemIcon />,
-          link: '/brands/camera/digital',
+          link: '/brands/cameras/digital',
         },
         {
           title: 'Film Camera Brands',
           leftIcon: <ListItemIcon />,
-          link: '/brands/camera/film',
+          link: '/brands/cameras/film',
         },
       ],
     },

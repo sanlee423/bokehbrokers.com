@@ -8,6 +8,7 @@ import useWindowSize from '@/utils/windowDimensions';
 const useStyles = makeStyles(theme => ({
   //bg-white flex flex-row justify-between items-center
   headerContainer: {
+    cursor: 'pointer',
     backgroundColor: 'white',
     display: 'flex',
     flexDirection: 'row',

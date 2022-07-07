@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@mui/styles';
 import cpTheme from 'src/theme/cpTheme';
-import CameraSections from '@/components/cameraSections/cameraSections';
 import {Footer} from '@/components/footer';
 import useSWR from 'swr';
 import {CameraResponse} from 'pages/api/cameras';
