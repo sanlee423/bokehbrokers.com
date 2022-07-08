@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
     height: '4vh',
-    margin: '3%',
+    margin: '1%',
   },
   brandHeading: {
     fontSize: '2rem',
@@ -50,7 +50,7 @@ const Brands: React.FC = () => {
     setBrands(data);
   }, [setBrands, data]);
 
-  const [alignment, setAlignment] = React.useState<toggleList>('image');
+  const [alignment, setAlignment] = React.useState<toggleList>('desc');
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,

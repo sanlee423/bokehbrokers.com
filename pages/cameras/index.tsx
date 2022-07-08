@@ -39,7 +39,6 @@ const Brands: React.FC = () => {
             </>
           );
         })}
-      {/* <CameraSections /> */}
       <Footer />
     </div>
   );

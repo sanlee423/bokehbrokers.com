@@ -14,6 +14,8 @@ import {
 } from '@mui/material';
 import {Image, SortByAlpha} from '@mui/icons-material';
 import {toggleList} from '..';
+import TextList from '@/components/textList';
+import DescriptivePhotoList from '@/components/descriptivePhotoList';
 
 const useStyles = makeStyles(theme => ({
   brandContainer: {
@@ -28,7 +30,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
     height: '4vh',
-    margin: '3%',
+    margin: '1%',
   },
   brandHeading: {
     fontSize: '2rem',
@@ -53,7 +55,7 @@ const Film: React.FC = () => {
     setBrands(data);
   }, [setBrands, data]);
 
-  const [alignment, setAlignment] = React.useState<toggleList>('image');
+  const [alignment, setAlignment] = React.useState<toggleList>('desc');
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
@@ -89,12 +91,25 @@ const Film: React.FC = () => {
             <Typography className={classes.brandHeading} variant="h4">
               Film Cameras
             </Typography>
-            <PhotoList
-              alignment={alignment}
-              brandList={brands.filter(brand => brand.hasFilmCameras === 1)}
-            />
+            {alignment === 'desc' && (
+              <DescriptivePhotoList
+                brandList={brands.filter(brand => brand.hasFilmCameras === 1)}
+              />
+            )}
+            {alignment === 'image' && (
+              <PhotoList
+                brandList={brands.filter(brand => brand.hasFilmCameras === 1)}
+              />
+            )}
+            {alignment === 'text' && (
+              <TextList
+                brandList={brands.filter(brand => brand.hasFilmCameras === 1)}
+              />
+            )}
           </>
         )}
+        <br />
+
         <Footer />
       </div>
     </>
