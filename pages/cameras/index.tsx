@@ -22,6 +22,7 @@ const useStyles = makeStyles(theme => ({
   },
   cameraItem: {
     display: 'flex',
+    cursor: 'pointer',
     flexDirection: 'row',
     justifyContent: 'flex-start',
     padding: '3%',
