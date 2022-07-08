@@ -5,13 +5,7 @@ import PhotoList from '@/components/photoList';
 import {Footer} from '@/components/footer';
 import useSWR from 'swr';
 import {BrandResponse} from 'pages/api/brands';
-import {
-  Divider,
-  ToggleButton,
-  ToggleButtonGroup,
-  Tooltip,
-  Typography,
-} from '@mui/material';
+import {Divider, ToggleButton, ToggleButtonGroup} from '@mui/material';
 import {Image, SortByAlpha} from '@mui/icons-material';
 
 const useStyles = makeStyles(theme => ({
@@ -43,7 +37,7 @@ const useStyles = makeStyles(theme => ({
 
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
-type toggleList = 'image' | 'alpha';
+export type toggleList = 'image' | 'alpha';
 
 const Brands: React.FC = () => {
   const classes = useStyles(cpTheme);

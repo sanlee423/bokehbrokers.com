@@ -5,7 +5,15 @@ import PhotoList from '@/components/photoList';
 import {Footer} from '@/components/footer';
 import useSWR from 'swr';
 import {BrandResponse} from 'pages/api/brands';
-import {Tooltip, Typography} from '@mui/material';
+import {
+  Divider,
+  ToggleButton,
+  ToggleButtonGroup,
+  Tooltip,
+  Typography,
+} from '@mui/material';
+import {Image, SortByAlpha} from '@mui/icons-material';
+import {toggleList} from '..';
 
 const useStyles = makeStyles(theme => ({
   brandContainer: {
@@ -15,6 +23,12 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     height: '100%',
     overflowX: 'hidden',
+  },
+  pageHeader: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    height: '4vh',
+    margin: '3%',
   },
   brandHeading: {
     fontSize: '2rem',
@@ -39,21 +53,51 @@ const Film: React.FC = () => {
     setBrands(data);
   }, [setBrands, data]);
 
+  const [alignment, setAlignment] = React.useState<toggleList>('image');
+
+  const handleChange = (
+    event: React.MouseEvent<HTMLElement>,
+    newAlignment: toggleList,
+  ) => {
+    setAlignment(newAlignment);
+  };
+
+  const control = {
+    value: alignment,
+    onChange: handleChange,
+    exclusive: true,
+  };
+
   console.log(brands);
   return (
-    <div className={classes.brandContainer}>
-      {brands && (
-        <>
-          <Typography className={classes.brandHeading} variant="h4">
-            Film Cameras
-          </Typography>
-          <PhotoList
-            brandList={brands.filter(brand => brand.hasFilmCameras === 1)}
-          />
-        </>
-      )}
-      <Footer />
-    </div>
+    <>
+      <Divider />
+      <div className={classes.pageHeader}>
+        <ToggleButtonGroup size="small" {...control}>
+          <ToggleButton value="alpha" key="alpha">
+            <SortByAlpha />
+          </ToggleButton>
+          <ToggleButton value="image" key="image">
+            <Image />
+          </ToggleButton>
+        </ToggleButtonGroup>
+      </div>
+      <Divider />
+      <div className={classes.brandContainer}>
+        {brands && (
+          <>
+            <Typography className={classes.brandHeading} variant="h4">
+              Film Cameras
+            </Typography>
+            <PhotoList
+              alignment={alignment}
+              brandList={brands.filter(brand => brand.hasFilmCameras === 1)}
+            />
+          </>
+        )}
+        <Footer />
+      </div>
+    </>
   );
 };
 
