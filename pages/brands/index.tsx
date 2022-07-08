@@ -6,7 +6,9 @@ import {Footer} from '@/components/footer';
 import useSWR from 'swr';
 import {BrandResponse} from 'pages/api/brands';
 import {Divider, ToggleButton, ToggleButtonGroup} from '@mui/material';
-import {Image, SortByAlpha} from '@mui/icons-material';
+import {Description, Image, SortByAlpha, TextFields} from '@mui/icons-material';
+import TextList from '@/components/textList';
+import DescriptivePhotoList from '@/components/descriptivePhotoList';
 
 const useStyles = makeStyles(theme => ({
   brandContainer: {
@@ -37,7 +39,7 @@ const useStyles = makeStyles(theme => ({
 
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
-export type toggleList = 'image' | 'alpha';
+export type toggleList = 'image' | 'desc' | 'text';
 
 const Brands: React.FC = () => {
   const classes = useStyles(cpTheme);
@@ -68,17 +70,25 @@ const Brands: React.FC = () => {
       <Divider />
       <div className={classes.pageHeader}>
         <ToggleButtonGroup size="small" {...control}>
-          <ToggleButton value="alpha" key="alpha">
-            <SortByAlpha />
+          <ToggleButton value="desc" key="desc">
+            <Description />
           </ToggleButton>
           <ToggleButton value="image" key="image">
             <Image />
           </ToggleButton>
+          <ToggleButton value="text" key="text">
+            <TextFields />
+          </ToggleButton>
         </ToggleButtonGroup>
       </div>
       <Divider />
+      <br />
       <div className={classes.brandContainer}>
-        {brands && <PhotoList alignment={alignment} brandList={brands} />}
+        {brands && alignment === 'desc' && (
+          <DescriptivePhotoList brandList={brands} />
+        )}
+        {brands && alignment === 'image' && <PhotoList brandList={brands} />}
+        {brands && alignment === 'text' && <TextList brandList={brands} />}
         <Footer />
       </div>
     </>

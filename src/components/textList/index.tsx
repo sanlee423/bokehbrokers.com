@@ -1,56 +1,30 @@
 import * as React from 'react';
 import cpTheme from 'src/theme/cpTheme';
 import {makeStyles} from '@mui/styles';
-import {Divider, Grid, Icon, Typography} from '@mui/material';
 import Link from 'next/link';
 import {BrandResponse} from 'pages/api/brands';
-import SquareImage from './canvas';
 import useWindowSize from '@/utils/windowDimensions';
+import {toggleList} from 'pages/brands';
+import {Divider, Grid, Typography} from '@mui/material';
 
 const useStyles = makeStyles(theme => ({
   alphaHeader: {
     margin: '1% 5%',
   },
-  gridContainer: {
-    margin: '2%',
-    width: '100vw',
-    height: '100%',
-    justifyContent: 'flex-start',
-
-    '@media (max-width: 700px)': {
-      justifyContent: 'flex-start',
-      justifyItems: 'center',
-      alignItems: 'center',
-    },
+  textContainer: {
+    marginLeft: '2%',
+    marginTop: '2%',
   },
-  gridLink: {
-    height: '100%',
-    width: '100%',
-    color: 'black',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    verticalAlign: 'middle',
-    alignItems: 'center',
-  },
-  gridItem: {
-    margin: '1%',
-    padding: '2%',
-    cursor: 'pointer',
-    borderRadius: '0.5rem',
-
-    boxShadow:
-      '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-
+  textLink: {
+    color: '#484a4d',
     '&:hover': {
-      filter: 'brightness(105%)',
-      backgroundColor: '#393a3b',
-      transition: '300ms ease',
-
-      '& $listText': {
-        color: 'white',
-      },
+      color: '#1976d2',
     },
+  },
+  textItem: {
+    margin: '2%',
+    cursor: 'pointer',
+    whiteSpace: 'nowrap',
     overflow: 'hidden',
   },
   listText: {
@@ -60,30 +34,16 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'flex-start',
     fontWeight: 600,
   },
-  brandIcon: {
-    width: '4.0rem',
-    height: '4.0rem',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    borderRadius: '0.5rem',
-  },
-  brandImage: {
-    objectFit: 'cover',
-  },
 }));
 
-interface PhotoListProps {
+interface textListProps {
   brandList: BrandResponse;
 }
 
 const alpha = Array.from(Array(26)).map((e, i) => i + 65);
 const alphabet: string[] = alpha.map(x => String.fromCharCode(x));
 
-const truncate = (str: string, n: number) => {
-  return str.length > n ? str.substr(0, n - 1) + '...' : str;
-};
-
-export default function PhotoList(props: PhotoListProps) {
+export default function TextList(props: textListProps) {
   const classes = useStyles(cpTheme);
   const [columns, setColumns] = React.useState(6);
   const [xs, setXs] = React.useState(1);
@@ -115,17 +75,24 @@ export default function PhotoList(props: PhotoListProps) {
                   <Divider />
                 </div>
                 <Grid
-                  className={classes.gridContainer}
+                  className={classes.textContainer}
                   container
                   columns={columns}>
                   {brandByChar.map(data => {
                     return (
-                      <Grid key={data.alt} className={classes.gridItem} item>
+                      <Grid
+                        key={data.alt}
+                        className={classes.textItem}
+                        item
+                        xs={xs}>
                         <Link href={`/brands/${data.alt}`} passHref>
-                          <a className={classes.gridLink}>
-                            <Icon className={classes.brandIcon}>
-                              <SquareImage alt={data.alt} />
-                            </Icon>
+                          <a className={classes.textLink}>
+                            <Typography
+                              className={classes.listText}
+                              variant="body1"
+                              noWrap>
+                              {data.name}
+                            </Typography>
                           </a>
                         </Link>
                       </Grid>
