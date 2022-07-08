@@ -6,7 +6,7 @@ import {Footer} from '@/components/footer';
 import useSWR from 'swr';
 import {BrandResponse} from 'pages/api/brands';
 import {Divider, ToggleButton, ToggleButtonGroup} from '@mui/material';
-import {Description, Image, SortByAlpha, TextFields} from '@mui/icons-material';
+import {Description, Image as ImageIcon, TextFields} from '@mui/icons-material';
 import TextList from '@/components/textList';
 import DescriptivePhotoList from '@/components/descriptivePhotoList';
 
@@ -74,7 +74,7 @@ const Brands: React.FC = () => {
             <Description />
           </ToggleButton>
           <ToggleButton value="image" key="image">
-            <Image />
+            <ImageIcon />
           </ToggleButton>
           <ToggleButton value="text" key="text">
             <TextFields />

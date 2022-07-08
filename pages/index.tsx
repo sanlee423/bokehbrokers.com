@@ -3,7 +3,6 @@ import {FeaturedCard} from '@/components/featuredCard/featuredCard';
 import {BrandCard} from '@/components/brandCard';
 import {makeStyles} from '@mui/styles';
 import cpTheme from 'src/theme/cpTheme';
-import CameraBanner from '@/components/cameraBanner/cameraBanner';
 import {Footer} from '@/components/footer';
 
 const useStyles = makeStyles(theme => ({

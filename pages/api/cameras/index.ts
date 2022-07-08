@@ -9,6 +9,7 @@ export interface CameraObject {
   alt: string;
   brandId: number;
   thumbnail: string;
+  releaseDate: string;
 }
 
 export type CameraResponse = CameraObject[];

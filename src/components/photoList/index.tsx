@@ -79,10 +79,6 @@ interface PhotoListProps {
 const alpha = Array.from(Array(26)).map((e, i) => i + 65);
 const alphabet: string[] = alpha.map(x => String.fromCharCode(x));
 
-const truncate = (str: string, n: number) => {
-  return str.length > n ? str.substr(0, n - 1) + '...' : str;
-};
-
 export default function PhotoList(props: PhotoListProps) {
   const classes = useStyles(cpTheme);
   const [columns, setColumns] = React.useState(6);
