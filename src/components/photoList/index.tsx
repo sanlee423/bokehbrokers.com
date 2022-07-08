@@ -73,36 +73,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const brandData = [
-  {
-    slug: 'leica',
-    alt: 'Leica',
-    icon: 'icons/brand/leica.png',
-  },
-  {
-    slug: 'nikon',
-    alt: 'Nikon',
-    icon: 'icons/brand/nikon.png',
-  },
-  {
-    slug: 'fuji',
-    alt: 'Fujifilm',
-    icon: 'icons/brand/fuji.png',
-  },
-  {
-    slug: 'pentax',
-    alt: 'Pentax',
-    icon: 'icons/brand/pentax.png',
-  },
-  {
-    slug: 'canon',
-    alt: 'Canon',
-    icon: 'icons/brand/canon.png',
-  },
-];
-
 interface PhotoListProps {
   brandList: BrandResponse;
+  alignment: 'image' | 'alpha';
 }
 
 const truncate = (str: string, n: number) => {
@@ -118,7 +91,7 @@ export default function PhotoList(props: PhotoListProps) {
 
   React.useEffect(() => {
     if (width < 700) {
-      setColumns(2);
+      setColumns(1);
       setXs(0.8);
     } else {
       setColumns(6);
@@ -126,19 +99,33 @@ export default function PhotoList(props: PhotoListProps) {
     }
   }, [width]);
 
+  let currChar: string;
+
   return (
     <Grid className={classes.gridContainer} container columns={columns}>
       {props.brandList.map(data => {
+        if (currChar === undefined) {
+          currChar = data.alt.charAt(0);
+        }
+
         return (
           <Grid key={data.alt} className={classes.gridItem} item xs={xs}>
             <Link href={`/brands/${data.alt}`} passHref>
               <a className={classes.gridLink}>
-                <Icon className={classes.brandIcon}>
-                  <SquareImage alt={data.alt} />
-                </Icon>
-                <div className={classes.listText}>
-                  {truncate(data.name, 10)}
-                </div>
+                {props.alignment === 'image' ? (
+                  <>
+                    <Icon className={classes.brandIcon}>
+                      <SquareImage alt={data.alt} />
+                    </Icon>
+                    <div className={classes.listText}>
+                      {truncate(data.name, 20)}
+                    </div>
+                  </>
+                ) : (
+                  <div className={classes.listText}>
+                    {truncate(data.name, 25)}
+                  </div>
+                )}
               </a>
             </Link>
           </Grid>
