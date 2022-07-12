@@ -12,6 +12,7 @@ import {Pagination, Navigation} from 'swiper';
 
 interface swiperProps {
   styleName: string;
+  imageUrls?: string[];
 }
 
 export default function Swiper(props: swiperProps) {
@@ -24,16 +25,14 @@ export default function Swiper(props: swiperProps) {
         navigation={true}
         modules={[Pagination, Navigation]}
         className={props.styleName}>
-        <SwiperSlide>
-          Slide 1
-          {/* <img
-            alt={'image1'}
-            src={
-              'https://static.bhphoto.com/images/multiple_images/images500x500/1336666510_IMG_251946.jpg'
-            }
-          /> */}
-        </SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
+        {props.imageUrls &&
+          props.imageUrls.map((imageUrl, i) => {
+            return (
+              <SwiperSlide key={`Image ${i}`}>
+                <img alt={`Image ${i}`} src={imageUrl} />
+              </SwiperSlide>
+            );
+          })}
       </SwiperFC>
     </>
   );

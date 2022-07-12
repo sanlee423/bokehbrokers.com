@@ -4,30 +4,40 @@ import cpTheme from 'src/theme/cpTheme';
 import {Footer} from '@/components/footer';
 import useSWR from 'swr';
 import {CameraResponse} from 'pages/api/cameras';
-import {Paper, Typography} from '@mui/material';
-import Swiper from '@/components/swiper';
+import {Grid, Typography} from '@mui/material';
+import useWindowSize from '@/utils/windowDimensions';
+import Link from 'next/link';
+import {getFormattedDate} from '@/utils/dateFormatter';
+import {CameraPreviewImageResponse} from 'pages/api/image/camera/preview';
 
 const useStyles = makeStyles(theme => ({
-  homeContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'start',
-    alignItems: 'flex-start',
-    width: '100%',
+  cameraContainer: {
+    marginTop: '1%',
+    width: '100vw',
     height: '100%',
-    overflowX: 'hidden',
+
+    justifyContent: 'flex-start',
+    justifyItems: 'center',
+    alignItems: 'center',
   },
-  itemContainer: {
-    padding: '5%',
+  itemLink: {
+    height: '100%',
+    width: '100%',
+    color: 'black',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    verticalAlign: 'middle',
+    alignItems: 'center',
   },
   cameraItem: {
     display: 'flex',
     cursor: 'pointer',
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    padding: '3%',
+    padding: '1%',
     width: 'auto',
-    margin: '5%',
+    margin: '1%',
     '& > *': {
       marginRight: '5%',
     },
@@ -46,13 +56,9 @@ const useStyles = makeStyles(theme => ({
     },
   },
   cameraText: {},
-  swiperContainer: {
+  imageContainer: {
     width: '10vw',
-  },
-  swiper: {
-    '.swiper-button-next': {
-      height: '10px',
-    },
+    marginRight: '5%',
   },
   descriptionBox: {
     display: 'flex',
@@ -71,54 +77,86 @@ const useStyles = makeStyles(theme => ({
 
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
-function getFormattedDate(inputDate: string) {
-  const date = new Date(inputDate);
-  const year = date.getFullYear();
-  const month = (1 + date.getMonth()).toString().padStart(2, '0');
-  const day = date.getDate().toString().padStart(2, '0');
-
-  return month + '/' + day + '/' + year;
-}
-
-const Brands: React.FC = () => {
+const Cameras: React.FC = () => {
   const classes = useStyles(cpTheme);
   const [cameras, setCameras] = useState<CameraResponse | undefined>();
+  const [images, setImages] = React.useState<
+    CameraPreviewImageResponse[] | undefined
+  >();
+  const {data: previewImages} = useSWR<CameraPreviewImageResponse[]>(
+    `/api/image/camera/preview`,
+    fetcher,
+  );
+  const [columns, setColumns] = React.useState(6);
+  const [xs, setXs] = React.useState(1);
+  const {width} = useWindowSize();
+
   const {data} = useSWR(`/api/cameras/`, fetcher);
 
   useEffect(() => {
     setCameras(data);
-  }, [setCameras, data]);
+    setImages(previewImages);
 
+    if (width < 700) {
+      setColumns(2);
+      setXs(0.8);
+    } else {
+      setColumns(3);
+      setXs(1);
+    }
+  }, [setCameras, data, width, previewImages]);
+  console.log(images);
   return (
-    <div className={classes.homeContainer}>
-      <div className={classes.itemContainer}>
+    <div>
+      <Grid className={classes.cameraContainer} container columns={columns}>
         {cameras &&
           cameras.map(camera => {
             return (
-              <Paper key={camera.alt} className={classes.cameraItem}>
-                <div className={classes.swiperContainer}>
-                  <Swiper styleName={classes.swiper} />
-                </div>
-                <div className={classes.descriptionBox}>
-                  <Typography className={classes.cameraText} variant="h6">
-                    {camera.name}
-                  </Typography>
-                  <Typography className={classes.cameraText} variant="body2">
-                    Release Date: {getFormattedDate(camera.releaseDate)}
-                  </Typography>
-                </div>
-                <div className={classes.priceBox}>
-                  <Typography className={classes.cameraText} variant="h6">
-                    $1666
-                  </Typography>
-                </div>
-              </Paper>
+              <Grid
+                key={camera.alt}
+                className={classes.cameraItem}
+                item
+                xs={xs}>
+                <Link href={`/cameras/${camera.alt}`} passHref>
+                  <a className={classes.itemLink}>
+                    <div className={classes.imageContainer}>
+                      {images &&
+                        images
+                          .filter(image => image.alt === camera.alt)
+                          .map(data => {
+                            return (
+                              <img
+                                key={data.alt}
+                                alt={data.alt}
+                                src={data.url}
+                              />
+                            );
+                          })}
+                    </div>
+                    <div className={classes.descriptionBox}>
+                      <Typography className={classes.cameraText} variant="h6">
+                        {camera.name}
+                      </Typography>
+                      <Typography
+                        className={classes.cameraText}
+                        variant="body2">
+                        Release Date: {getFormattedDate(camera.releaseDate)}
+                      </Typography>
+                    </div>
+                    <div className={classes.priceBox}>
+                      <Typography className={classes.cameraText} variant="h6">
+                        $1666
+                      </Typography>
+                    </div>
+                  </a>
+                </Link>
+              </Grid>
             );
           })}
-      </div>
+      </Grid>
       <Footer />
     </div>
   );
 };
 
-export default Brands;
+export default Cameras;

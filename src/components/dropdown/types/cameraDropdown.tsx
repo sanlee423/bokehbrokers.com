@@ -8,7 +8,7 @@ export const cameraDropdown: DropdownProps = {
     {
       title: 'View All',
       leftIcon: <ListItemIcon />,
-      link: '/cameras/list',
+      link: '/cameras',
     },
     {
       title: 'Digital Camera',
