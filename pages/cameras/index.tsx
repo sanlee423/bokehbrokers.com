@@ -3,22 +3,23 @@ import {makeStyles} from '@mui/styles';
 import {Footer} from '@/components/footer';
 import useSWR from 'swr';
 import {CameraResponse} from 'pages/api/cameras';
-import {
-  Divider,
-  Grid,
-  ToggleButton,
-  ToggleButtonGroup,
-  Typography,
-} from '@mui/material';
+import {Divider, ToggleButton, ToggleButtonGroup} from '@mui/material';
 import {Description, Image as ImageIcon, TextFields} from '@mui/icons-material';
 import useWindowSize from '@/utils/windowDimensions';
-import Link from 'next/link';
-import {getFormattedDate} from '@/utils/dateFormatter';
-import {CameraPreviewImageResponse} from 'pages/api/image/camera/preview';
+import {CameraPreviewImageResponse} from 'pages/api/image/camera/[cameraAlt]';
 import {toggleList} from 'pages/brands';
 import {campediaTheme} from '@/utils/campediaTheme';
+import CameraDescriptionList from '@/components/cameraCards/cameraDescriptionList';
+import CameraPhotoList from '@/components/cameraCards/cameraPhotoList';
+import CameraTextList from '@/components/cameraCards/cameraTextList';
 
 const useStyles = makeStyles(theme => ({
+  pageHeader: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    height: '4vh',
+    margin: '1%',
+  },
   cameraContainer: {
     marginTop: '1%',
     width: '100vw',
@@ -27,65 +28,6 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'flex-start',
     justifyItems: 'center',
     alignItems: 'center',
-  },
-  pageHeader: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    height: '4vh',
-    margin: '1%',
-  },
-  itemLink: {
-    height: '100%',
-    width: '100%',
-    color: 'black',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    verticalAlign: 'middle',
-    alignItems: 'center',
-  },
-  cameraItem: {
-    display: 'flex',
-    cursor: 'pointer',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    padding: '1%',
-    width: 'auto',
-    margin: '1%',
-    '& > *': {
-      marginRight: '5%',
-    },
-
-    boxShadow:
-      '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-
-    '&:hover': {
-      filter: 'brightness(105%)',
-      backgroundColor: '#393a3b',
-      transition: '300ms ease',
-
-      '& $cameraText': {
-        color: 'white',
-      },
-    },
-  },
-  cameraText: {},
-  imageContainer: {
-    width: '10vw',
-    marginRight: '5%',
-  },
-  descriptionBox: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '14vw',
-    padding: '1%',
-  },
-  priceBox: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    width: '10vw',
-    padding: '1%',
   },
 }));
 
@@ -153,53 +95,18 @@ const Cameras: React.FC = () => {
       </div>
       <Divider />
       <br />
-      <Grid className={classes.cameraContainer} container columns={columns}>
-        {cameras &&
-          cameras.map(camera => {
-            return (
-              <Grid
-                key={camera.alt}
-                className={classes.cameraItem}
-                item
-                xs={xs}>
-                <Link href={`/cameras/${camera.alt}`} passHref>
-                  <a className={classes.itemLink}>
-                    <div className={classes.imageContainer}>
-                      {images &&
-                        images
-                          .filter(image => image.alt === camera.alt)
-                          .map(data => {
-                            return (
-                              <img
-                                key={data.alt}
-                                alt={data.alt}
-                                src={data.url}
-                              />
-                            );
-                          })}
-                    </div>
-                    <div className={classes.descriptionBox}>
-                      <Typography className={classes.cameraText} variant="h6">
-                        {camera.name}
-                      </Typography>
-                      <Typography
-                        className={classes.cameraText}
-                        variant="body2">
-                        Release Date: {getFormattedDate(camera.releaseDate)}
-                      </Typography>
-                    </div>
-                    <div className={classes.priceBox}>
-                      <Typography className={classes.cameraText} variant="h6">
-                        $1666
-                      </Typography>
-                    </div>
-                  </a>
-                </Link>
-              </Grid>
-            );
-          })}
-      </Grid>
-      <Footer />
+      <div className={classes.cameraContainer}>
+        {cameras && alignment === 'desc' && (
+          <CameraDescriptionList cameraList={cameras} />
+        )}
+        {cameras && alignment === 'image' && (
+          <CameraPhotoList cameraList={cameras} />
+        )}
+        {cameras && alignment === 'text' && (
+          <CameraTextList cameraList={cameras} />
+        )}
+        <Footer />
+      </div>
     </>
   );
 };

@@ -2,10 +2,11 @@ import * as React from 'react';
 import {makeStyles} from '@mui/styles';
 import {Divider, Grid, Icon, Typography} from '@mui/material';
 import Link from 'next/link';
-import {BrandResponse} from 'pages/api/brands';
 import SquareImage from '@/utils/squareImage';
 import useWindowSize from '@/utils/windowDimensions';
 import {campediaTheme} from '@/utils/campediaTheme';
+import {CameraResponse} from 'pages/api/cameras';
+import {alphabetArray} from '@/utils/alphabetArray';
 
 const useStyles = makeStyles(theme => ({
   alphaHeader: {
@@ -45,19 +46,8 @@ const useStyles = makeStyles(theme => ({
       filter: 'brightness(105%)',
       backgroundColor: '#393a3b',
       transition: '300ms ease',
-
-      '& $listText': {
-        color: 'white',
-      },
     },
     overflow: 'hidden',
-  },
-  listText: {
-    width: 'auto',
-    display: 'flex',
-    marginLeft: '10%',
-    justifyContent: 'flex-start',
-    fontWeight: 600,
   },
   brandIcon: {
     width: '4.0rem',
@@ -66,19 +56,13 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: 'white',
     borderRadius: '0.5rem',
   },
-  brandImage: {
-    objectFit: 'cover',
-  },
 }));
 
-interface PhotoListProps {
-  brandList: BrandResponse;
+interface CameraPhotoListProps {
+  cameraList: CameraResponse;
 }
 
-const alpha = Array.from(Array(26)).map((e, i) => i + 65);
-const alphabet: string[] = alpha.map(x => String.fromCharCode(x));
-
-export default function BrandPhotoList(props: PhotoListProps) {
+export default function CameraPhotoList(props: CameraPhotoListProps) {
   const classes = useStyles(campediaTheme);
   const [columns, setColumns] = React.useState(6);
   const [xs, setXs] = React.useState(1);
@@ -89,17 +73,17 @@ export default function BrandPhotoList(props: PhotoListProps) {
       setColumns(1);
       setXs(0.8);
     } else {
-      setColumns(6);
+      setColumns(5);
       setXs(1);
     }
   }, [width]);
 
   return (
     <div>
-      {alphabet.map(char => {
-        const brandByChar = props.brandList
-          .filter(brand => {
-            return brand.name.charAt(0) === char;
+      {alphabetArray.map(char => {
+        const camerasByChar = props.cameraList
+          .filter(camera => {
+            return camera.name.charAt(0) === char;
           })
           .sort((a, b) =>
             a.name.toLowerCase().localeCompare(b.name.toLowerCase()),
@@ -107,7 +91,7 @@ export default function BrandPhotoList(props: PhotoListProps) {
 
         return (
           <>
-            {brandByChar.length > 0 && (
+            {camerasByChar.length > 0 && (
               <>
                 <div key={char} className={classes.alphaHeader}>
                   <Typography variant="h3">{char.toUpperCase()}</Typography>
@@ -118,13 +102,13 @@ export default function BrandPhotoList(props: PhotoListProps) {
                     className={classes.gridContainer}
                     container
                     columns={columns}>
-                    {brandByChar.map(data => {
+                    {camerasByChar.map(data => {
                       return (
                         <Grid key={data.alt} className={classes.gridItem} item>
-                          <Link href={`/brands/${data.alt}`} passHref>
+                          <Link href={`/cameras/${data.alt}`} passHref>
                             <a className={classes.gridLink}>
                               <Icon className={classes.brandIcon}>
-                                <SquareImage alt={data.alt} type={'brand'} />
+                                <SquareImage alt={data.alt} type={'camera'} />
                               </Icon>
                             </a>
                           </Link>
@@ -133,7 +117,6 @@ export default function BrandPhotoList(props: PhotoListProps) {
                     })}
                   </Grid>
                 </div>
-                <br />
               </>
             )}
           </>

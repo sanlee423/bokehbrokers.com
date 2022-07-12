@@ -9,8 +9,8 @@ import useSWR from 'swr';
 import {CameraData, CameraSpecs} from 'pages/api/cameras/[cameraId]';
 import {getFormattedDate} from '@/utils/dateFormatter';
 import {formatSpec, formatSpecValue} from '@/utils/specFormatter';
-import {CameraImageResponse} from 'pages/api/image/camera/[cameraAlt]';
 import {campediaTheme} from '@/utils/campediaTheme';
+import {CameraImageResponse} from 'pages/api/image/camera/[cameraAlt]/list';
 
 const useStyles = makeStyles(theme => ({
   cameraContainer: {
@@ -94,11 +94,12 @@ const CamerasByAlt: React.FC = () => {
   const {data: cameraData} = useSWR(`/api/cameras/${cameraAlt}`, fetcher);
   const [images, setImages] = React.useState<CameraImageResponse | undefined>();
   const {data: cameraImages} = useSWR<CameraImageResponse>(
-    `/api/image/camera/${cameraAlt}`,
+    `/api/image/camera/${cameraAlt}/list`,
     fetcher,
   );
 
   useEffect(() => {
+    console.log(cameraData);
     if (cameraData) {
       setCamera(cameraData.camera);
       setCameraSpecs(cameraData.specs);
@@ -109,6 +110,7 @@ const CamerasByAlt: React.FC = () => {
       setRows(specs);
     }
 
+    console.log(cameraImages);
     setImages(cameraImages);
   }, [cameraImages, cameraData, cameraSpecs]);
 
@@ -136,7 +138,7 @@ const CamerasByAlt: React.FC = () => {
       <div className={classes.cameraBody}>
         {images && (
           <div className={classes.swiperContainer}>
-            <Swiper styleName={classes.swiper} imageUrls={images.imgUrls} />
+            <Swiper styleName={classes.swiper} imageUrls={images.imgSrc} />
           </div>
         )}
         {cameraSpecs?.msrp && (

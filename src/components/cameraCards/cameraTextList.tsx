@@ -2,10 +2,11 @@ import * as React from 'react';
 
 import {makeStyles} from '@mui/styles';
 import Link from 'next/link';
-import {BrandResponse} from 'pages/api/brands';
 import useWindowSize from '@/utils/windowDimensions';
 import {Divider, Grid, Typography} from '@mui/material';
 import {campediaTheme} from '@/utils/campediaTheme';
+import {CameraResponse} from 'pages/api/cameras';
+import {alphabetArray} from '@/utils/alphabetArray';
 
 const useStyles = makeStyles(theme => ({
   alphaHeader: {
@@ -36,14 +37,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-interface brandTextListProps {
-  brandList: BrandResponse;
+interface CameraTextListProps {
+  cameraList: CameraResponse;
 }
 
-const alpha = Array.from(Array(26)).map((e, i) => i + 65);
-const alphabet: string[] = alpha.map(x => String.fromCharCode(x));
-
-export default function BrandTextList(props: brandTextListProps) {
+export default function CameraTextList(props: CameraTextListProps) {
   const classes = useStyles(campediaTheme);
   const [columns, setColumns] = React.useState(6);
   const [xs, setXs] = React.useState(1);
@@ -61,10 +59,10 @@ export default function BrandTextList(props: brandTextListProps) {
 
   return (
     <div>
-      {alphabet.map(char => {
-        const brandByChar = props.brandList
-          .filter(brand => {
-            return brand.name.charAt(0) === char;
+      {alphabetArray.map(char => {
+        const cameraByChar = props.cameraList
+          .filter(camera => {
+            return camera.name.charAt(0) === char;
           })
           .sort((a, b) =>
             a.name.toLowerCase().localeCompare(b.name.toLowerCase()),
@@ -72,7 +70,7 @@ export default function BrandTextList(props: brandTextListProps) {
 
         return (
           <>
-            {brandByChar.length > 0 && (
+            {cameraByChar.length > 0 && (
               <>
                 <div key={char} className={classes.alphaHeader}>
                   <Typography variant="h3">{char.toUpperCase()}</Typography>
@@ -82,14 +80,14 @@ export default function BrandTextList(props: brandTextListProps) {
                   className={classes.textContainer}
                   container
                   columns={columns}>
-                  {brandByChar.map(data => {
+                  {cameraByChar.map(data => {
                     return (
                       <Grid
                         key={data.alt}
                         className={classes.textItem}
                         item
                         xs={xs}>
-                        <Link href={`/brands/${data.alt}`} passHref>
+                        <Link href={`/cameras/${data.alt}`} passHref>
                           <a className={classes.textLink}>
                             <Typography
                               className={classes.listText}

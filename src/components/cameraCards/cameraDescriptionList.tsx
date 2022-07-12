@@ -2,10 +2,12 @@ import * as React from 'react';
 import {makeStyles} from '@mui/styles';
 import {Divider, Grid, Icon, Typography} from '@mui/material';
 import Link from 'next/link';
-import {BrandResponse} from 'pages/api/brands';
-import SquareImage from '@/utils/squareImage';
+import SquareImage from '../../utils/squareImage';
 import useWindowSize from '@/utils/windowDimensions';
 import {campediaTheme} from '@/utils/campediaTheme';
+import {alphabetArray} from '@/utils/alphabetArray';
+import {CameraResponse} from 'pages/api/cameras';
+import {getFormattedDate} from '@/utils/dateFormatter';
 
 const useStyles = makeStyles(theme => ({
   alphaHeader: {
@@ -34,10 +36,10 @@ const useStyles = makeStyles(theme => ({
   },
   gridItem: {
     margin: '1%',
-    padding: '2%',
+    padding: '1%',
+    height: '5rem',
     cursor: 'pointer',
     borderRadius: '0.5rem',
-
     boxShadow:
       '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
 
@@ -46,18 +48,25 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: '#393a3b',
       transition: '300ms ease',
 
-      '& $listText': {
+      '& $cameraName': {
+        color: 'white',
+      },
+      '& $cameraMisc': {
         color: 'white',
       },
     },
+    whiteSpace: 'nowrap',
     overflow: 'hidden',
   },
-  listText: {
-    width: 'auto',
-    display: 'flex',
+  infoBox: {
+    width: '100%',
     marginLeft: '10%',
-    justifyContent: 'flex-start',
+  },
+  cameraName: {
     fontWeight: 600,
+  },
+  cameraMisc: {
+    fontWeight: 400,
   },
   brandIcon: {
     width: '4.0rem',
@@ -71,14 +80,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-interface PhotoListProps {
-  brandList: BrandResponse;
+interface CameraDescriptionListProps {
+  cameraList: CameraResponse;
 }
 
-const alpha = Array.from(Array(26)).map((e, i) => i + 65);
-const alphabet: string[] = alpha.map(x => String.fromCharCode(x));
-
-export default function BrandPhotoList(props: PhotoListProps) {
+export default function CameraDescriptionList(
+  props: CameraDescriptionListProps,
+) {
   const classes = useStyles(campediaTheme);
   const [columns, setColumns] = React.useState(6);
   const [xs, setXs] = React.useState(1);
@@ -89,17 +97,17 @@ export default function BrandPhotoList(props: PhotoListProps) {
       setColumns(1);
       setXs(0.8);
     } else {
-      setColumns(6);
+      setColumns(4);
       setXs(1);
     }
   }, [width]);
 
   return (
     <div>
-      {alphabet.map(char => {
-        const brandByChar = props.brandList
-          .filter(brand => {
-            return brand.name.charAt(0) === char;
+      {alphabetArray.map(char => {
+        const camerasByChar = props.cameraList
+          .filter(camera => {
+            return camera.name.charAt(0) === char;
           })
           .sort((a, b) =>
             a.name.toLowerCase().localeCompare(b.name.toLowerCase()),
@@ -107,7 +115,7 @@ export default function BrandPhotoList(props: PhotoListProps) {
 
         return (
           <>
-            {brandByChar.length > 0 && (
+            {camerasByChar.length > 0 && (
               <>
                 <div key={char} className={classes.alphaHeader}>
                   <Typography variant="h3">{char.toUpperCase()}</Typography>
@@ -118,14 +126,42 @@ export default function BrandPhotoList(props: PhotoListProps) {
                     className={classes.gridContainer}
                     container
                     columns={columns}>
-                    {brandByChar.map(data => {
+                    {camerasByChar.map(data => {
                       return (
-                        <Grid key={data.alt} className={classes.gridItem} item>
-                          <Link href={`/brands/${data.alt}`} passHref>
+                        <Grid
+                          key={data.alt}
+                          className={classes.gridItem}
+                          item
+                          xs={xs}>
+                          <Link href={`/cameras/${data.alt}`} passHref>
                             <a className={classes.gridLink}>
                               <Icon className={classes.brandIcon}>
-                                <SquareImage alt={data.alt} type={'brand'} />
+                                <SquareImage alt={data.alt} type={'camera'} />
                               </Icon>
+                              <div className={classes.infoBox}>
+                                <Typography
+                                  className={classes.cameraName}
+                                  variant="body1"
+                                  noWrap>
+                                  {data.name}
+                                </Typography>
+                                <Typography
+                                  className={classes.cameraMisc}
+                                  variant="body2"
+                                  noWrap>
+                                  {`Release Date: ${getFormattedDate(
+                                    data.releaseDate,
+                                  )}`}
+                                </Typography>
+                                <div>
+                                  <Typography
+                                    className={classes.cameraMisc}
+                                    variant="body2"
+                                    noWrap>
+                                    $1666
+                                  </Typography>
+                                </div>
+                              </div>
                             </a>
                           </Link>
                         </Grid>
@@ -133,7 +169,6 @@ export default function BrandPhotoList(props: PhotoListProps) {
                     })}
                   </Grid>
                 </div>
-                <br />
               </>
             )}
           </>

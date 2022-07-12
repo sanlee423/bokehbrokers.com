@@ -6,17 +6,19 @@ import {BrandResponse} from 'pages/api/brands';
 import SquareImage from '../../utils/squareImage';
 import useWindowSize from '@/utils/windowDimensions';
 import {campediaTheme} from '@/utils/campediaTheme';
+import {alphabetArray} from '@/utils/alphabetArray';
 
 const useStyles = makeStyles(theme => ({
   alphaHeader: {
     margin: '1% 5%',
   },
-  gridContainer: {
-    marginLeft: '4%',
-    marginTop: '2%',
-    width: '100vw',
+  flexBox: {
+    margin: '1% 4%',
+    width: '90vw',
     height: '100%',
-
+    justifyContent: 'center',
+  },
+  gridContainer: {
     justifyContent: 'flex-start',
     justifyItems: 'center',
     alignItems: 'center',
@@ -71,14 +73,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-interface DescriptionListProps {
+interface BrandDescriptionListProps {
   brandList: BrandResponse;
 }
 
-const alpha = Array.from(Array(26)).map((e, i) => i + 65);
-const alphabet: string[] = alpha.map(x => String.fromCharCode(x));
-
-export default function BrandDescriptionList(props: DescriptionListProps) {
+export default function BrandDescriptionList(props: BrandDescriptionListProps) {
   const classes = useStyles(campediaTheme);
   const [columns, setColumns] = React.useState(6);
   const [xs, setXs] = React.useState(1);
@@ -96,10 +95,14 @@ export default function BrandDescriptionList(props: DescriptionListProps) {
 
   return (
     <div>
-      {alphabet.map(char => {
-        const brandByChar = props.brandList.filter(brand => {
-          return brand.name.charAt(0) === char;
-        });
+      {alphabetArray.map(char => {
+        const brandByChar = props.brandList
+          .filter(brand => {
+            return brand.name.charAt(0) === char;
+          })
+          .sort((a, b) =>
+            a.name.toLowerCase().localeCompare(b.name.toLowerCase()),
+          );
 
         return (
           <>
@@ -109,34 +112,36 @@ export default function BrandDescriptionList(props: DescriptionListProps) {
                   <Typography variant="h3">{char.toUpperCase()}</Typography>
                   <Divider />
                 </div>
-                <Grid
-                  className={classes.gridContainer}
-                  container
-                  columns={columns}>
-                  {brandByChar.map(data => {
-                    return (
-                      <Grid
-                        key={data.alt}
-                        className={classes.gridItem}
-                        item
-                        xs={xs}>
-                        <Link href={`/brands/${data.alt}`} passHref>
-                          <a className={classes.gridLink}>
-                            <Icon className={classes.brandIcon}>
-                              <SquareImage alt={data.alt} />
-                            </Icon>
-                            <Typography
-                              className={classes.listText}
-                              variant="body1"
-                              noWrap>
-                              {data.name}
-                            </Typography>
-                          </a>
-                        </Link>
-                      </Grid>
-                    );
-                  })}
-                </Grid>
+                <div className={classes.flexBox}>
+                  <Grid
+                    className={classes.gridContainer}
+                    container
+                    columns={columns}>
+                    {brandByChar.map(data => {
+                      return (
+                        <Grid
+                          key={data.alt}
+                          className={classes.gridItem}
+                          item
+                          xs={xs}>
+                          <Link href={`/brands/${data.alt}`} passHref>
+                            <a className={classes.gridLink}>
+                              <Icon className={classes.brandIcon}>
+                                <SquareImage alt={data.alt} type={'brand'} />
+                              </Icon>
+                              <Typography
+                                className={classes.listText}
+                                variant="body1"
+                                noWrap>
+                                {data.name}
+                              </Typography>
+                            </a>
+                          </Link>
+                        </Grid>
+                      );
+                    })}
+                  </Grid>
+                </div>
                 <br />
               </>
             )}
