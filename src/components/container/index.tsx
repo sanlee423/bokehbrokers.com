@@ -1,5 +1,5 @@
+import {campediaTheme} from '@/utils/campediaTheme';
 import {makeStyles} from '@mui/styles';
-import cpTheme from 'src/theme/cpTheme';
 
 const useStyles = makeStyles(theme => ({
   mainContainer: {
@@ -12,12 +12,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-type Props = {
-  children: React.FC[];
-};
-
 export const Container: React.FC = ({children}) => {
-  const classes = useStyles(cpTheme);
+  const classes = useStyles(campediaTheme);
 
   return <div className={classes.mainContainer}>{children}</div>;
 };

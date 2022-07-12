@@ -1,20 +1,20 @@
 import React from 'react';
 import {AppProps} from 'next/app';
-import 'tailwindcss/tailwind.css';
 import {ThemeProvider} from '@mui/styles';
-import cpTheme from 'src/theme/cpTheme';
-import Main from '@/components/main';
+import 'tailwindcss/tailwind.css';
 import '@/styles/navbar.scss';
 import '@/styles/swiper.scss';
 import {Container} from '@/components/container';
 import {Header} from '@/components/header';
+import {campediaTheme} from '@/utils/campediaTheme';
+import MainNav from '@/components/dropdown/mainNav';
 
 function MyApp({Component, pageProps}: AppProps): JSX.Element {
   return (
     <Container>
-      <ThemeProvider theme={cpTheme}>
+      <ThemeProvider theme={campediaTheme}>
         <Header />
-        <Main />
+        <MainNav />
         <Component {...pageProps} />
       </ThemeProvider>
     </Container>

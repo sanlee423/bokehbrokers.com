@@ -1,6 +1,6 @@
 import React from 'react';
 import {makeStyles} from '@mui/styles';
-import cpTheme from 'src/theme/cpTheme';
+import {campediaTheme} from '@/utils/campediaTheme';
 
 const useStyles = makeStyles(theme => ({
   homeContainer: {
@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Film: React.FC = () => {
-  const classes = useStyles(cpTheme);
+  const classes = useStyles(campediaTheme);
 
   return <div className={classes.homeContainer}>Film</div>;
 };

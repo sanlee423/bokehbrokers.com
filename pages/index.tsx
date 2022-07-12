@@ -1,9 +1,9 @@
 import React from 'react';
-import {FeaturedCard} from '@/components/featuredCard/featuredCard';
-import {BrandCard} from '@/components/brandCard';
-import {makeStyles} from '@mui/styles';
-import cpTheme from 'src/theme/cpTheme';
+import {HomeVideoComponent} from '@/components/homeCards/homeVideoComponent';
+import {BrandHomeCard} from '@/components/brandCards/brandHomeCard';
 import {Footer} from '@/components/footer';
+import {makeStyles} from '@mui/styles';
+import {campediaTheme} from '@/utils/campediaTheme';
 
 const useStyles = makeStyles(theme => ({
   homeContainer: {
@@ -18,12 +18,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Home: React.FC = () => {
-  const classes = useStyles(cpTheme);
+  const classes = useStyles(campediaTheme);
 
   return (
     <div className={classes.homeContainer}>
-      <FeaturedCard />
-      <BrandCard />
+      <HomeVideoComponent />
+      <BrandHomeCard />
       <Footer />
     </div>
   );

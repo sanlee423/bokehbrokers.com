@@ -4,7 +4,7 @@ import ListItemText from '@mui/material/ListItemText';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {Collapse, ListItemButton} from '@mui/material';
-import {DropdownProps} from '../dropdown/dropDownItem';
+import {DropdownProps} from '../dropDownItem';
 
 type Props = {
   dropDownItems: DropdownProps;

@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@mui/styles';
-import cpTheme from 'src/theme/cpTheme';
-import PhotoList from '@/components/photoList';
+import PhotoList from '@/components/brandCards/brandPhotoList';
 import {Footer} from '@/components/footer';
 import useSWR from 'swr';
 import {BrandResponse} from 'pages/api/brands';
@@ -13,8 +12,9 @@ import {
 } from '@mui/material';
 import {Image, SortByAlpha} from '@mui/icons-material';
 import {toggleList} from '..';
-import DescriptivePhotoList from '@/components/descriptivePhotoList';
-import TextList from '@/components/textList';
+import DescriptivePhotoList from '@/components/brandCards/brandDescriptionList';
+import TextList from '@/components/brandCards/brandTextList';
+import {campediaTheme} from '@/utils/campediaTheme';
 
 const useStyles = makeStyles(theme => ({
   brandContainer: {
@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const Digital: React.FC = () => {
-  const classes = useStyles(cpTheme);
+  const classes = useStyles(campediaTheme);
   const [brands, setBrands] = useState<BrandResponse | undefined>();
   const {data} = useSWR(`/api/brands/`, fetcher);
 

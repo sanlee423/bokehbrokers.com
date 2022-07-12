@@ -1,14 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@mui/styles';
-import cpTheme from 'src/theme/cpTheme';
 import {Footer} from '@/components/footer';
 import useSWR from 'swr';
 import {CameraResponse} from 'pages/api/cameras';
-import {Grid, Typography} from '@mui/material';
+import {
+  Divider,
+  Grid,
+  ToggleButton,
+  ToggleButtonGroup,
+  Typography,
+} from '@mui/material';
+import {Description, Image as ImageIcon, TextFields} from '@mui/icons-material';
 import useWindowSize from '@/utils/windowDimensions';
 import Link from 'next/link';
 import {getFormattedDate} from '@/utils/dateFormatter';
 import {CameraPreviewImageResponse} from 'pages/api/image/camera/preview';
+import {toggleList} from 'pages/brands';
+import {campediaTheme} from '@/utils/campediaTheme';
 
 const useStyles = makeStyles(theme => ({
   cameraContainer: {
@@ -19,6 +27,12 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'flex-start',
     justifyItems: 'center',
     alignItems: 'center',
+  },
+  pageHeader: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    height: '4vh',
+    margin: '1%',
   },
   itemLink: {
     height: '100%',
@@ -78,7 +92,7 @@ const useStyles = makeStyles(theme => ({
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const Cameras: React.FC = () => {
-  const classes = useStyles(cpTheme);
+  const classes = useStyles(campediaTheme);
   const [cameras, setCameras] = useState<CameraResponse | undefined>();
   const [images, setImages] = React.useState<
     CameraPreviewImageResponse[] | undefined
@@ -105,9 +119,40 @@ const Cameras: React.FC = () => {
       setXs(1);
     }
   }, [setCameras, data, width, previewImages]);
-  console.log(images);
+
+  const [alignment, setAlignment] = React.useState<toggleList>('desc');
+
+  const handleChange = (
+    event: React.MouseEvent<HTMLElement>,
+    newAlignment: toggleList,
+  ) => {
+    setAlignment(newAlignment);
+  };
+
+  const control = {
+    value: alignment,
+    onChange: handleChange,
+    exclusive: true,
+  };
+
   return (
-    <div>
+    <>
+      <Divider />
+      <div className={classes.pageHeader}>
+        <ToggleButtonGroup size="small" {...control}>
+          <ToggleButton value="desc" key="desc">
+            <Description />
+          </ToggleButton>
+          <ToggleButton value="image" key="image">
+            <ImageIcon />
+          </ToggleButton>
+          <ToggleButton value="text" key="text">
+            <TextFields />
+          </ToggleButton>
+        </ToggleButtonGroup>
+      </div>
+      <Divider />
+      <br />
       <Grid className={classes.cameraContainer} container columns={columns}>
         {cameras &&
           cameras.map(camera => {
@@ -155,7 +200,7 @@ const Cameras: React.FC = () => {
           })}
       </Grid>
       <Footer />
-    </div>
+    </>
   );
 };
 

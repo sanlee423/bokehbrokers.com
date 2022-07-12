@@ -1,6 +1,6 @@
+import {campediaTheme} from '@/utils/campediaTheme';
 import {makeStyles} from '@mui/styles';
 import React from 'react';
-import cpTheme from 'src/theme/cpTheme';
 
 const useStyles = makeStyles(theme => ({
   videoContainer: {
@@ -27,8 +27,8 @@ const useStyles = makeStyles(theme => ({
 
 const featuredVideoData = ['eE6xWnLfJho', 'e92dppDp6L8', 'wNNiS6UILS0'];
 
-export const FeaturedCard: React.FC = () => {
-  const classes = useStyles(cpTheme);
+export const HomeVideoComponent: React.FC = () => {
+  const classes = useStyles(campediaTheme);
 
   const videoId =
     featuredVideoData[Math.floor(Math.random() * featuredVideoData.length)];

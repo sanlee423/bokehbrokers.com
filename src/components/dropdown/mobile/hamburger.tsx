@@ -7,11 +7,11 @@ import Divider from '@mui/material/Divider';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import {Collapsible} from './collapsible';
-import {brandDropdown} from '../dropdown/types/brandDropdown';
-import {cameraDropdown} from '../dropdown/types/cameraDropdown';
-import {lensDropDown} from '../dropdown/types/lensDropdown';
-import {filmDropDown} from '../dropdown/types/filmDropdown';
 import {CSSTransition} from 'react-transition-group';
+import {brandDropdown} from '../types/brandDropdown';
+import {cameraDropdown} from '../types/cameraDropdown';
+import {lensDropDown} from '../types/lensDropdown';
+import {filmDropDown} from '../types/filmDropdown';
 
 const duration = 500;
 

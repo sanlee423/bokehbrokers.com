@@ -1,15 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import {makeStyles, styled} from '@mui/styles';
-import cpTheme from 'src/theme/cpTheme';
+
 import {useRouter} from 'next/router';
-import {Box, Typography} from '@mui/material';
+import {Box, Divider, Typography} from '@mui/material';
 import {DataGrid as MuiDataGrid, GridColDef} from '@mui/x-data-grid';
-import Swiper from '@/components/swiper';
+import Swiper from '@/utils/swiper';
 import useSWR from 'swr';
 import {CameraData, CameraSpecs} from 'pages/api/cameras/[cameraId]';
 import {getFormattedDate} from '@/utils/dateFormatter';
 import {formatSpec, formatSpecValue} from '@/utils/specFormatter';
 import {CameraImageResponse} from 'pages/api/image/camera/[cameraAlt]';
+import {campediaTheme} from '@/utils/campediaTheme';
 
 const useStyles = makeStyles(theme => ({
   cameraContainer: {
@@ -31,14 +32,20 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     height: '100%',
 
-    border: 'red solid 0.5px',
-
     '& > *': {
       marginRight: '3%',
+    },
+
+    '@media (max-width: 700px)': {
+      flexDirection: 'column',
     },
   },
   swiperContainer: {
     width: '31.25em',
+    '@media (max-width: 700px)': {
+      width: '100%',
+      padding: '2%',
+    },
   },
   priceContainer: {},
   swiper: {},
@@ -78,7 +85,7 @@ function buildDataGridRows(cameraSpecs: CameraSpecs): GridRows[] {
 }
 
 const CamerasByAlt: React.FC = () => {
-  const classes = useStyles(cpTheme);
+  const classes = useStyles(campediaTheme);
   const router = useRouter();
   const {cameraAlt} = router.query;
   const [camera, setCamera] = useState<CameraData>();
@@ -103,7 +110,6 @@ const CamerasByAlt: React.FC = () => {
     }
 
     setImages(cameraImages);
-    //   setImage(brandImage);
   }, [cameraImages, cameraData, cameraSpecs]);
 
   const DataGrid = styled(MuiDataGrid)(({theme}) => ({
@@ -140,6 +146,8 @@ const CamerasByAlt: React.FC = () => {
           </div>
         )}
       </div>
+      <Divider />
+      <br />
       {camera?.description && (
         <div>
           <Typography variant={'h5'}>Product description</Typography>

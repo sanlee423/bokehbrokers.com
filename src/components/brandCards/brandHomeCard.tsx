@@ -1,8 +1,8 @@
+import {campediaTheme} from '@/utils/campediaTheme';
 import {ImageList, ImageListItem} from '@mui/material';
 import {makeStyles} from '@mui/styles';
 import Link from 'next/link';
 import React from 'react';
-import cpTheme from 'src/theme/cpTheme';
 
 const useStyles = makeStyles(theme => ({
   brandContainer: {
@@ -67,8 +67,8 @@ const brandList = [
   },
 ];
 
-export const BrandCard: React.FC = () => {
-  const classes = useStyles(cpTheme);
+export const BrandHomeCard: React.FC = () => {
+  const classes = useStyles(campediaTheme);
 
   return (
     <div className={`${classes.brandContainer} container`}>

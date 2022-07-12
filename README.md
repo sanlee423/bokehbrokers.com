@@ -30,12 +30,6 @@ superplate is a Next.js all-in-one project generator. Create your project with t
 
 To learn more about **superplate**, please check out the [Documentation](https://github.com/pankod/superplate).
 
-### **TailwindCSS**
-
-A utility-first CSS framework packed with classes like flex, pt-4, text-center and rotate-90 that can be composed to build any design, directly in your markup.
-
-[Go To Documentation](https://tailwindcss.com/docs)
-
 ### **SASS/SCSS**
 
 Sass is a stylesheet language that’s compiled to CSS. It allows you to use variables, nested rules, mixins, functions, and more, all with a fully CSS-compatible syntax.

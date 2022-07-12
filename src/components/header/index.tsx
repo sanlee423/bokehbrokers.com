@@ -1,9 +1,9 @@
 import React from 'react';
-import {Hamburger} from '@/components/hamburger';
 import {makeStyles} from '@mui/styles';
-import cpTheme from 'src/theme/cpTheme';
-import {Logo} from '../logo';
+import {Logo} from './logo';
 import useWindowSize from '@/utils/windowDimensions';
+import {campediaTheme} from '@/utils/campediaTheme';
+import {Hamburger} from '../dropdown/mobile/hamburger';
 
 const useStyles = makeStyles(theme => ({
   //bg-white flex flex-row justify-between items-center
@@ -18,13 +18,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const Header: React.FC = () => {
-  const classes = useStyles(cpTheme);
+  const classes = useStyles(campediaTheme);
   const {width} = useWindowSize();
 
   return (
     <div className={classes.headerContainer}>
       <Logo />
-      {width < 670 && <Hamburger />}
+      {width < 700 && <Hamburger />}
     </div>
   );
 };

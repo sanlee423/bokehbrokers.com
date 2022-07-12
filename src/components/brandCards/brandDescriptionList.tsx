@@ -1,27 +1,25 @@
 import * as React from 'react';
-import cpTheme from 'src/theme/cpTheme';
 import {makeStyles} from '@mui/styles';
 import {Divider, Grid, Icon, Typography} from '@mui/material';
 import Link from 'next/link';
 import {BrandResponse} from 'pages/api/brands';
-import SquareImage from './canvas';
+import SquareImage from '../../utils/squareImage';
 import useWindowSize from '@/utils/windowDimensions';
+import {campediaTheme} from '@/utils/campediaTheme';
 
 const useStyles = makeStyles(theme => ({
   alphaHeader: {
     margin: '1% 5%',
   },
   gridContainer: {
-    margin: '2%',
+    marginLeft: '4%',
+    marginTop: '2%',
     width: '100vw',
     height: '100%',
-    justifyContent: 'flex-start',
 
-    '@media (max-width: 700px)': {
-      justifyContent: 'flex-start',
-      justifyItems: 'center',
-      alignItems: 'center',
-    },
+    justifyContent: 'flex-start',
+    justifyItems: 'center',
+    alignItems: 'center',
   },
   gridLink: {
     height: '100%',
@@ -35,10 +33,10 @@ const useStyles = makeStyles(theme => ({
   },
   gridItem: {
     margin: '1%',
-    padding: '2%',
+    padding: '1%',
+    height: '5rem',
     cursor: 'pointer',
     borderRadius: '0.5rem',
-
     boxShadow:
       '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
 
@@ -51,6 +49,7 @@ const useStyles = makeStyles(theme => ({
         color: 'white',
       },
     },
+    whiteSpace: 'nowrap',
     overflow: 'hidden',
   },
   listText: {
@@ -72,25 +71,25 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-interface PhotoListProps {
+interface DescriptionListProps {
   brandList: BrandResponse;
 }
 
 const alpha = Array.from(Array(26)).map((e, i) => i + 65);
 const alphabet: string[] = alpha.map(x => String.fromCharCode(x));
 
-export default function PhotoList(props: PhotoListProps) {
-  const classes = useStyles(cpTheme);
+export default function BrandDescriptionList(props: DescriptionListProps) {
+  const classes = useStyles(campediaTheme);
   const [columns, setColumns] = React.useState(6);
   const [xs, setXs] = React.useState(1);
   const {width} = useWindowSize();
 
   React.useEffect(() => {
     if (width < 700) {
-      setColumns(1);
+      setColumns(2);
       setXs(0.8);
     } else {
-      setColumns(6);
+      setColumns(4);
       setXs(1);
     }
   }, [width]);
@@ -116,12 +115,22 @@ export default function PhotoList(props: PhotoListProps) {
                   columns={columns}>
                   {brandByChar.map(data => {
                     return (
-                      <Grid key={data.alt} className={classes.gridItem} item>
+                      <Grid
+                        key={data.alt}
+                        className={classes.gridItem}
+                        item
+                        xs={xs}>
                         <Link href={`/brands/${data.alt}`} passHref>
                           <a className={classes.gridLink}>
                             <Icon className={classes.brandIcon}>
                               <SquareImage alt={data.alt} />
                             </Icon>
+                            <Typography
+                              className={classes.listText}
+                              variant="body1"
+                              noWrap>
+                              {data.name}
+                            </Typography>
                           </a>
                         </Link>
                       </Grid>

@@ -1,15 +1,15 @@
 import React from 'react';
 import {makeStyles} from '@mui/styles';
-import cpTheme from 'src/theme/cpTheme';
-import {Navbar, NavbarLeft, NavItemIcon, NavItemText} from '../navbar';
+import {Navbar, NavbarLeft, NavItemIcon, NavItemText} from './navbar';
 import SettingsIcon from '@mui/icons-material/Settings';
-import {DropdownMenu} from '../dropdown/dropDownMenu';
-import {brandDropdown} from '../dropdown/types/brandDropdown';
-import {cameraDropdown} from '../dropdown/types/cameraDropdown';
-import {lensDropDown} from '../dropdown/types/lensDropdown';
-import {filmDropDown} from '../dropdown/types/filmDropdown';
-import {settingsDropdown} from '../dropdown/types/settingsDropdown';
+import {DropdownMenu} from './dropDownMenu';
+import {brandDropdown} from './types/brandDropdown';
+import {cameraDropdown} from './types/cameraDropdown';
+import {lensDropDown} from './types/lensDropdown';
+import {filmDropDown} from './types/filmDropdown';
+import {settingsDropdown} from './types/settingsDropdown';
 import useWindowSize from '@/utils/windowDimensions';
+import {campediaTheme} from '@/utils/campediaTheme';
 
 const useStyles = makeStyles(theme => ({
   mainNav: {
@@ -18,13 +18,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Main: React.FC = () => {
-  const classes = useStyles(cpTheme);
+const MainNav: React.FC = () => {
+  const classes = useStyles(campediaTheme);
   const {width} = useWindowSize();
 
   return (
     <div className={classes.mainNav}>
-      {width > 670 && (
+      {width > 700 && (
         <nav className="navbar">
           <NavbarLeft>
             <NavItemText text={'Brands'}>
@@ -61,4 +61,4 @@ const Main: React.FC = () => {
   );
 };
 
-export default Main;
+export default MainNav;

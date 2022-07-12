@@ -1,6 +1,6 @@
 import {createTheme} from '@mui/material/styles';
 
-const cpTheme = createTheme({
+export const campediaTheme = createTheme({
   typography: {
     fontFamily: 'Raleway, Arial',
     fontSize: 12,
@@ -23,5 +23,3 @@ const cpTheme = createTheme({
     },
   },
 });
-
-export default cpTheme;

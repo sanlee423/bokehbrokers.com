@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {makeStyles, styled} from '@mui/styles';
-import cpTheme from 'src/theme/cpTheme';
 import {useRouter} from 'next/router';
 import {
   Typography,
@@ -16,6 +15,7 @@ import {BrandDetailsResponse} from 'pages/api/brands/[brandId]';
 import {BrandCameraListResponse} from 'pages/api/brands/[brandId]/cameras';
 import Link from 'next/link';
 import {BrandImageResponse} from 'pages/api/image/brand/[brandAlt]';
+import {campediaTheme} from '@/utils/campediaTheme';
 
 const useStyles = makeStyles(theme => ({
   homeContainer: {
@@ -111,7 +111,7 @@ const MuiAccordionDetails = styled(AccordionDetails)(({theme}) => ({
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const Brands: React.FC = () => {
-  const classes = useStyles(cpTheme);
+  const classes = useStyles(campediaTheme);
   const router = useRouter();
   const {brandId} = router.query;
   const [brandDetails, setBrandDetails] = useState<

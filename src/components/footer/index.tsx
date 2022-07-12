@@ -1,7 +1,7 @@
 import React from 'react';
 import {makeStyles} from '@mui/styles';
-import cpTheme from 'src/theme/cpTheme';
 import Link from 'next/link';
+import {campediaTheme} from '@/utils/campediaTheme';
 
 const useStyles = makeStyles(theme => ({
   footer: {
@@ -24,7 +24,7 @@ type Props = {
 };
 
 export const Footer: React.FC = () => {
-  const classes = useStyles(cpTheme);
+  const classes = useStyles(campediaTheme);
   return (
     <div className={classes.footer}>
       <div className={classes.footerText}>

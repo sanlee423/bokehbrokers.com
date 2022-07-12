@@ -1,14 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@mui/styles';
-import cpTheme from 'src/theme/cpTheme';
-import PhotoList from '@/components/photoList';
+
+import BrandDescriptionList from '@/components/brandCards/brandDescriptionList';
+import BrandPhotoList from '@/components/brandCards/brandPhotoList';
+import BrandTextList from '@/components/brandCards/brandTextList';
+
 import {Footer} from '@/components/footer';
 import useSWR from 'swr';
 import {BrandResponse} from 'pages/api/brands';
 import {Divider, ToggleButton, ToggleButtonGroup} from '@mui/material';
 import {Description, Image as ImageIcon, TextFields} from '@mui/icons-material';
-import TextList from '@/components/textList';
-import DescriptivePhotoList from '@/components/descriptivePhotoList';
+import {campediaTheme} from '@/utils/campediaTheme';
 
 const useStyles = makeStyles(theme => ({
   brandContainer: {
@@ -42,7 +44,7 @@ const fetcher = (url: string) => fetch(url).then(res => res.json());
 export type toggleList = 'image' | 'desc' | 'text';
 
 const Brands: React.FC = () => {
-  const classes = useStyles(cpTheme);
+  const classes = useStyles(campediaTheme);
   const [brands, setBrands] = useState<BrandResponse | undefined>();
   const {data} = useSWR(`/api/brands/`, fetcher);
 
@@ -85,10 +87,12 @@ const Brands: React.FC = () => {
       <br />
       <div className={classes.brandContainer}>
         {brands && alignment === 'desc' && (
-          <DescriptivePhotoList brandList={brands} />
+          <BrandDescriptionList brandList={brands} />
         )}
-        {brands && alignment === 'image' && <PhotoList brandList={brands} />}
-        {brands && alignment === 'text' && <TextList brandList={brands} />}
+        {brands && alignment === 'image' && (
+          <BrandPhotoList brandList={brands} />
+        )}
+        {brands && alignment === 'text' && <BrandTextList brandList={brands} />}
         <Footer />
       </div>
     </>
