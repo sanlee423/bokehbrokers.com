@@ -9,6 +9,9 @@
     "svgr": "npx @svgr/cli -d src/components/icons --ignore-existing --icon --typescript public/icons",
     "test": "jest -c test/jest.config.js"
   },
+  "engines": {
+    "node": "16.x"
+  },
   "dependencies": {
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
