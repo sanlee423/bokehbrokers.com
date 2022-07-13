@@ -1,7 +1,6 @@
 import React from 'react';
 import {HomeVideoComponent} from '@/components/homeCards/homeVideoComponent';
-import {BrandHomeCard} from '@/components/brandCards/brandHomeCard';
-import {Footer} from '@/components/footer';
+import {BrandHomeCard} from '@/components/cards/brandHomeCard';
 import {makeStyles} from '@mui/styles';
 import {campediaTheme} from '@/utils/campediaTheme';
 
@@ -24,7 +23,6 @@ const Home: React.FC = () => {
     <div className={classes.homeContainer}>
       <HomeVideoComponent />
       <BrandHomeCard />
-      <Footer />
     </div>
   );
 };

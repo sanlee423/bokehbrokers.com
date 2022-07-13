@@ -1,23 +1,8 @@
 import React from 'react';
-import {makeStyles} from '@mui/styles';
-import {campediaTheme} from '@/utils/campediaTheme';
+import PageList from '@/components/pageComponents/pageList';
 
-const useStyles = makeStyles(theme => ({
-  homeContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'start',
-    alignItems: 'flex-start',
-    width: '100%',
-    height: '100%',
-    overflowX: 'hidden',
-  },
-}));
-
-const Film: React.FC = () => {
-  const classes = useStyles(campediaTheme);
-
-  return <div className={classes.homeContainer}>Film</div>;
+const Brands: React.FC = () => {
+  return <PageList type={'film'} />;
 };
 
-export default Film;
+export default Brands;

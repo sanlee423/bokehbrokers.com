@@ -14,7 +14,7 @@ import useSWR from 'swr';
 import {BrandDetailsResponse} from 'pages/api/brands/[brandId]';
 import {BrandCameraListResponse} from 'pages/api/brands/[brandId]/cameras';
 import Link from 'next/link';
-import {BrandImageResponse} from 'pages/api/image/brand/[brandAlt]';
+import {BrandImageResponse} from 'pages/api/image/brands/[brandAlt]';
 import {campediaTheme} from '@/utils/campediaTheme';
 
 const useStyles = makeStyles(theme => ({
@@ -127,7 +127,7 @@ const Brands: React.FC = () => {
     fetcher,
   );
   const {data: brandImage} = useSWR<BrandImageResponse>(
-    `/api/image/brand/${brandId}`,
+    `/api/image/brands/${brandId}`,
     fetcher,
   );
 

@@ -31,7 +31,7 @@ export const Footer: React.FC = () => {
         <strong className="copyright">
           ©{new Date().getFullYear()} Sanlee LLC. All rights reserved.
         </strong>
-        <Link href="/settings/privacy"> | Terms of Use</Link>
+        <Link href="/settings/terms"> | Terms of Use</Link>
         <Link href="/settings/privacy"> | Privacy Policy</Link>
       </div>
     </div>

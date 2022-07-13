@@ -6,6 +6,10 @@ import {BrandResponse} from 'pages/api/brands';
 import useWindowSize from '@/utils/windowDimensions';
 import {Divider, Grid, Typography} from '@mui/material';
 import {campediaTheme} from '@/utils/campediaTheme';
+import {CameraResponse} from 'pages/api/cameras';
+import {alphabetArray} from '@/utils/alphabetArray';
+import {idID} from '@mui/material/locale';
+import {objDecider} from './objDecider';
 
 const useStyles = makeStyles(theme => ({
   alphaHeader: {
@@ -36,14 +40,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-interface brandTextListProps {
-  brandList: BrandResponse;
+interface TextListCardProps {
+  objList: BrandResponse | CameraResponse;
+  type: 'brands' | 'cameras' | 'lens' | 'film';
 }
 
-const alpha = Array.from(Array(26)).map((e, i) => i + 65);
-const alphabet: string[] = alpha.map(x => String.fromCharCode(x));
-
-export default function BrandTextList(props: brandTextListProps) {
+export default function TextListCard(props: TextListCardProps) {
   const classes = useStyles(campediaTheme);
   const [columns, setColumns] = React.useState(6);
   const [xs, setXs] = React.useState(1);
@@ -61,18 +63,12 @@ export default function BrandTextList(props: brandTextListProps) {
 
   return (
     <div>
-      {alphabet.map(char => {
-        const brandByChar = props.brandList
-          .filter(brand => {
-            return brand.name.charAt(0) === char;
-          })
-          .sort((a, b) =>
-            a.name.toLowerCase().localeCompare(b.name.toLowerCase()),
-          );
+      {alphabetArray.map(char => {
+        const objByChar = objDecider(char, props.objList, props.type);
 
         return (
           <>
-            {brandByChar.length > 0 && (
+            {objByChar.length > 0 && (
               <>
                 <div key={char} className={classes.alphaHeader}>
                   <Typography variant="h3">{char.toUpperCase()}</Typography>
@@ -82,14 +78,14 @@ export default function BrandTextList(props: brandTextListProps) {
                   className={classes.textContainer}
                   container
                   columns={columns}>
-                  {brandByChar.map(data => {
+                  {objByChar.map(data => {
                     return (
                       <Grid
                         key={data.alt}
                         className={classes.textItem}
                         item
                         xs={xs}>
-                        <Link href={`/brands/${data.alt}`} passHref>
+                        <Link href={`/${props.type}/${data.alt}`} passHref>
                           <a className={classes.textLink}>
                             <Typography
                               className={classes.listText}

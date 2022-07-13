@@ -7,6 +7,9 @@ import SquareImage from '../../utils/squareImage';
 import useWindowSize from '@/utils/windowDimensions';
 import {campediaTheme} from '@/utils/campediaTheme';
 import {alphabetArray} from '@/utils/alphabetArray';
+import {CameraResponse} from 'pages/api/cameras';
+import {instanceOfCamera, objDecider} from './objDecider';
+import {getFormattedDate} from '@/utils/dateFormatter';
 
 const useStyles = makeStyles(theme => ({
   alphaHeader: {
@@ -50,6 +53,12 @@ const useStyles = makeStyles(theme => ({
       '& $listText': {
         color: 'white',
       },
+      '& $cameraName': {
+        color: 'white',
+      },
+      '& $cameraMisc': {
+        color: 'white',
+      },
     },
     whiteSpace: 'nowrap',
     overflow: 'hidden',
@@ -61,6 +70,16 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'flex-start',
     fontWeight: 600,
   },
+  infoBox: {
+    width: '100%',
+    marginLeft: '10%',
+  },
+  cameraName: {
+    fontWeight: 600,
+  },
+  cameraMisc: {
+    fontWeight: 400,
+  },
   brandIcon: {
     width: '4.0rem',
     height: '4.0rem',
@@ -68,16 +87,14 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: 'white',
     borderRadius: '0.5rem',
   },
-  brandImage: {
-    objectFit: 'cover',
-  },
 }));
 
-interface BrandDescriptionListProps {
-  brandList: BrandResponse;
+interface DescriptionListProps {
+  objList: BrandResponse | CameraResponse;
+  type: 'brands' | 'cameras' | 'lens' | 'film';
 }
 
-export default function BrandDescriptionList(props: BrandDescriptionListProps) {
+export default function DescriptionListCard(props: DescriptionListProps) {
   const classes = useStyles(campediaTheme);
   const [columns, setColumns] = React.useState(6);
   const [xs, setXs] = React.useState(1);
@@ -96,17 +113,11 @@ export default function BrandDescriptionList(props: BrandDescriptionListProps) {
   return (
     <div>
       {alphabetArray.map(char => {
-        const brandByChar = props.brandList
-          .filter(brand => {
-            return brand.name.charAt(0) === char;
-          })
-          .sort((a, b) =>
-            a.name.toLowerCase().localeCompare(b.name.toLowerCase()),
-          );
+        const objByChar = objDecider(char, props.objList, props.type);
 
         return (
           <>
-            {brandByChar.length > 0 && (
+            {objByChar.length > 0 && (
               <>
                 <div key={char} className={classes.alphaHeader}>
                   <Typography variant="h3">{char.toUpperCase()}</Typography>
@@ -117,24 +128,53 @@ export default function BrandDescriptionList(props: BrandDescriptionListProps) {
                     className={classes.gridContainer}
                     container
                     columns={columns}>
-                    {brandByChar.map(data => {
+                    {objByChar.map(data => {
                       return (
                         <Grid
                           key={data.alt}
                           className={classes.gridItem}
                           item
                           xs={xs}>
-                          <Link href={`/brands/${data.alt}`} passHref>
+                          <Link href={`/${props.type}/${data.alt}`} passHref>
                             <a className={classes.gridLink}>
                               <Icon className={classes.brandIcon}>
-                                <SquareImage alt={data.alt} type={'brand'} />
+                                <SquareImage alt={data.alt} type={props.type} />
                               </Icon>
-                              <Typography
-                                className={classes.listText}
-                                variant="body1"
-                                noWrap>
-                                {data.name}
-                              </Typography>
+                              {props.type === 'brands' && (
+                                <Typography
+                                  className={classes.listText}
+                                  variant="body1"
+                                  noWrap>
+                                  {data.name}
+                                </Typography>
+                              )}
+                              {props.type === 'cameras' &&
+                                instanceOfCamera(data) && (
+                                  <div className={classes.infoBox}>
+                                    <Typography
+                                      className={classes.cameraName}
+                                      variant="body1"
+                                      noWrap>
+                                      {data.name}
+                                    </Typography>
+                                    <Typography
+                                      className={classes.cameraMisc}
+                                      variant="body2"
+                                      noWrap>
+                                      {`Release Date: ${getFormattedDate(
+                                        data.releaseDate,
+                                      )}`}
+                                    </Typography>
+                                    <div>
+                                      <Typography
+                                        className={classes.cameraMisc}
+                                        variant="body2"
+                                        noWrap>
+                                        $1666
+                                      </Typography>
+                                    </div>
+                                  </div>
+                                )}
                             </a>
                           </Link>
                         </Grid>

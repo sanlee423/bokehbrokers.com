@@ -1,11 +1,11 @@
-import {BrandImageResponse} from 'pages/api/image/brand/[brandAlt]';
-import {CameraPreviewImageResponse} from 'pages/api/image/camera/[cameraAlt]';
+import {BrandImageResponse} from 'pages/api/image/brands/[brandAlt]';
+import {CameraPreviewImageResponse} from 'pages/api/image/cameras/[cameraAlt]';
 import * as React from 'react';
 import useSWR from 'swr';
 
 interface SquareImageProps {
   alt: string;
-  type: 'brand' | 'camera' | 'lens' | 'film';
+  type: 'brands' | 'cameras' | 'lens' | 'film';
 }
 
 const fetcher = (url: string) => fetch(url).then(res => res.json());

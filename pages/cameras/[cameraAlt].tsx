@@ -10,7 +10,7 @@ import {CameraData, CameraSpecs} from 'pages/api/cameras/[cameraId]';
 import {getFormattedDate} from '@/utils/dateFormatter';
 import {formatSpec, formatSpecValue} from '@/utils/specFormatter';
 import {campediaTheme} from '@/utils/campediaTheme';
-import {CameraImageResponse} from 'pages/api/image/camera/[cameraAlt]/list';
+import {CameraImageResponse} from 'pages/api/image/cameras/[cameraAlt]/list';
 
 const useStyles = makeStyles(theme => ({
   cameraContainer: {
@@ -94,7 +94,7 @@ const CamerasByAlt: React.FC = () => {
   const {data: cameraData} = useSWR(`/api/cameras/${cameraAlt}`, fetcher);
   const [images, setImages] = React.useState<CameraImageResponse | undefined>();
   const {data: cameraImages} = useSWR<CameraImageResponse>(
-    `/api/image/camera/${cameraAlt}/list`,
+    `/api/image/cameras/${cameraAlt}/list`,
     fetcher,
   );
 

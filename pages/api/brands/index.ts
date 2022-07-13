@@ -7,7 +7,6 @@ export interface BrandObject {
   id: number;
   name: string;
   alt: string;
-  icon: string;
   hasDigitalCameras: 0 | 1;
   hasLens: 0 | 1;
   hasAccessories: 0 | 1;

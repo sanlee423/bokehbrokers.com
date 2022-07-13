@@ -2,11 +2,13 @@ import * as React from 'react';
 import {makeStyles} from '@mui/styles';
 import {Divider, Grid, Icon, Typography} from '@mui/material';
 import Link from 'next/link';
+import {BrandResponse} from 'pages/api/brands';
 import SquareImage from '@/utils/squareImage';
 import useWindowSize from '@/utils/windowDimensions';
 import {campediaTheme} from '@/utils/campediaTheme';
 import {CameraResponse} from 'pages/api/cameras';
 import {alphabetArray} from '@/utils/alphabetArray';
+import {objDecider} from './objDecider';
 
 const useStyles = makeStyles(theme => ({
   alphaHeader: {
@@ -58,11 +60,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-interface CameraPhotoListProps {
-  cameraList: CameraResponse;
+interface PhotoListProps {
+  objList: BrandResponse | CameraResponse;
+  type: 'brands' | 'cameras' | 'lens' | 'film';
 }
 
-export default function CameraPhotoList(props: CameraPhotoListProps) {
+export default function PhotoListCard(props: PhotoListProps) {
   const classes = useStyles(campediaTheme);
   const [columns, setColumns] = React.useState(6);
   const [xs, setXs] = React.useState(1);
@@ -73,7 +76,7 @@ export default function CameraPhotoList(props: CameraPhotoListProps) {
       setColumns(1);
       setXs(0.8);
     } else {
-      setColumns(5);
+      setColumns(6);
       setXs(1);
     }
   }, [width]);
@@ -81,17 +84,11 @@ export default function CameraPhotoList(props: CameraPhotoListProps) {
   return (
     <div>
       {alphabetArray.map(char => {
-        const camerasByChar = props.cameraList
-          .filter(camera => {
-            return camera.name.charAt(0) === char;
-          })
-          .sort((a, b) =>
-            a.name.toLowerCase().localeCompare(b.name.toLowerCase()),
-          );
+        const objByChar = objDecider(char, props.objList, props.type);
 
         return (
           <>
-            {camerasByChar.length > 0 && (
+            {objByChar.length > 0 && (
               <>
                 <div key={char} className={classes.alphaHeader}>
                   <Typography variant="h3">{char.toUpperCase()}</Typography>
@@ -102,13 +99,13 @@ export default function CameraPhotoList(props: CameraPhotoListProps) {
                     className={classes.gridContainer}
                     container
                     columns={columns}>
-                    {camerasByChar.map(data => {
+                    {objByChar.map(data => {
                       return (
                         <Grid key={data.alt} className={classes.gridItem} item>
-                          <Link href={`/cameras/${data.alt}`} passHref>
+                          <Link href={`/${props.type}/${data.alt}`} passHref>
                             <a className={classes.gridLink}>
                               <Icon className={classes.brandIcon}>
-                                <SquareImage alt={data.alt} type={'camera'} />
+                                <SquareImage alt={data.alt} type={props.type} />
                               </Icon>
                             </a>
                           </Link>
@@ -117,6 +114,7 @@ export default function CameraPhotoList(props: CameraPhotoListProps) {
                     })}
                   </Grid>
                 </div>
+                <br />
               </>
             )}
           </>
