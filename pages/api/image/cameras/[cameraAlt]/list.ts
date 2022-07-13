@@ -1,19 +1,16 @@
 import {axInstance} from '@/utils/axiosInstance';
 import {NextApiRequest, NextApiResponse} from 'next';
+import {ImageListResponse} from 'src/types/imageTypes';
 
 const CAMPEDIA_API_URL = process.env.CAMPEDIA_API_URL;
 
-export interface CameraImageResponse {
-  imgSrc: string[];
-}
-
 export default async function cameraImageListHandler(
   req: NextApiRequest,
-  res: NextApiResponse<CameraImageResponse>,
+  res: NextApiResponse<ImageListResponse>,
 ) {
   if (req.method === 'GET') {
     const {cameraAlt} = req.query;
-    const cameraResponse = await axInstance.get<CameraImageResponse>(
+    const cameraResponse = await axInstance.get<ImageListResponse>(
       CAMPEDIA_API_URL + '/image/camera/' + cameraAlt + '/list',
     );
 

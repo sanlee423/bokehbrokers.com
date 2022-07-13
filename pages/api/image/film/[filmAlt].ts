@@ -4,16 +4,16 @@ import {ImagePreviewResponse} from 'src/types/imageTypes';
 
 const CAMPEDIA_API_URL = process.env.CAMPEDIA_API_URL;
 
-export default async function cameraPreviewImageHandler(
+export default async function filmImageHandler(
   req: NextApiRequest,
   res: NextApiResponse<ImagePreviewResponse>,
 ) {
   if (req.method === 'GET') {
-    const {cameraAlt} = req.query;
-    const cameraResponse = await axInstance.get<ImagePreviewResponse>(
-      CAMPEDIA_API_URL + `/image/camera/${cameraAlt}`,
+    const {filmAlt} = req.query;
+    const brandResponse = await axInstance.get<ImagePreviewResponse>(
+      CAMPEDIA_API_URL + '/image/film/' + filmAlt,
     );
 
-    return res.status(200).json(cameraResponse.data);
+    return res.status(200).json(brandResponse.data);
   }
 }

@@ -20,8 +20,8 @@ import {
   BrandCameraObject,
 } from 'pages/api/brands/[brandId]/cameras';
 import Link from 'next/link';
-import {BrandImageResponse} from 'pages/api/image/brands/[brandAlt]';
 import {campediaTheme} from '@/utils/campediaTheme';
+import {ImagePreviewResponse} from 'src/types/imageTypes';
 
 const useStyles = makeStyles(theme => ({
   homeContainer: {
@@ -123,7 +123,7 @@ const Brands: React.FC = () => {
   const [brandDetails, setBrandDetails] = useState<BrandDetailsObject>();
 
   const [brandCameras, setBrandCameras] = useState<BrandCameraObject[]>();
-  const [image, setImage] = React.useState<BrandImageResponse | undefined>();
+  const [image, setImage] = React.useState<ImagePreviewResponse>();
 
   const {data: brandData} = useSWR<BrandDetailsResponse>(
     `/api/brands/${brandId}`,
@@ -133,7 +133,7 @@ const Brands: React.FC = () => {
     `/api/brands/${brandId}/cameras`,
     fetcher,
   );
-  const {data: brandImage} = useSWR<BrandImageResponse>(
+  const {data: brandImage} = useSWR<ImagePreviewResponse>(
     `/api/image/brands/${brandId}`,
     fetcher,
   );

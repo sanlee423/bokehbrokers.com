@@ -1,19 +1,16 @@
 import {axInstance} from '@/utils/axiosInstance';
 import {NextApiRequest, NextApiResponse} from 'next';
+import {ImagePreviewResponse} from 'src/types/imageTypes';
 
 const CAMPEDIA_API_URL = process.env.CAMPEDIA_API_URL;
 
-export interface BrandImageResponse {
-  imgSrc: string;
-}
-
 export default async function brandImageHandler(
   req: NextApiRequest,
-  res: NextApiResponse<BrandImageResponse>,
+  res: NextApiResponse<ImagePreviewResponse>,
 ) {
   if (req.method === 'GET') {
     const {brandAlt} = req.query;
-    const brandResponse = await axInstance.get<BrandImageResponse>(
+    const brandResponse = await axInstance.get<ImagePreviewResponse>(
       CAMPEDIA_API_URL + '/image/brand/' + brandAlt,
     );
 

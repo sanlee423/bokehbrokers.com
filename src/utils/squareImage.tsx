@@ -1,6 +1,5 @@
-import {BrandImageResponse} from 'pages/api/image/brands/[brandAlt]';
-import {CameraPreviewImageResponse} from 'pages/api/image/cameras/[cameraAlt]';
 import * as React from 'react';
+import {ImagePreviewResponse} from 'src/types/imageTypes';
 import useSWR from 'swr';
 
 interface SquareImageProps {
@@ -11,10 +10,8 @@ interface SquareImageProps {
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 export default function SquareImage(props: SquareImageProps) {
-  const [image, setImage] = React.useState<
-    BrandImageResponse | CameraPreviewImageResponse | undefined
-  >();
-  const {data} = useSWR<BrandImageResponse>(
+  const [image, setImage] = React.useState<ImagePreviewResponse>();
+  const {data} = useSWR<ImagePreviewResponse>(
     `/api/image/${props.type}/${props.alt}`,
     fetcher,
   );
