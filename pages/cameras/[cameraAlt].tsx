@@ -15,7 +15,7 @@ import {
 import {getFormattedDate} from '@/utils/dateFormatter';
 import {formatSpec, formatSpecValue} from '@/utils/specFormatter';
 import {campediaTheme} from '@/utils/campediaTheme';
-import {ImageListResponse} from 'pages/api/image/cameras/[cameraAlt]/list';
+import {ImageListResponse} from 'src/types/imageTypes';
 
 const useStyles = makeStyles(theme => ({
   cameraContainer: {
@@ -100,7 +100,7 @@ const CamerasByAlt: React.FC = () => {
     `/api/cameras/${cameraAlt}`,
     fetcher,
   );
-  const [images, setImages] = React.useState<ImageListResponse | undefined>();
+  const [images, setImages] = React.useState<ImageListResponse>();
   const {data: cameraImages} = useSWR<ImageListResponse>(
     `/api/image/cameras/${cameraAlt}/list`,
     fetcher,
