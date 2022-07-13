@@ -9,6 +9,8 @@ import {campediaTheme} from '@/utils/campediaTheme';
 import {CameraResponse} from 'pages/api/cameras';
 import {alphabetArray} from '@/utils/alphabetArray';
 import {objDecider} from './objDecider';
+import {FilmResponse} from 'pages/api/film';
+import {LensResponse} from 'pages/api/lens';
 
 const useStyles = makeStyles(theme => ({
   alphaHeader: {
@@ -61,8 +63,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 interface PhotoListProps {
-  objList: BrandResponse | CameraResponse;
-  type: 'brands' | 'cameras' | 'lens' | 'film';
+  objList: BrandResponse | CameraResponse | FilmResponse | LensResponse;
 }
 
 export default function PhotoListCard(props: PhotoListProps) {
@@ -84,7 +85,7 @@ export default function PhotoListCard(props: PhotoListProps) {
   return (
     <div>
       {alphabetArray.map(char => {
-        const objByChar = objDecider(char, props.objList, props.type);
+        const objByChar = objDecider(char, props.objList);
 
         return (
           <>
@@ -102,10 +103,15 @@ export default function PhotoListCard(props: PhotoListProps) {
                     {objByChar.map(data => {
                       return (
                         <Grid key={data.alt} className={classes.gridItem} item>
-                          <Link href={`/${props.type}/${data.alt}`} passHref>
+                          <Link
+                            href={`/${props.objList.type}/${data.alt}`}
+                            passHref>
                             <a className={classes.gridLink}>
                               <Icon className={classes.brandIcon}>
-                                <SquareImage alt={data.alt} type={props.type} />
+                                <SquareImage
+                                  alt={data.alt}
+                                  type={props.objList.type}
+                                />
                               </Icon>
                             </a>
                           </Link>

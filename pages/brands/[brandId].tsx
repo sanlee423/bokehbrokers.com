@@ -11,8 +11,14 @@ import {
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import useSWR from 'swr';
-import {BrandDetailsResponse} from 'pages/api/brands/[brandId]';
-import {BrandCameraListResponse} from 'pages/api/brands/[brandId]/cameras';
+import {
+  BrandDetailsObject,
+  BrandDetailsResponse,
+} from 'pages/api/brands/[brandId]';
+import {
+  BrandCameraListResponse,
+  BrandCameraObject,
+} from 'pages/api/brands/[brandId]/cameras';
 import Link from 'next/link';
 import {BrandImageResponse} from 'pages/api/image/brands/[brandAlt]';
 import {campediaTheme} from '@/utils/campediaTheme';
@@ -114,15 +120,16 @@ const Brands: React.FC = () => {
   const classes = useStyles(campediaTheme);
   const router = useRouter();
   const {brandId} = router.query;
-  const [brandDetails, setBrandDetails] = useState<
-    BrandDetailsResponse | undefined
-  >();
+  const [brandDetails, setBrandDetails] = useState<BrandDetailsObject>();
 
-  const [brandCameras, setBrandCameras] = useState<BrandCameraListResponse>();
+  const [brandCameras, setBrandCameras] = useState<BrandCameraObject[]>();
   const [image, setImage] = React.useState<BrandImageResponse | undefined>();
 
-  const {data: brandData} = useSWR(`/api/brands/${brandId}`, fetcher);
-  const {data: brandCameraData} = useSWR(
+  const {data: brandData} = useSWR<BrandDetailsResponse>(
+    `/api/brands/${brandId}`,
+    fetcher,
+  );
+  const {data: brandCameraData} = useSWR<BrandCameraListResponse>(
     `/api/brands/${brandId}/cameras`,
     fetcher,
   );
@@ -132,8 +139,12 @@ const Brands: React.FC = () => {
   );
 
   useEffect(() => {
-    setBrandDetails(brandData);
-    setBrandCameras(brandCameraData);
+    if (brandData) {
+      setBrandDetails(brandData.data);
+    }
+    if (brandCameraData) {
+      setBrandCameras(brandCameraData.data);
+    }
     setImage(brandImage);
   }, [
     setBrandDetails,
@@ -231,7 +242,7 @@ const Brands: React.FC = () => {
                 <MuiAccordionDetails>
                   {brandCameras.map(camera => {
                     return (
-                      <Typography key={camera.id}>{camera.name}</Typography>
+                      <Typography key={camera.alt}>{camera.name}</Typography>
                     );
                   })}
                 </MuiAccordionDetails>

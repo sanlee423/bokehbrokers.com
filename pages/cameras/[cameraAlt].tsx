@@ -6,7 +6,12 @@ import {Box, Divider, Typography} from '@mui/material';
 import {DataGrid as MuiDataGrid, GridColDef} from '@mui/x-data-grid';
 import Swiper from '@/utils/swiper';
 import useSWR from 'swr';
-import {CameraData, CameraSpecs} from 'pages/api/cameras/[cameraId]';
+import {
+  CameraData,
+  CameraDetailsResponse,
+  CameraPair,
+  CameraSpecs,
+} from 'pages/api/cameras/[cameraAlt]';
 import {getFormattedDate} from '@/utils/dateFormatter';
 import {formatSpec, formatSpecValue} from '@/utils/specFormatter';
 import {campediaTheme} from '@/utils/campediaTheme';
@@ -91,7 +96,10 @@ const CamerasByAlt: React.FC = () => {
   const [camera, setCamera] = useState<CameraData>();
   const [cameraSpecs, setCameraSpecs] = useState<CameraSpecs>();
   const [rows, setRows] = useState<GridRows[]>();
-  const {data: cameraData} = useSWR(`/api/cameras/${cameraAlt}`, fetcher);
+  const {data: cameraResponse} = useSWR<CameraDetailsResponse>(
+    `/api/cameras/${cameraAlt}`,
+    fetcher,
+  );
   const [images, setImages] = React.useState<CameraImageResponse | undefined>();
   const {data: cameraImages} = useSWR<CameraImageResponse>(
     `/api/image/cameras/${cameraAlt}/list`,
@@ -99,8 +107,8 @@ const CamerasByAlt: React.FC = () => {
   );
 
   useEffect(() => {
-    console.log(cameraData);
-    if (cameraData) {
+    if (cameraResponse) {
+      const cameraData: CameraPair = cameraResponse.data;
       setCamera(cameraData.camera);
       setCameraSpecs(cameraData.specs);
     }
@@ -112,7 +120,7 @@ const CamerasByAlt: React.FC = () => {
 
     console.log(cameraImages);
     setImages(cameraImages);
-  }, [cameraImages, cameraData, cameraSpecs]);
+  }, [cameraImages, cameraResponse, cameraSpecs]);
 
   const DataGrid = styled(MuiDataGrid)(({theme}) => ({
     '& .MuiDataGrid-columnHeaders': {display: 'none'},

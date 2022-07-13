@@ -3,14 +3,17 @@ import {NextApiRequest, NextApiResponse} from 'next';
 
 const CAMPEDIA_API_URL = process.env.CAMPEDIA_API_URL;
 
-export interface BrandCameraList {
+export interface BrandCameraListResponse {
+  type: 'brands';
+  data: BrandCameraObject[];
+}
+
+export interface BrandCameraObject {
   id: number;
   name: string;
   alt: string;
   thumbnail?: string;
 }
-
-export type BrandCameraListResponse = BrandCameraList[];
 
 export default async function brandDetailsHandler(
   req: NextApiRequest,

@@ -8,8 +8,9 @@ import {Divider, Grid, Typography} from '@mui/material';
 import {campediaTheme} from '@/utils/campediaTheme';
 import {CameraResponse} from 'pages/api/cameras';
 import {alphabetArray} from '@/utils/alphabetArray';
-import {idID} from '@mui/material/locale';
 import {objDecider} from './objDecider';
+import {FilmResponse} from 'pages/api/film';
+import {LensResponse} from 'pages/api/lens';
 
 const useStyles = makeStyles(theme => ({
   alphaHeader: {
@@ -41,8 +42,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 interface TextListCardProps {
-  objList: BrandResponse | CameraResponse;
-  type: 'brands' | 'cameras' | 'lens' | 'film';
+  objList: BrandResponse | CameraResponse | FilmResponse | LensResponse;
 }
 
 export default function TextListCard(props: TextListCardProps) {
@@ -64,7 +64,7 @@ export default function TextListCard(props: TextListCardProps) {
   return (
     <div>
       {alphabetArray.map(char => {
-        const objByChar = objDecider(char, props.objList, props.type);
+        const objByChar = objDecider(char, props.objList);
 
         return (
           <>
@@ -85,7 +85,9 @@ export default function TextListCard(props: TextListCardProps) {
                         className={classes.textItem}
                         item
                         xs={xs}>
-                        <Link href={`/${props.type}/${data.alt}`} passHref>
+                        <Link
+                          href={`/${props.objList.type}/${data.alt}`}
+                          passHref>
                           <a className={classes.textLink}>
                             <Typography
                               className={classes.listText}

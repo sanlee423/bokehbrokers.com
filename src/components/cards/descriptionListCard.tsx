@@ -8,8 +8,16 @@ import useWindowSize from '@/utils/windowDimensions';
 import {campediaTheme} from '@/utils/campediaTheme';
 import {alphabetArray} from '@/utils/alphabetArray';
 import {CameraResponse} from 'pages/api/cameras';
-import {instanceOfCamera, objDecider} from './objDecider';
+import {
+  instanceOfBrand,
+  instanceOfCamera,
+  instanceOfFilm,
+  instanceOfLens,
+  objDecider,
+} from './objDecider';
 import {getFormattedDate} from '@/utils/dateFormatter';
+import {FilmResponse} from 'pages/api/film';
+import {LensResponse} from 'pages/api/lens';
 
 const useStyles = makeStyles(theme => ({
   alphaHeader: {
@@ -90,8 +98,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 interface DescriptionListProps {
-  objList: BrandResponse | CameraResponse;
-  type: 'brands' | 'cameras' | 'lens' | 'film';
+  objList: BrandResponse | CameraResponse | FilmResponse | LensResponse;
 }
 
 export default function DescriptionListCard(props: DescriptionListProps) {
@@ -113,7 +120,7 @@ export default function DescriptionListCard(props: DescriptionListProps) {
   return (
     <div>
       {alphabetArray.map(char => {
-        const objByChar = objDecider(char, props.objList, props.type);
+        const objByChar = objDecider(char, props.objList);
 
         return (
           <>
@@ -135,21 +142,27 @@ export default function DescriptionListCard(props: DescriptionListProps) {
                           className={classes.gridItem}
                           item
                           xs={xs}>
-                          <Link href={`/${props.type}/${data.alt}`} passHref>
+                          <Link
+                            href={`/${props.objList.type}/${data.alt}`}
+                            passHref>
                             <a className={classes.gridLink}>
                               <Icon className={classes.brandIcon}>
-                                <SquareImage alt={data.alt} type={props.type} />
+                                <SquareImage
+                                  alt={data.alt}
+                                  type={props.objList.type}
+                                />
                               </Icon>
-                              {props.type === 'brands' && (
-                                <Typography
-                                  className={classes.listText}
-                                  variant="body1"
-                                  noWrap>
-                                  {data.name}
-                                </Typography>
-                              )}
-                              {props.type === 'cameras' &&
-                                instanceOfCamera(data) && (
+                              {props.objList.type === 'brands' &&
+                                instanceOfBrand(data, props.objList.type) && (
+                                  <Typography
+                                    className={classes.listText}
+                                    variant="body1"
+                                    noWrap>
+                                    {data.name}
+                                  </Typography>
+                                )}
+                              {props.objList.type === 'cameras' &&
+                                instanceOfCamera(data, props.objList.type) && (
                                   <div className={classes.infoBox}>
                                     <Typography
                                       className={classes.cameraName}
@@ -171,6 +184,44 @@ export default function DescriptionListCard(props: DescriptionListProps) {
                                         variant="body2"
                                         noWrap>
                                         $1666
+                                      </Typography>
+                                    </div>
+                                  </div>
+                                )}
+                              {props.objList.type === 'film' &&
+                                instanceOfFilm(data, props.objList.type) && (
+                                  <div className={classes.infoBox}>
+                                    <Typography
+                                      className={classes.cameraName}
+                                      variant="body1"
+                                      noWrap>
+                                      {data.name}
+                                    </Typography>
+                                    <div>
+                                      <Typography
+                                        className={classes.cameraMisc}
+                                        variant="body2"
+                                        noWrap>
+                                        $12
+                                      </Typography>
+                                    </div>
+                                  </div>
+                                )}
+                              {props.objList.type === 'lens' &&
+                                instanceOfLens(data, props.objList.type) && (
+                                  <div className={classes.infoBox}>
+                                    <Typography
+                                      className={classes.cameraName}
+                                      variant="body1"
+                                      noWrap>
+                                      {data.name}
+                                    </Typography>
+                                    <div>
+                                      <Typography
+                                        className={classes.cameraMisc}
+                                        variant="body2"
+                                        noWrap>
+                                        $12
                                       </Typography>
                                     </div>
                                   </div>

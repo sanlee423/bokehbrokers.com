@@ -99,9 +99,14 @@ export interface CameraSpecs {
   videographyNotes?: string;
 }
 
-export interface CameraDetailsResponse {
+export interface CameraPair {
   camera: CameraData;
   specs: CameraSpecs;
+}
+
+export interface CameraDetailsResponse {
+  type: 'cameras';
+  data: CameraPair;
 }
 
 export default async function cameraDetailsHandler(
@@ -109,9 +114,9 @@ export default async function cameraDetailsHandler(
   res: NextApiResponse<CameraDetailsResponse>,
 ) {
   if (req.method === 'GET') {
-    const {cameraId} = req.query;
+    const {cameraAlt} = req.query;
     const cameraResponse = await axInstance.get<CameraDetailsResponse>(
-      CAMPEDIA_API_URL + '/cameras/' + cameraId,
+      CAMPEDIA_API_URL + '/cameras/' + cameraAlt,
     );
 
     return res.status(200).json(cameraResponse.data);

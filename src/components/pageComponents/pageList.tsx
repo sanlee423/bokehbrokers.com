@@ -43,15 +43,9 @@ export default function PageList(props: PageListProps) {
       <PageListHeader alignmentState={setAlignment} />
       <br />
       <div className={classes.pageContainer}>
-        {obj && alignment === 'desc' && (
-          <DescriptionListCard objList={obj} type={props.type} />
-        )}
-        {obj && alignment === 'image' && (
-          <PhotoListCard objList={obj} type={props.type} />
-        )}
-        {obj && alignment === 'text' && (
-          <TextListCard objList={obj} type={props.type} />
-        )}
+        {obj && alignment === 'desc' && <DescriptionListCard objList={obj} />}
+        {obj && alignment === 'image' && <PhotoListCard objList={obj} />}
+        {obj && alignment === 'text' && <TextListCard objList={obj} />}
       </div>
     </>
   );

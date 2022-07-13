@@ -12,7 +12,10 @@ export interface CameraObject {
   releaseDate: string;
 }
 
-export type CameraResponse = CameraObject[];
+export interface CameraResponse {
+  type: 'cameras';
+  data: CameraObject[];
+}
 
 export default async function brandHandler(
   req: NextApiRequest,

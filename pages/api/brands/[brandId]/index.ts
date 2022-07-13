@@ -4,6 +4,11 @@ import {NextApiRequest, NextApiResponse} from 'next';
 const CAMPEDIA_API_URL = process.env.CAMPEDIA_API_URL;
 
 export interface BrandDetailsResponse {
+  type: 'brands';
+  data: BrandDetailsObject;
+}
+
+export interface BrandDetailsObject {
   id: number;
   name: string;
   alt: string;
