@@ -37,7 +37,7 @@ const MainNav: React.FC = () => {
                 dropdown={cameraDropdown}
                 isLeft={true}></DropdownMenu>
             </NavItemText>
-            <NavItemText text={'Lenses'}>
+            <NavItemText text={'Lens'}>
               <DropdownMenu
                 dropdown={lensDropDown}
                 isLeft={true}></DropdownMenu>

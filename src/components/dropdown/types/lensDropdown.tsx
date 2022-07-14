@@ -1,6 +1,5 @@
 import {ListItemIcon} from '@mui/material';
 import {DropdownProps} from '../dropDownItem';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import {CameraIndoor, CameraRoll, PhotoCamera} from '@mui/icons-material';
 
 export const lensDropDown: DropdownProps = {
@@ -8,7 +7,7 @@ export const lensDropDown: DropdownProps = {
     {
       title: 'View All',
       leftIcon: <ListItemIcon />,
-      link: '/lens/list',
+      link: '/lens',
     },
     {
       title: 'By Mount',
