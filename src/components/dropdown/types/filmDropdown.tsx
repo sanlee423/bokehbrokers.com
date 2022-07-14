@@ -8,7 +8,7 @@ export const filmDropDown: DropdownProps = {
     {
       title: 'View All',
       leftIcon: <ListItemIcon />,
-      link: '/film/list',
+      link: '/film',
     },
     {
       title: '120',
