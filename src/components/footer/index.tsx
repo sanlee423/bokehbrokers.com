@@ -2,38 +2,53 @@ import React from 'react';
 import {makeStyles} from '@mui/styles';
 import Link from 'next/link';
 import {campediaTheme} from '@/utils/campediaTheme';
+import useWindowSize from '@/utils/windowDimensions';
 
 const useStyles = makeStyles(theme => ({
   footer: {
-    marginTop: '8%',
-    width: '100vw',
+    position: 'relative',
+    bottom: 0,
+    width: '100%',
     background: '#4a4848',
-    height: 'auto',
+    height: '50px',
   },
   footerText: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    verticalAlign: 'center',
     fontSize: '0.7rem',
-    margin: '2%',
-    paddingLeft: '2%',
     color: 'white',
     height: '100%',
   },
+  spacer: {
+    margin: '0 2%',
+  },
 }));
 
-type Props = {
-  children: React.FC[];
-};
-
 export const Footer: React.FC = () => {
+  const {width} = useWindowSize();
   const classes = useStyles(campediaTheme);
+
   return (
-    <div className={classes.footer}>
-      <div className={classes.footerText}>
-        <strong className="copyright">
-          ©{new Date().getFullYear()} Sanlee LLC. All rights reserved.
-        </strong>
-        <Link href="/settings/terms"> | Terms of Use</Link>
-        <Link href="/settings/privacy"> | Privacy Policy</Link>
-      </div>
-    </div>
+    <footer className={classes.footer}>
+      {width > 700 ? (
+        <div className={classes.footerText}>
+          <strong className="copyright">
+            ©{new Date().getFullYear()} Sanlee LLC. All rights reserved.
+          </strong>
+          <p className={classes.spacer}>{' | '}</p>
+          <Link href="/settings/terms">Terms of Use</Link>
+          <p className={classes.spacer}>{' | '}</p>
+          <Link href="/settings/privacy">Privacy Policy</Link>
+        </div>
+      ) : (
+        <div className={classes.footerText}>
+          <strong className="copyright">
+            ©{new Date().getFullYear()} Sanlee LLC
+          </strong>
+        </div>
+      )}
+    </footer>
   );
 };

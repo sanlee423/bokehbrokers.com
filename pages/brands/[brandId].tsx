@@ -115,7 +115,7 @@ const Brands: React.FC = () => {
               <CollapsibleText
                 title={'Description'}
                 text={brandDetails.description}
-                expanded={true}
+                defaultExpanded={true}
               />
             ) : (
               <DescriptionCard
@@ -128,7 +128,7 @@ const Brands: React.FC = () => {
               <CollapsibleText
                 title={'History'}
                 text={brandDetails.history}
-                expanded={true}
+                defaultExpanded={false}
               />
             ) : (
               <DescriptionCard

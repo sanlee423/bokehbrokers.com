@@ -13,14 +13,14 @@ import {Footer} from '@/components/footer';
 function MyApp({Component, pageProps}: AppProps): JSX.Element {
   return (
     <>
-      <Container>
-        <ThemeProvider theme={campediaTheme}>
+      <ThemeProvider theme={campediaTheme}>
+        <Container>
           <Header />
           <MainNav />
           <Component {...pageProps} />
           <Footer />
-        </ThemeProvider>
-      </Container>
+        </Container>
+      </ThemeProvider>
     </>
   );
 }

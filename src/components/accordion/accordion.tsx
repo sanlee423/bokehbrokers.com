@@ -27,13 +27,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const MuiAccordion = styled((props: any) => (
-  <Accordion
-    disableGutters
-    elevation={0}
-    defaultExpanded={props.expanded}
-    square
-    {...props}
-  />
+  <Accordion disableGutters elevation={0} square {...props} />
 ))(({theme}) => ({
   border: 'none',
   '&:not(:last-child)': {
@@ -62,19 +56,21 @@ const MuiAccordionDetails = styled(AccordionDetails)(({theme}) => ({
 type AccordionProps = {
   title: string;
   text: string;
-  expanded: boolean;
+  defaultExpanded: boolean;
 };
 
 const CollapsibleText: React.FC<AccordionProps> = ({
   title,
   text,
   children,
-  expanded = true,
+  defaultExpanded = true,
 }) => {
   const classes = useStyles(campediaTheme);
 
   return (
-    <MuiAccordion className={classes.accordion} expanded={expanded}>
+    <MuiAccordion
+      className={classes.accordion}
+      defaultExpanded={defaultExpanded}>
       <MuiAccordionSummary
         expandIcon={<KeyboardArrowDownIcon />}
         aria-controls={`${title}-control`}
