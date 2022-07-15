@@ -1,7 +1,7 @@
 import React from 'react';
 import {makeStyles} from '@mui/styles';
 import {Typography, Tooltip} from '@mui/material';
-import {BrandDetailsObject} from 'pages/api/brands/[brandId]';
+import {BrandDetailsObject} from 'pages/api/brands/[brandAlt]';
 
 import Link from 'next/link';
 import {campediaTheme} from '@/utils/campediaTheme';

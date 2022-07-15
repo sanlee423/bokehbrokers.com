@@ -8,6 +8,7 @@ import {Hamburger} from '../dropdown/mobile/hamburger';
 const useStyles = makeStyles(theme => ({
   //bg-white flex flex-row justify-between items-center
   headerContainer: {
+    margin: '5px',
     cursor: 'pointer',
     backgroundColor: 'white',
     display: 'flex',

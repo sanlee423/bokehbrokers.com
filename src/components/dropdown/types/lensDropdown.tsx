@@ -6,29 +6,24 @@ export const lensDropDown: DropdownProps = {
   menuObj: [
     {
       title: 'View All',
-      leftIcon: <ListItemIcon />,
+      leftIcon: 'A',
       link: '/lens',
     },
     {
-      title: 'By Mount',
-      leftIcon: <PhotoCamera />,
-      link: '/lens/mount',
+      title: 'Prime Lenses',
+      leftIcon: 'P',
+      link: '/lens/prime',
     },
     {
-      title: 'By Brand',
-      leftIcon: <CameraIndoor />,
-      link: '/lens/brand',
+      title: 'Zoom Lenses',
+      leftIcon: 'Z',
+      link: '/lens/zoom',
     },
-    {
-      title: 'Digital',
-      leftIcon: <CameraRoll />,
-      link: '/lens/digital',
-    },
-    {
-      title: 'Analog',
-      leftIcon: <CameraRoll />,
-      link: '/lens/analog',
-    },
+    // {
+    //   title: 'By Mount',
+    //   leftIcon: <CameraRoll />,
+    //   link: '/lens/mount',
+    // },
   ],
   subMenuObj: [],
 };

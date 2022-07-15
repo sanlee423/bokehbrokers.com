@@ -37,7 +37,6 @@ export default function PageList(props: PageListProps) {
   }, [setObj, data]);
 
   const [alignment, setAlignment] = React.useState<toggleList>('desc');
-
   return (
     <>
       <PageListHeader alignmentState={setAlignment} />

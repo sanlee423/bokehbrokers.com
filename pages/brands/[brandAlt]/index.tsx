@@ -1,25 +1,24 @@
 import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@mui/styles';
 import {useRouter} from 'next/router';
-import {Typography, Divider, Tooltip} from '@mui/material';
+import {Divider} from '@mui/material';
 import useSWR from 'swr';
 import {
   BrandDetailsObject,
   BrandDetailsResponse,
-} from 'pages/api/brands/[brandId]';
+} from 'pages/api/brands/[brandAlt]';
 import {
   BrandCameraListResponse,
   BrandCameraObject,
-} from 'pages/api/brands/[brandId]/cameras';
+} from 'pages/api/brands/[brandAlt]/cameras';
 import {campediaTheme} from '@/utils/campediaTheme';
 import {ImagePreviewResponse} from 'src/types/imageTypes';
 import CollapsibleText from '@/components/accordion/accordion';
 import HeaderCard from '@/components/headerCard/headerCard';
-import Link from 'next/link';
-import {ChevronRight} from '@mui/icons-material';
 import LinkedTitle from '@/components/linkedTitle/linkedTitle';
 import DescriptionCard from '@/components/descriptionCard/descriptionCard';
 import useWindowSize from '@/utils/windowDimensions';
+import fetcher from '@/utils/fetcher';
 
 const useStyles = makeStyles(theme => ({
   homeContainer: {
@@ -35,6 +34,7 @@ const useStyles = makeStyles(theme => ({
     paddingTop: '2%',
     paddingLeft: '5%',
     paddingRight: '5%',
+    marginBottom: '3%',
     width: '100%',
     height: '100%',
 
@@ -42,48 +42,27 @@ const useStyles = makeStyles(theme => ({
       margin: '0% 0% 2% 0%',
     },
   },
-  childText: {
-    fontWeight: 800,
-    '@media (max-width: 600px)': {
-      fontSize: '1.5rem',
-    },
-  },
-  childDescription: {
-    fontWeight: 400,
-    margin: '1%',
-    '@media (max-width: 600px)': {
-      fontSize: '1.5rem',
-    },
-  },
-  headerLink: {
-    color: 'black',
-    '&:hover': {
-      color: '#1976d2',
-    },
-  },
 }));
-
-const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const Brands: React.FC = () => {
   const classes = useStyles(campediaTheme);
   const router = useRouter();
-  const {brandId} = router.query;
+  const {brandAlt} = router.query;
   const [brandDetails, setBrandDetails] = useState<BrandDetailsObject>();
   const {width} = useWindowSize();
   const [brandCameras, setBrandCameras] = useState<BrandCameraObject[]>();
   const [image, setImage] = React.useState<ImagePreviewResponse>();
 
   const {data: brandData} = useSWR<BrandDetailsResponse>(
-    `/api/brands/${brandId}`,
+    `/api/brands/${brandAlt}`,
     fetcher,
   );
   const {data: brandCameraData} = useSWR<BrandCameraListResponse>(
-    `/api/brands/${brandId}/cameras`,
+    `/api/brands/${brandAlt}/cameras`,
     fetcher,
   );
   const {data: brandImage} = useSWR<ImagePreviewResponse>(
-    `/api/image/brands/${brandId}`,
+    `/api/image/brands/${brandAlt}`,
     fetcher,
   );
 
@@ -140,7 +119,11 @@ const Brands: React.FC = () => {
             <Divider />
 
             {brandCameras && brandCameras.length > 0 && (
-              <LinkedTitle title={'View all cameras'} link={'#'} icon={true} />
+              <LinkedTitle
+                title={'View all products'}
+                link={router.asPath + '/products'}
+                icon={true}
+              />
             )}
           </>
         )}

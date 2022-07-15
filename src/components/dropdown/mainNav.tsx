@@ -48,13 +48,13 @@ const MainNav: React.FC = () => {
                 isLeft={true}></DropdownMenu>
             </NavItemText>
           </NavbarLeft>
-          <Navbar>
+          {/* <Navbar> ---- TODO: Add account and login at a later date
             <NavItemIcon icon={<SettingsIcon />}>
               <DropdownMenu
                 dropdown={settingsDropdown}
                 isLeft={false}></DropdownMenu>
             </NavItemIcon>
-          </Navbar>
+          </Navbar> */}
         </nav>
       )}
     </div>

@@ -7,26 +7,26 @@ export const filmDropDown: DropdownProps = {
   menuObj: [
     {
       title: 'View All',
-      leftIcon: <ListItemIcon />,
+      leftIcon: 'A',
       link: '/film',
     },
     {
-      title: '120',
-      leftIcon: <PhotoCamera />,
-      link: '/film/120',
-    },
-    {
-      title: '35mm',
-      leftIcon: <PhotoCamera />,
+      title: '135',
+      leftIcon: '135',
       link: '/film/35mm',
     },
     {
-      title: 'Specialty',
-      leftIcon: <PhotoCamera />,
-      rightIcon: <KeyboardArrowRightIcon />,
-      goToMenu: 'filmspecialty',
-      link: '/film/specialty',
+      title: '120',
+      leftIcon: '120',
+      link: '/film/120',
     },
+    // {
+    //   title: 'Specialty',
+    //   leftIcon: <PhotoCamera />,
+    //   rightIcon: <KeyboardArrowRightIcon />,
+    //   goToMenu: 'filmspecialty',
+    //   link: '/film/specialty',
+    // },
   ],
   subMenuObj: [
     {

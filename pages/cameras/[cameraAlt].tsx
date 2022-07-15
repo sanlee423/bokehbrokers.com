@@ -118,7 +118,6 @@ const CamerasByAlt: React.FC = () => {
       setRows(specs);
     }
 
-    console.log(cameraImages);
     setImages(cameraImages);
   }, [cameraImages, cameraResponse, cameraSpecs]);
 

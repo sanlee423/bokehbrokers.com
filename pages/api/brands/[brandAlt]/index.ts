@@ -24,9 +24,9 @@ export default async function brandDetailsHandler(
   res: NextApiResponse<BrandDetailsResponse>,
 ) {
   if (req.method === 'GET') {
-    const {brandId} = req.query;
+    const {brandAlt} = req.query;
     const brandResponse = await axInstance.get<BrandDetailsResponse>(
-      CAMPEDIA_API_URL + '/brands/' + brandId,
+      CAMPEDIA_API_URL + '/brands/' + brandAlt,
     );
 
     return res.status(200).json(brandResponse.data);

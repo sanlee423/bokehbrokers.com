@@ -7,28 +7,22 @@ export const brandDropdown: DropdownProps = {
   menuObj: [
     {
       title: 'View All',
-      leftIcon: <ListItemIcon />,
+      leftIcon: 'A',
       link: '/brands',
     },
     {
       title: 'Camera Manufacturers',
       leftIcon: <PhotoCamera />,
-      // rightIcon: <KeyboardArrowRightIcon />,
-      // goToMenu: 'cameras',
       link: '/brands/cameras',
     },
     {
       title: 'Lens Manufacturers',
       leftIcon: <Camera />,
-      // rightIcon: <KeyboardArrowRightIcon />,
-      // goToMenu: 'lens',
       link: '/brands/lens',
     },
     {
       title: 'Film Manufacturers',
       leftIcon: <CameraRoll />,
-      // rightIcon: <KeyboardArrowRightIcon />,
-      // goToMenu: 'film',
       link: '/brands/film',
     },
   ],

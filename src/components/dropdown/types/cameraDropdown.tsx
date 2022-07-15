@@ -7,22 +7,27 @@ export const cameraDropdown: DropdownProps = {
   menuObj: [
     {
       title: 'View All',
-      leftIcon: <ListItemIcon />,
+      leftIcon: 'A',
       link: '/cameras',
     },
     {
-      title: 'Digital Camera',
+      title: 'Digital Cameras',
       leftIcon: 'D',
-      rightIcon: <KeyboardArrowRightIcon />,
-      goToMenu: 'digitalcamera',
+      // rightIcon: <KeyboardArrowRightIcon />,
+      // goToMenu: 'digitalcamera',
       link: '/cameras/digital',
     },
     {
-      title: 'Film Camera',
+      title: 'Film Cameras',
       leftIcon: 'F',
-      rightIcon: <KeyboardArrowRightIcon />,
-      goToMenu: 'filmcamera',
-      link: '/cameras/digital',
+      // rightIcon: <KeyboardArrowRightIcon />,
+      // goToMenu: 'filmcamera',
+      link: '/cameras/analog',
+    },
+    {
+      title: 'Hybrid Cameras',
+      leftIcon: 'H',
+      link: '/cameras/hybrid',
     },
   ],
   subMenuObj: [
