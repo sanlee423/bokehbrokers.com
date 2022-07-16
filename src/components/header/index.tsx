@@ -36,25 +36,25 @@ export const Header: React.FC = () => {
         <Divider className="hamburger-divider" />
         <div className={'dropdown-container'}>
           <Link href="/brands">
-            <a onClick={handleClick}>
+            <a className="hamburger-link" onClick={handleClick}>
               <Typography>Brands</Typography>
             </a>
           </Link>
           <Divider className="hamburger-divider" />
           <Link href="/cameras">
-            <a onClick={handleClick}>
+            <a className="hamburger-link" onClick={handleClick}>
               <Typography>Cameras</Typography>
             </a>
           </Link>
           <Divider className="hamburger-divider" />
           <Link href="/lens">
-            <a onClick={handleClick}>
+            <a className="hamburger-link" onClick={handleClick}>
               <Typography>Lens</Typography>
             </a>
           </Link>
           <Divider className="hamburger-divider" />
           <Link href="/film">
-            <a onClick={handleClick}>
+            <a className="hamburger-link" onClick={handleClick}>
               <Typography>Film</Typography>
             </a>
           </Link>
