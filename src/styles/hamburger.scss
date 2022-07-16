@@ -1,0 +1,126 @@
+.hamburger-container {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.hamburger {
+  display: block;
+  width: 4rem;
+  height: 4rem;
+  position: relative;
+  cursor: pointer;
+}
+
+#menu-toggle {
+  display: none;
+}
+
+.bun {
+  width: 3rem;
+  height: 3rem;
+  position: absolute;
+  top: 0.5rem;
+  right: 0rem;
+  transition: transform 0.18s cubic-bezier(0.04, 0.04, 0.12, 0.96) 0.15s;
+}
+
+.bun-crust {
+  display: block;
+  width: 1.5rem;
+  height: 1.5px;
+  position: absolute;
+  background-color: #4a4848;
+  border-radius: 1px;
+  left: 0.8rem;
+  transition: transform 0.16s cubic-bezier(0.52, 0.16, 0.52, 0.84) 0.2s;
+}
+
+.bun-crust-top {
+  top: 1.4rem;
+  transform: translateY(-3px);
+}
+
+.bun-crust-bottom {
+  bottom: 1.4rem;
+  transform: translateY(3px);
+}
+
+#menu-toggle:checked + .hamburger .bun-crust {
+  background-color: white;
+  transition: background-color 0.5s;
+}
+
+#menu-toggle:checked + .hamburger .bun-top {
+  transform: rotate(45deg);
+}
+
+#menu-toggle:checked + .hamburger .bun-bottom {
+  transform: rotate(-45deg);
+}
+
+#menu-toggle:checked + .hamburger .bun-crust-top,
+#menu-toggle:checked + .hamburger .bun-crust-bottom {
+  transform: none;
+  transition: transform 0.18s cubic-bezier(0.04, 0.04, 0.12, 0.96);
+}
+
+.header-container {
+  cursor: pointer;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  -webkit-transition: background-color 0.2s ease-out;
+  -moz-transition: background-color 0.2s ease-out;
+  -o-transition: background-color 0.2s ease-out;
+  transition: background-color 0.2s ease-out;
+}
+
+.header-container-dark {
+  background-color: #4a4848;
+  -webkit-transition: background-color 1s ease-out;
+  -moz-transition: background-color 1s ease-out;
+  -o-transition: background-color 1s ease-out;
+  transition: background-color 1s ease-out;
+}
+
+.hamburger-primary-menu {
+  position: absolute;
+  top: 64px;
+  left: 0px;
+  overflow: hidden;
+  width: 100vw;
+  background-color: white;
+
+  max-height: 0;
+  -webkit-transition: background-color 1s ease-out;
+  -moz-transition: background-color 1s ease-out;
+  -o-transition: background-color 1s ease-out;
+  transition: background-color 1s ease-out;
+  z-index: 1000;
+}
+
+.hamburger-primary-menu-checked {
+  height: 100vh;
+  max-height: 100vh;
+  background-color: #4a4848;
+  -webkit-transition: background-color 1s ease-out;
+  -moz-transition: background-color 1s ease-out;
+  -o-transition: background-color 1s ease-out;
+  transition: background-color 1s ease-out;
+}
+
+.dropdown-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
+
+  & > * {
+    margin: 1.5% 10%;
+  }
+}
+
+.hamburger-divider {
+  background-color: rgb(208, 208, 208);
+}

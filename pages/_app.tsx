@@ -2,6 +2,7 @@ import React from 'react';
 import {AppProps} from 'next/app';
 import {ThemeProvider} from '@mui/styles';
 import 'tailwindcss/tailwind.css';
+import '@/styles/hamburger.scss';
 import '@/styles/navbar.scss';
 import '@/styles/swiper.scss';
 import {Container} from '@/components/container';
