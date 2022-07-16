@@ -19,6 +19,7 @@ import LinkedTitle from '@/components/linkedTitle/linkedTitle';
 import DescriptionCard from '@/components/descriptionCard/descriptionCard';
 import useWindowSize from '@/utils/windowDimensions';
 import fetcher from '@/utils/fetcher';
+import Breadcrumb from '@/components/breadcrumbs';
 
 const useStyles = makeStyles(theme => ({
   homeContainer: {
@@ -49,31 +50,33 @@ const Brands: React.FC = () => {
   const router = useRouter();
   const {brandAlt} = router.query;
   const [brandDetails, setBrandDetails] = useState<BrandDetailsObject>();
-  const {width} = useWindowSize();
   const [brandCameras, setBrandCameras] = useState<BrandCameraObject[]>();
   const [image, setImage] = React.useState<ImagePreviewResponse>();
 
+  const {width} = useWindowSize();
   const {data: brandData} = useSWR<BrandDetailsResponse>(
-    `/api/brands/${brandAlt}`,
-    fetcher,
+    brandAlt ? `/api/brands/${brandAlt}` : null,
+    brandAlt ? fetcher : null,
   );
   const {data: brandCameraData} = useSWR<BrandCameraListResponse>(
-    `/api/brands/${brandAlt}/cameras`,
-    fetcher,
+    brandAlt ? `/api/brands/${brandAlt}/cameras` : null,
+    brandAlt ? fetcher : null,
   );
   const {data: brandImage} = useSWR<ImagePreviewResponse>(
-    `/api/image/brands/${brandAlt}`,
-    fetcher,
+    brandAlt ? `/api/image/brands/${brandAlt}` : null,
+    brandAlt ? fetcher : null,
   );
 
   useEffect(() => {
-    if (brandData) {
+    if (brandData && brandData.data) {
       setBrandDetails(brandData.data);
     }
-    if (brandCameraData) {
+    if (brandCameraData && brandCameraData.data) {
       setBrandCameras(brandCameraData.data);
     }
-    setImage(brandImage);
+    if (brandImage) {
+      setImage(brandImage);
+    }
   }, [
     setBrandDetails,
     brandData,
@@ -87,34 +90,37 @@ const Brands: React.FC = () => {
       <div className={classes.brandContainer}>
         {brandDetails && (
           <>
+            <Breadcrumb />
             <HeaderCard brandDetails={brandDetails} image={image} />
             <Divider />
 
-            {brandDetails.description && width < 700 ? (
-              <CollapsibleText
-                title={'Description'}
-                text={brandDetails.description}
-                defaultExpanded={true}
-              />
-            ) : (
-              <DescriptionCard
-                title={'Description'}
-                description={brandDetails.description ?? ''}
-              />
-            )}
+            {brandDetails.description &&
+              (width < 700 ? (
+                <CollapsibleText
+                  title={'Description'}
+                  text={brandDetails.description}
+                  defaultExpanded={true}
+                />
+              ) : (
+                <DescriptionCard
+                  title={'Description'}
+                  description={brandDetails.description ?? ''}
+                />
+              ))}
 
-            {brandDetails.history && width < 700 ? (
-              <CollapsibleText
-                title={'History'}
-                text={brandDetails.history}
-                defaultExpanded={false}
-              />
-            ) : (
-              <DescriptionCard
-                title={'History'}
-                description={brandDetails.history ?? ''}
-              />
-            )}
+            {brandDetails.history &&
+              (width < 700 ? (
+                <CollapsibleText
+                  title={'History'}
+                  text={brandDetails.history}
+                  defaultExpanded={false}
+                />
+              ) : (
+                <DescriptionCard
+                  title={'History'}
+                  description={brandDetails.history ?? ''}
+                />
+              ))}
 
             <Divider />
 

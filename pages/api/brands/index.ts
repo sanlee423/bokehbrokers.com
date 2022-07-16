@@ -12,10 +12,9 @@ export interface BrandObject {
   id: number;
   name: string;
   alt: string;
-  hasDigitalCameras: 0 | 1;
-  hasLens: 0 | 1;
-  hasAccessories: 0 | 1;
-  hasFilmCameras: 0 | 1;
+  cameraManufacturer: 0 | 1;
+  lensManufacturer: 0 | 1;
+  filmManufacturer: 0 | 1;
 }
 
 export default async function brandHandler(

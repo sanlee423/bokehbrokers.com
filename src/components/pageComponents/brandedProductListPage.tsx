@@ -46,20 +46,20 @@ export default function BrandedProductListPage() {
   const brandAlt = params.brandAlt as string;
   const [productList, setProductList] = useState<ProductListResponse>();
   const {data} = useSWR<ProductListResponse>(
-    `/api/brands/${brandAlt}/products`,
-    fetcher,
+    brandAlt ? `/api/brands/${brandAlt}/products` : null,
+    brandAlt ? fetcher : null,
   );
 
   const [brandDetails, setBrandDetails] = useState<BrandDetailsObject>();
   const [image, setImage] = React.useState<ImagePreviewResponse>();
 
   const {data: brandData} = useSWR<BrandDetailsResponse>(
-    `/api/brands/${brandAlt}`,
-    fetcher,
+    brandAlt ? `/api/brands/${brandAlt}` : null,
+    brandAlt ? fetcher : null,
   );
   const {data: brandImage} = useSWR<ImagePreviewResponse>(
-    `/api/image/brands/${brandAlt}`,
-    fetcher,
+    brandAlt ? `/api/image/brands/${brandAlt}` : null,
+    brandAlt ? fetcher : null,
   );
 
   useEffect(() => {

@@ -16,6 +16,7 @@ import {getFormattedDate} from '@/utils/dateFormatter';
 import {formatSpec, formatSpecValue} from '@/utils/specFormatter';
 import {campediaTheme} from '@/utils/campediaTheme';
 import {ImageListResponse} from 'src/types/imageTypes';
+import fetcher from '@/utils/fetcher';
 
 const useStyles = makeStyles(theme => ({
   cameraContainer: {
@@ -56,8 +57,6 @@ const useStyles = makeStyles(theme => ({
   swiper: {},
 }));
 
-const fetcher = (url: string) => fetch(url).then(res => res.json());
-
 const columns: GridColDef[] = [
   {field: 'id', headerName: 'ID', width: 300},
   {
@@ -97,13 +96,13 @@ const CamerasByAlt: React.FC = () => {
   const [cameraSpecs, setCameraSpecs] = useState<CameraSpecs>();
   const [rows, setRows] = useState<GridRows[]>();
   const {data: cameraResponse} = useSWR<CameraDetailsResponse>(
-    `/api/cameras/${cameraAlt}`,
-    fetcher,
+    cameraAlt ? `/api/cameras/${cameraAlt}` : null,
+    cameraAlt ? fetcher : null,
   );
   const [images, setImages] = React.useState<ImageListResponse>();
   const {data: cameraImages} = useSWR<ImageListResponse>(
-    `/api/image/cameras/${cameraAlt}/list`,
-    fetcher,
+    cameraAlt ? `/api/image/cameras/${cameraAlt}/list` : null,
+    cameraAlt ? fetcher : null,
   );
 
   useEffect(() => {

@@ -4,11 +4,14 @@ import {Divider, ToggleButton, ToggleButtonGroup} from '@mui/material';
 import {Description, Image as ImageIcon, TextFields} from '@mui/icons-material';
 import {campediaTheme} from '@/utils/campediaTheme';
 import {toggleList} from './pageList';
+import Breadcrumb from '../breadcrumbs';
 
 const useStyles = makeStyles(theme => ({
   pageHeader: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    verticalAlign: 'center',
     height: '4vh',
     margin: '1%',
   },
@@ -36,6 +39,7 @@ export default function PageListHeader(props: PageListProps) {
     <>
       <Divider />
       <div className={classes.pageHeader}>
+        <Breadcrumb />
         <ToggleButtonGroup size="small" {...control}>
           <ToggleButton value="desc" key="desc">
             <Description />

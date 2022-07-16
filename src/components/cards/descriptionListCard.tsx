@@ -99,6 +99,7 @@ const useStyles = makeStyles(theme => ({
 
 interface DescriptionListProps {
   objList: BrandResponse | CameraResponse | FilmResponse | LensResponse;
+  filterBy?: 'cameraManufacturer' | 'lensManufacturer' | 'filmManufacturer';
 }
 
 export default function DescriptionListCard(props: DescriptionListProps) {

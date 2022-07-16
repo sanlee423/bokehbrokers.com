@@ -1,13 +1,12 @@
 import * as React from 'react';
 import {ImagePreviewResponse} from 'src/types/imageTypes';
 import useSWR from 'swr';
+import fetcher from './fetcher';
 
 interface SquareImageProps {
   alt: string;
   type: 'brands' | 'cameras' | 'lens' | 'film';
 }
-
-const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 export default function SquareImage(props: SquareImageProps) {
   const [image, setImage] = React.useState<ImagePreviewResponse>();

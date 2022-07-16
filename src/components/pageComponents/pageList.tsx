@@ -7,6 +7,7 @@ import DescriptionListCard from '@/components/cards/descriptionListCard';
 import PhotoListCard from '@/components/cards/photoListCard';
 import TextListCard from '@/components/cards/textListCard';
 import PageListHeader from './pageListHeader';
+import fetcher from '@/utils/fetcher';
 
 const useStyles = makeStyles(theme => ({
   pageContainer: {
@@ -19,12 +20,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const fetcher = (url: string) => fetch(url).then(res => res.json());
-
 export type toggleList = 'image' | 'desc' | 'text';
 
 interface PageListProps {
   type: 'brands' | 'cameras' | 'lens' | 'film';
+  filterBy?: 'cameraManufacturer' | 'lensManufacturer' | 'filmManufacturer';
 }
 
 export default function PageList(props: PageListProps) {
@@ -42,9 +42,15 @@ export default function PageList(props: PageListProps) {
       <PageListHeader alignmentState={setAlignment} />
       <br />
       <div className={classes.pageContainer}>
-        {obj && alignment === 'desc' && <DescriptionListCard objList={obj} />}
-        {obj && alignment === 'image' && <PhotoListCard objList={obj} />}
-        {obj && alignment === 'text' && <TextListCard objList={obj} />}
+        {obj && alignment === 'desc' && (
+          <DescriptionListCard objList={obj} filterBy={props.filterBy} />
+        )}
+        {obj && alignment === 'image' && (
+          <PhotoListCard objList={obj} /> //filterBy={props.filterBy} />
+        )}
+        {obj && alignment === 'text' && (
+          <TextListCard objList={obj} /> //filterBy={props.filterBy} />
+        )}
       </div>
     </>
   );
