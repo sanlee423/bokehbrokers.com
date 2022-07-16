@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Logo} from './logo';
 import useWindowSize from '@/utils/windowDimensions';
 import {Hamburger} from '../dropdown/mobile/hamburger';
 import Link from 'next/link';
 import {Divider, Typography} from '@mui/material';
-import {isNull} from 'util';
 
 export const Header: React.FC = () => {
   const {width, height} = useWindowSize();
@@ -13,6 +12,12 @@ export const Header: React.FC = () => {
   const handleCheck = (e: any) => {
     setChecked(e.target.checked);
   };
+
+  useEffect(() => {
+    checked
+      ? (document.body.style.overflow = 'hidden')
+      : (document.body.style.overflow = 'unset');
+  }, [checked]);
 
   const handleClick = () => {
     if (document !== null) {
