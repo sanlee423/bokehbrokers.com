@@ -6,11 +6,11 @@ import useWindowSize from '@/utils/windowDimensions';
 
 const useStyles = makeStyles(theme => ({
   footer: {
-    position: 'relative',
+    position: 'absolute',
     bottom: 0,
     width: '100%',
     background: '#4a4848',
-    height: '50px',
+    height: '5vh',
   },
   footerText: {
     display: 'flex',

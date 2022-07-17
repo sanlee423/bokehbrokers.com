@@ -1,33 +1,28 @@
 import * as React from 'react';
 import {makeStyles} from '@mui/styles';
-import {Divider, Grid, Icon, Typography} from '@mui/material';
+import {Grid, Icon, Typography} from '@mui/material';
 import Link from 'next/link';
 import {BrandResponse} from 'pages/api/brands';
 import SquareImage from '../../utils/squareImage';
 import useWindowSize from '@/utils/windowDimensions';
 import {campediaTheme} from '@/utils/campediaTheme';
-import {alphabetArray} from '@/utils/alphabetArray';
 import {CameraResponse} from 'pages/api/cameras';
 import {
   instanceOfBrand,
   instanceOfCamera,
   instanceOfFilm,
   instanceOfLens,
-  objDecider,
 } from './objDecider';
 import {getFormattedDate} from '@/utils/dateFormatter';
 import {FilmResponse} from 'pages/api/film';
 import {LensResponse} from 'pages/api/lens';
 
 const useStyles = makeStyles(theme => ({
-  alphaHeader: {
-    margin: '1% 5%',
-  },
   flexBox: {
-    margin: '1% 4%',
-    width: '90vw',
+    width: '100vw',
     height: '100%',
     justifyContent: 'center',
+    padding: '3px',
   },
   gridContainer: {
     justifyContent: 'flex-start',
@@ -46,10 +41,13 @@ const useStyles = makeStyles(theme => ({
   },
   gridItem: {
     margin: '1%',
-    padding: '1%',
-    height: '5rem',
     cursor: 'pointer',
-    borderRadius: '0.5rem',
+    borderRadius: '0.25rem',
+
+    border: '0.02px solid #ededed',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+
     boxShadow:
       '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
 
@@ -57,19 +55,7 @@ const useStyles = makeStyles(theme => ({
       filter: 'brightness(105%)',
       backgroundColor: '#393a3b',
       transition: '300ms ease',
-
-      '& $listText': {
-        color: 'white',
-      },
-      '& $cameraName': {
-        color: 'white',
-      },
-      '& $cameraMisc': {
-        color: 'white',
-      },
     },
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
   },
   listText: {
     width: 'auto',
@@ -89,11 +75,10 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 400,
   },
   brandIcon: {
-    width: '4.0rem',
-    height: '4.0rem',
+    width: '8.0rem',
+    height: '8.0rem',
     alignItems: 'center',
     backgroundColor: 'white',
-    borderRadius: '0.5rem',
   },
 }));
 
@@ -110,8 +95,8 @@ export default function DescriptionListCard(props: DescriptionListProps) {
 
   React.useEffect(() => {
     if (width < 700) {
-      setColumns(2);
-      setXs(0.8);
+      setColumns(1);
+      setXs(1);
     } else {
       setColumns(4);
       setXs(1);
@@ -119,127 +104,96 @@ export default function DescriptionListCard(props: DescriptionListProps) {
   }, [width]);
 
   return (
-    <div>
-      {alphabetArray.map(char => {
-        const objByChar = objDecider(char, props.objList);
-
-        return (
-          <>
-            {objByChar.length > 0 && (
-              <>
-                <div key={char} className={classes.alphaHeader}>
-                  <Typography variant="h3">{char.toUpperCase()}</Typography>
-                  <Divider />
-                </div>
-                <div className={classes.flexBox}>
-                  <Grid
-                    className={classes.gridContainer}
-                    container
-                    columns={columns}>
-                    {objByChar.map(data => {
-                      return (
-                        <Grid
-                          key={data.alt}
-                          className={classes.gridItem}
-                          item
-                          xs={xs}>
-                          <Link
-                            href={`/${props.objList.type}/${data.alt}`}
-                            passHref>
-                            <a className={classes.gridLink}>
-                              <Icon className={classes.brandIcon}>
-                                <SquareImage
-                                  alt={data.alt}
-                                  type={props.objList.type}
-                                />
-                              </Icon>
-                              {props.objList.type === 'brands' &&
-                                instanceOfBrand(data, props.objList.type) && (
-                                  <Typography
-                                    className={classes.listText}
-                                    variant="body1"
-                                    noWrap>
-                                    {data.name}
-                                  </Typography>
-                                )}
-                              {props.objList.type === 'cameras' &&
-                                instanceOfCamera(data, props.objList.type) && (
-                                  <div className={classes.infoBox}>
-                                    <Typography
-                                      className={classes.cameraName}
-                                      variant="body1"
-                                      noWrap>
-                                      {data.name}
-                                    </Typography>
-                                    <Typography
-                                      className={classes.cameraMisc}
-                                      variant="body2"
-                                      noWrap>
-                                      {`Release Date: ${getFormattedDate(
-                                        data.releaseDate,
-                                      )}`}
-                                    </Typography>
-                                    <div>
-                                      <Typography
-                                        className={classes.cameraMisc}
-                                        variant="body2"
-                                        noWrap>
-                                        $1666
-                                      </Typography>
-                                    </div>
-                                  </div>
-                                )}
-                              {props.objList.type === 'film' &&
-                                instanceOfFilm(data, props.objList.type) && (
-                                  <div className={classes.infoBox}>
-                                    <Typography
-                                      className={classes.cameraName}
-                                      variant="body1"
-                                      noWrap>
-                                      {data.name}
-                                    </Typography>
-                                    <div>
-                                      <Typography
-                                        className={classes.cameraMisc}
-                                        variant="body2"
-                                        noWrap>
-                                        $12
-                                      </Typography>
-                                    </div>
-                                  </div>
-                                )}
-                              {props.objList.type === 'lens' &&
-                                instanceOfLens(data, props.objList.type) && (
-                                  <div className={classes.infoBox}>
-                                    <Typography
-                                      className={classes.cameraName}
-                                      variant="body1"
-                                      noWrap>
-                                      {data.name}
-                                    </Typography>
-                                    <div>
-                                      <Typography
-                                        className={classes.cameraMisc}
-                                        variant="body2"
-                                        noWrap>
-                                        $12
-                                      </Typography>
-                                    </div>
-                                  </div>
-                                )}
-                            </a>
-                          </Link>
-                        </Grid>
-                      );
-                    })}
-                  </Grid>
-                </div>
-                <br />
-              </>
-            )}
-          </>
-        );
-      })}
+    <div className={classes.flexBox}>
+      <Grid className={classes.gridContainer} container columns={columns}>
+        {props.objList.data.map(data => {
+          return (
+            <Grid key={data.alt} className={classes.gridItem} item xs={xs}>
+              <Link href={`/${props.objList.type}/${data.alt}`} passHref>
+                <a className={classes.gridLink}>
+                  <Icon className={classes.brandIcon}>
+                    <SquareImage alt={data.alt} type={props.objList.type} />
+                  </Icon>
+                  {props.objList.type === 'brands' &&
+                    instanceOfBrand(data, props.objList.type) && (
+                      <Typography
+                        className={classes.listText}
+                        variant="body1"
+                        noWrap>
+                        {data.name}
+                      </Typography>
+                    )}
+                  {props.objList.type === 'cameras' &&
+                    instanceOfCamera(data, props.objList.type) && (
+                      <div className={classes.infoBox}>
+                        <Typography
+                          className={classes.cameraName}
+                          variant="body1"
+                          noWrap>
+                          {data.name}
+                        </Typography>
+                        <Typography
+                          className={classes.cameraMisc}
+                          variant="body2"
+                          noWrap>
+                          {`Release Date: ${getFormattedDate(
+                            data.releaseDate,
+                          )}`}
+                        </Typography>
+                        <div>
+                          <Typography
+                            className={classes.cameraMisc}
+                            variant="body2"
+                            noWrap>
+                            $1666
+                          </Typography>
+                        </div>
+                      </div>
+                    )}
+                  {props.objList.type === 'film' &&
+                    instanceOfFilm(data, props.objList.type) && (
+                      <div className={classes.infoBox}>
+                        <Typography
+                          className={classes.cameraName}
+                          variant="body1"
+                          noWrap>
+                          {data.name}
+                        </Typography>
+                        <div>
+                          <Typography
+                            className={classes.cameraMisc}
+                            variant="body2"
+                            noWrap>
+                            $12
+                          </Typography>
+                        </div>
+                      </div>
+                    )}
+                  {props.objList.type === 'lens' &&
+                    instanceOfLens(data, props.objList.type) && (
+                      <div className={classes.infoBox}>
+                        <Typography
+                          className={classes.cameraName}
+                          variant="body1"
+                          noWrap>
+                          {data.name}
+                        </Typography>
+                        <div>
+                          <Typography
+                            className={classes.cameraMisc}
+                            variant="body2"
+                            noWrap>
+                            $12
+                          </Typography>
+                        </div>
+                      </div>
+                    )}
+                </a>
+              </Link>
+            </Grid>
+          );
+        })}
+      </Grid>
     </div>
   );
 }

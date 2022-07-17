@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {makeStyles} from '@mui/styles';
 import {Divider, ToggleButton, ToggleButtonGroup} from '@mui/material';
-import {Description, Image as ImageIcon, TextFields} from '@mui/icons-material';
 import {campediaTheme} from '@/utils/campediaTheme';
 import {toggleList} from './pageList';
 import Breadcrumb from '../breadcrumbs';
+import {Description, Image as ImageIcon, TextFields} from '@mui/icons-material';
 
 const useStyles = makeStyles(theme => ({
   pageHeader: {
@@ -37,7 +37,6 @@ export default function PageListHeader(props: PageListProps) {
 
   return (
     <>
-      <Divider />
       <div className={classes.pageHeader}>
         <Breadcrumb />
         <ToggleButtonGroup size="small" {...control}>
@@ -52,7 +51,9 @@ export default function PageListHeader(props: PageListProps) {
           </ToggleButton>
         </ToggleButtonGroup>
       </div>
+
       <Divider />
+
       <br />
     </>
   );

@@ -40,18 +40,17 @@ export default function PageList(props: PageListProps) {
   return (
     <>
       <PageListHeader alignmentState={setAlignment} />
-      <br />
-      <div className={classes.pageContainer}>
-        {obj && alignment === 'desc' && (
-          <DescriptionListCard objList={obj} filterBy={props.filterBy} />
-        )}
-        {obj && alignment === 'image' && (
+      {/* <div className={classes.pageContainer}> */}
+      {obj && alignment === 'desc' && (
+        <DescriptionListCard objList={obj} filterBy={props.filterBy} />
+      )}
+      {/* {obj && alignment === 'image' && (
           <PhotoListCard objList={obj} /> //filterBy={props.filterBy} />
         )}
         {obj && alignment === 'text' && (
           <TextListCard objList={obj} /> //filterBy={props.filterBy} />
         )}
-      </div>
+      </div> */}
     </>
   );
 }

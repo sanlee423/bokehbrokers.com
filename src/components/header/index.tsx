@@ -4,6 +4,7 @@ import useWindowSize from '@/utils/windowDimensions';
 import {Hamburger} from '../dropdown/mobile/hamburger';
 import Link from 'next/link';
 import {Divider, Typography} from '@mui/material';
+import SearchBar from '../searchBar/searchBar';
 
 export const Header: React.FC = () => {
   const {width, height} = useWindowSize();
@@ -33,6 +34,11 @@ export const Header: React.FC = () => {
     <div
       className={`header-container ${checked ? 'header-container-dark' : ''}`}>
       <Logo checked={checked} />
+      {!checked && (
+        <div className={'searchbar-container'}>
+          <SearchBar />
+        </div>
+      )}
       {width < 700 && <Hamburger onChecked={handleCheck} />}
       <div
         className={`hamburger-primary-menu ${

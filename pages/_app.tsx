@@ -16,10 +16,7 @@ function MyApp({Component, pageProps}: AppProps): JSX.Element {
     <>
       <ThemeProvider theme={campediaTheme}>
         <Container>
-          <Header />
-          <MainNav />
           <Component {...pageProps} />
-          <Footer />
         </Container>
       </ThemeProvider>
     </>
