@@ -25,11 +25,22 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const Footer: React.FC = () => {
-  const {width} = useWindowSize();
+  const {height, width} = useWindowSize();
   const classes = useStyles(campediaTheme);
 
+  React.useEffect(() => {
+    if (document !== null) {
+      const footerContainer = document.getElementById('footer-container');
+
+      if (footerContainer) {
+        footerContainer.style.width = `${width}px`;
+        footerContainer.style.height = `${height * 0.05}px`;
+      }
+    }
+  }, [width, height]);
+
   return (
-    <footer className={classes.footer}>
+    <footer id={'footer-container'} className={classes.footer}>
       {width > 700 ? (
         <div className={classes.footerText}>
           <strong className="copyright">

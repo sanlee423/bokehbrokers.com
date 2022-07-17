@@ -10,6 +10,7 @@ export const Header: React.FC = () => {
   const {width, height} = useWindowSize();
   const [checked, setChecked] = useState<boolean>(false);
 
+  // Handle Hamburger Checks
   const handleCheck = (e: any) => {
     setChecked(e.target.checked);
   };
@@ -30,8 +31,21 @@ export const Header: React.FC = () => {
     setChecked(false);
   };
 
+  //Handle Dimensions -- Due to issue with mobile web
+  React.useEffect(() => {
+    if (document !== null) {
+      const headerContainer = document.getElementById('header-container');
+
+      if (headerContainer) {
+        headerContainer.style.width = `${width}px`;
+        headerContainer.style.height = `${height * 0.08}px`;
+      }
+    }
+  }, [width, height]);
+
   return (
     <div
+      id={'header-container'}
       className={`header-container ${checked ? 'header-container-dark' : ''}`}>
       <Logo checked={checked} />
       {!checked && (

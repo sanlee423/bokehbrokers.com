@@ -31,7 +31,7 @@ a {
 .navbar {
   display: flex;
   flex-direction: row;
-  height: var(--nav-size);
+  width: 100%;
   background-color: var(--bg);
   padding: 0 1rem;
   border-bottom: var(--border);
@@ -118,7 +118,7 @@ a {
 
 .dropdown {
   position: absolute;
-  top: 117px;
+  top: 120px;
   width: 500px;
   transform: translateX(-45%);
   background-color: var(--bg);

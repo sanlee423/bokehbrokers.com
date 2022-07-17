@@ -13,6 +13,9 @@ import {campediaTheme} from '@/utils/campediaTheme';
 
 const useStyles = makeStyles(theme => ({
   mainNav: {
+    display: 'flex',
+    justifyContent: 'center',
+    verticalAlign: 'center',
     textAlign: 'center',
     backgroundColor: '#1a1a1a',
   },
@@ -20,10 +23,28 @@ const useStyles = makeStyles(theme => ({
 
 const MainNav: React.FC = () => {
   const classes = useStyles(campediaTheme);
-  const {width} = useWindowSize();
+  const {height, width} = useWindowSize();
+
+  //Handle Dimensions -- Due to issue with mobile web
+  React.useEffect(() => {
+    if (document !== null) {
+      const desktopNavbar = document.getElementById('desktop-navbar');
+
+      if (width > 700) {
+        if (desktopNavbar) {
+          desktopNavbar.style.width = `${width}px`;
+          desktopNavbar.style.height = `${height * 0.05}px`;
+        }
+      } else {
+        if (desktopNavbar) {
+          desktopNavbar.style.display = 'none';
+        }
+      }
+    }
+  }, [width, height]);
 
   return (
-    <div className={classes.mainNav}>
+    <div className={classes.mainNav} id={'desktop-navbar'}>
       {width > 700 && (
         <nav className="navbar">
           <NavbarLeft>
