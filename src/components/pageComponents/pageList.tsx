@@ -26,9 +26,6 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     height: '100%',
   },
-  productFilterContainer: {
-    width: '20%',
-  },
 }));
 
 export type toggleList = 'image' | 'desc' | 'text';
@@ -65,13 +62,12 @@ export default function PageList(props: PageListProps) {
   }, [setObj, data, width]);
 
   const [alignment, setAlignment] = React.useState<toggleList>('desc');
+
   return (
     <>
       <PageListHeader alignmentState={setAlignment} />
       <div className={classes.productContainer}>
-        {width > 700 && (
-          <div className={classes.productFilterContainer}>filter</div>
-        )}
+        {width > 700 && <div id={'product-filter-container'}>filter</div>}
         <div id={'product-list-container'}>
           {/* <div className={classes.pageContainer}> */}
           {obj && alignment === 'desc' && (

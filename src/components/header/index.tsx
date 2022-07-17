@@ -39,6 +39,7 @@ export const Header: React.FC = () => {
       if (hamburgerMenu && checked) {
         hamburgerMenu.style.width = `${width}px`;
         hamburgerMenu.style.height = `${height}px`;
+        hamburgerMenu.style.top = `${height * 0.08}px`;
         hamburgerMenu.style.maxHeight = `${height}px`;
         document.body.style.overflow = 'hidden';
       } else if (hamburgerMenu && !checked) {
@@ -65,7 +66,6 @@ export const Header: React.FC = () => {
         className={`hamburger-primary-menu ${
           checked ? 'hamburger-primary-menu-checked' : ''
         }`}>
-        <Divider className="hamburger-divider" />
         <div className={'dropdown-container'}>
           <Link href="/brands">
             <a className="hamburger-link" onClick={handleClick}>

@@ -103,6 +103,7 @@
   left: 0px;
   overflow: hidden;
   background-color: #4a4848;
+  max-height: 0;
 
   -webkit-transition: max-height 0.3s ease-out;
   -moz-transition: max-height 0.3s ease-out;
