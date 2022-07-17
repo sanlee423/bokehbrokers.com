@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   },
   flexBox: {
     margin: '1% 4%',
-    width: '90vw',
+    width: '100%',
     height: '100%',
     justifyContent: 'center',
   },

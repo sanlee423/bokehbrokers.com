@@ -19,8 +19,8 @@ import {LensResponse} from 'pages/api/lens';
 
 const useStyles = makeStyles(theme => ({
   flexBox: {
-    width: '100vw',
     height: '100%',
+    width: '100%',
     justifyContent: 'center',
     padding: '3px',
   },
@@ -49,13 +49,7 @@ const useStyles = makeStyles(theme => ({
     overflow: 'hidden',
 
     boxShadow:
-      '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-
-    '&:hover': {
-      filter: 'brightness(105%)',
-      backgroundColor: '#393a3b',
-      transition: '300ms ease',
-    },
+      '0 5px 7px -1px rgb(0 0 0 / 0.1), 0 2px 3px -2px rgb(0 0 0 / 0.1)',
   },
   listText: {
     width: 'auto',
@@ -94,13 +88,8 @@ export default function DescriptionListCard(props: DescriptionListProps) {
   const {width} = useWindowSize();
 
   React.useEffect(() => {
-    if (width < 700) {
-      setColumns(1);
-      setXs(1);
-    } else {
-      setColumns(4);
-      setXs(1);
-    }
+    setColumns(1);
+    setXs(1);
   }, [width]);
 
   return (

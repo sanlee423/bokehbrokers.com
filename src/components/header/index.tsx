@@ -15,12 +15,6 @@ export const Header: React.FC = () => {
     setChecked(e.target.checked);
   };
 
-  useEffect(() => {
-    checked
-      ? (document.body.style.overflow = 'hidden')
-      : (document.body.style.overflow = 'unset');
-  }, [checked]);
-
   const handleClick = () => {
     if (document !== null) {
       const input: HTMLInputElement = document?.getElementById(
@@ -35,26 +29,39 @@ export const Header: React.FC = () => {
   React.useEffect(() => {
     if (document !== null) {
       const headerContainer = document.getElementById('header-container');
+      const hamburgerMenu = document.getElementById('hamburger-primary-menu');
 
       if (headerContainer) {
         headerContainer.style.width = `${width}px`;
         headerContainer.style.height = `${height * 0.08}px`;
       }
+
+      if (hamburgerMenu && checked) {
+        hamburgerMenu.style.width = `${width}px`;
+        hamburgerMenu.style.height = `${height}px`;
+        hamburgerMenu.style.maxHeight = `${height}px`;
+        document.body.style.overflow = 'hidden';
+      } else if (hamburgerMenu && !checked) {
+        hamburgerMenu.style.width = `${width}px`;
+        hamburgerMenu.style.maxHeight = `0px`;
+        document.body.style.overflow = 'unset';
+      }
     }
-  }, [width, height]);
+  }, [width, height, checked]);
 
   return (
     <div
       id={'header-container'}
       className={`header-container ${checked ? 'header-container-dark' : ''}`}>
       <Logo checked={checked} />
-      {!checked && (
+      {!checked && width < 700 && (
         <div className={'searchbar-container'}>
           <SearchBar />
         </div>
       )}
       {width < 700 && <Hamburger onChecked={handleCheck} />}
       <div
+        id={'hamburger-primary-menu'}
         className={`hamburger-primary-menu ${
           checked ? 'hamburger-primary-menu-checked' : ''
         }`}>

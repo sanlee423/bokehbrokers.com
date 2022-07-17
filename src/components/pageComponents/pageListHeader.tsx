@@ -5,6 +5,8 @@ import {campediaTheme} from '@/utils/campediaTheme';
 import {toggleList} from './pageList';
 import Breadcrumb from '../breadcrumbs';
 import {Description, Image as ImageIcon, TextFields} from '@mui/icons-material';
+import useWindowSize from '@/utils/windowDimensions';
+import SearchBar from '../searchBar/searchBar';
 
 const useStyles = makeStyles(theme => ({
   pageHeader: {
@@ -23,6 +25,7 @@ interface PageListProps {
 
 export default function PageListHeader(props: PageListProps) {
   const classes = useStyles(campediaTheme);
+  const {width} = useWindowSize();
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
     newAlignment: toggleList,
@@ -39,6 +42,11 @@ export default function PageListHeader(props: PageListProps) {
     <>
       <div className={classes.pageHeader}>
         <Breadcrumb />
+        {width > 700 && (
+          <div className={'searchbar-container'}>
+            <SearchBar />
+          </div>
+        )}
         <ToggleButtonGroup size="small" {...control}>
           <ToggleButton value="desc" key="desc">
             <Description />

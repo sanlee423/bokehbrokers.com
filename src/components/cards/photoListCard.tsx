@@ -18,8 +18,8 @@ const useStyles = makeStyles(theme => ({
   },
   flexBox: {
     margin: '1% 4%',
-    width: '90vw',
     height: '100%',
+    width: '100%',
     justifyContent: 'center',
   },
   gridContainer: {

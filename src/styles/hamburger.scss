@@ -10,6 +10,11 @@
   margin-right: 0.5rem;
 }
 
+.hamburger-container:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 .hamburger {
   display: block;
   width: 4rem;
@@ -78,10 +83,10 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  -webkit-transition: background-color 0.2s ease-out;
-  -moz-transition: background-color 0.2s ease-out;
-  -o-transition: background-color 0.2s ease-out;
-  transition: background-color 0.2s ease-out;
+  -webkit-transition: background-color 1s ease-out;
+  -moz-transition: background-color 1s ease-out;
+  -o-transition: background-color 1s ease-out;
+  transition: background-color 1s ease-out;
 }
 
 .header-container-dark {
@@ -97,25 +102,21 @@
   top: 64px;
   left: 0px;
   overflow: hidden;
-  width: 100vw;
-  background-color: white;
+  background-color: #4a4848;
 
-  max-height: 0;
-  -webkit-transition: background-color 1s ease-out;
-  -moz-transition: background-color 1s ease-out;
-  -o-transition: background-color 1s ease-out;
-  transition: background-color 1s ease-out;
+  -webkit-transition: max-height 0.3s ease-out;
+  -moz-transition: max-height 0.3s ease-out;
+  -o-transition: max-height 0.3s ease-out;
+  transition: max-height 0.3s ease-out;
   z-index: 1000;
 }
 
 .hamburger-primary-menu-checked {
-  height: 100vh;
-  max-height: 100vh;
   background-color: #4a4848;
-  -webkit-transition: background-color 1s ease-out;
-  -moz-transition: background-color 1s ease-out;
-  -o-transition: background-color 1s ease-out;
-  transition: background-color 1s ease-out;
+  -webkit-transition: max-height 0.3s ease-out;
+  -moz-transition: max-height 0.3s ease-out;
+  -o-transition: max-height 0.3s ease-out;
+  transition: max-height 0.3s ease-out;
 }
 
 .dropdown-container {

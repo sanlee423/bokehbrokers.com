@@ -8,6 +8,7 @@ import PhotoListCard from '@/components/cards/photoListCard';
 import TextListCard from '@/components/cards/textListCard';
 import PageListHeader from './pageListHeader';
 import fetcher from '@/utils/fetcher';
+import useWindowSize from '@/utils/windowDimensions';
 
 const useStyles = makeStyles(theme => ({
   pageContainer: {
@@ -17,6 +18,16 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     height: '100%',
     overflowX: 'hidden',
+  },
+  productContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    height: '100%',
+  },
+  productFilterContainer: {
+    width: '20%',
   },
 }));
 
@@ -28,29 +39,53 @@ interface PageListProps {
 }
 
 export default function PageList(props: PageListProps) {
+  const {width} = useWindowSize();
   const classes = useStyles(campediaTheme);
   const [obj, setObj] = useState<BrandResponse | undefined>();
   const {data} = useSWR(`/api/${props.type}/`, fetcher);
 
   useEffect(() => {
     setObj(data);
-  }, [setObj, data]);
+
+    if (document !== null) {
+      const productListContainer = document.getElementById(
+        'product-list-container',
+      );
+
+      if (width < 700) {
+        if (productListContainer) {
+          productListContainer.style.width = `${width}px`;
+        }
+      } else {
+        if (productListContainer) {
+          productListContainer.style.width = `${width * 0.8}px`;
+        }
+      }
+    }
+  }, [setObj, data, width]);
 
   const [alignment, setAlignment] = React.useState<toggleList>('desc');
   return (
     <>
       <PageListHeader alignmentState={setAlignment} />
-      {/* <div className={classes.pageContainer}> */}
-      {obj && alignment === 'desc' && (
-        <DescriptionListCard objList={obj} filterBy={props.filterBy} />
-      )}
-      {/* {obj && alignment === 'image' && (
+      <div className={classes.productContainer}>
+        {width > 700 && (
+          <div className={classes.productFilterContainer}>filter</div>
+        )}
+        <div id={'product-list-container'}>
+          {/* <div className={classes.pageContainer}> */}
+          {obj && alignment === 'desc' && (
+            <DescriptionListCard objList={obj} filterBy={props.filterBy} />
+          )}
+          {/* {obj && alignment === 'image' && (
           <PhotoListCard objList={obj} /> //filterBy={props.filterBy} />
         )}
         {obj && alignment === 'text' && (
           <TextListCard objList={obj} /> //filterBy={props.filterBy} />
         )}
       </div> */}
+        </div>
+      </div>
     </>
   );
 }
