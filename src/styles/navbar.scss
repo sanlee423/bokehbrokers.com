@@ -12,6 +12,7 @@ body {
   --border: 1px solid #474a4d;
   --border-radius: 1px;
   --speed: 500ms;
+  overflow: hidden;
 }
 
 ul {
@@ -126,7 +127,6 @@ a {
 
 .dropdown {
   position: absolute;
-  top: 120px;
   width: 500px;
   transform: translateX(-45%);
   background-color: var(--bg);

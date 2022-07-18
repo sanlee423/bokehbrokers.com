@@ -9,6 +9,14 @@ import 'swiper/css/navigation';
 
 // import required modules
 import {Pagination, Navigation} from 'swiper';
+import {campediaTheme} from './campediaTheme';
+import {makeStyles} from '@mui/styles';
+
+const useStyles = makeStyles(theme => ({
+  swiperSlide: {
+    padding: '10%',
+  },
+}));
 
 interface swiperProps {
   styleName: string;
@@ -16,19 +24,21 @@ interface swiperProps {
 }
 
 export default function Swiper(props: swiperProps) {
+  const classes = useStyles(campediaTheme);
+
   return (
     <>
       <SwiperFC
         pagination={{
-          type: 'progressbar',
+          dynamicBullets: true,
         }}
-        navigation={true}
-        modules={[Pagination, Navigation]}
+        navigation={false}
+        modules={[Pagination]}
         className={props.styleName}>
         {props.imageUrls &&
           props.imageUrls.map((imageUrl, i) => {
             return (
-              <SwiperSlide key={`Image ${i}`}>
+              <SwiperSlide className={classes.swiperSlide} key={`Image ${i}`}>
                 <img alt={`Image ${i}`} src={imageUrl} />
               </SwiperSlide>
             );

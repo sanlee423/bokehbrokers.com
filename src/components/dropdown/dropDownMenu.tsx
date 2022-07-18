@@ -2,6 +2,7 @@ import {useEffect, useRef, useState} from 'react';
 import {CSSTransition} from 'react-transition-group';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import {DropdownItem, DropdownProps} from './dropDownItem';
+import useWindowSize from '@/utils/windowDimensions';
 
 export function DropdownMenu({
   dropdown,
@@ -10,6 +11,7 @@ export function DropdownMenu({
   dropdown: DropdownProps;
   isLeft: boolean;
 }) {
+  const {height} = useWindowSize();
   const [activeMenu, setActiveMenu] = useState('main');
   const [menuHeight, setMenuHeight] = useState<number | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -28,8 +30,19 @@ export function DropdownMenu({
     setMenuHeight(height);
   }
 
+  useEffect(() => {
+    if (document !== null) {
+      const dropdownContainer = document.getElementById('dropdown-container');
+
+      if (dropdownContainer) {
+        dropdownContainer.style.top = `${height * 0.13}px`;
+      }
+    }
+  }, [height]);
+
   return (
     <div
+      id={'dropdown-container'}
       className={`dropdown dropdown-${isLeft ? 'left' : 'right'}`}
       style={{height: menuHeight ?? 0}}
       ref={dropdownRef}>

@@ -121,9 +121,9 @@ const CamerasByAlt: React.FC = () => {
   }, [cameraImages, cameraResponse, cameraSpecs]);
 
   const DataGrid = styled(MuiDataGrid)(({theme}) => ({
-    '& .MuiDataGrid-columnHeaders': {display: 'none'},
-    '& .MuiDataGrid-virtualScroller': {marginTop: '0!important'},
-    '& .MuiDataGrid-footerContainer': {display: 'none'},
+    '& .MuiDataGrid-virtualScroller': {
+      marginBottom: '0!important',
+    },
   }));
 
   return (
@@ -169,8 +169,9 @@ const CamerasByAlt: React.FC = () => {
         <div>
           <Typography variant={'h5'}>Camera Specifications</Typography>
           <br />
-          <Box sx={{height: 400, width: '100%'}}>
+          <Box sx={{height: '400px', width: '100%'}}>
             <DataGrid
+              disableSelectionOnClick
               rows={rows}
               columns={columns}
               pageSize={100}
@@ -179,6 +180,7 @@ const CamerasByAlt: React.FC = () => {
           </Box>
         </div>
       )}
+      <br />
     </div>
   );
 };
