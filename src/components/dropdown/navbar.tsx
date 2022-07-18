@@ -24,7 +24,7 @@ export function NavItemText({
       id={text}
       key={text}
       className="nav-item-text"
-      onMouseEnter={() => setOpen(true)}
+      onMouseEnter={() => setOpen(false)}
       onMouseLeave={e => {
         if (!e.relatedTarget) {
           return;

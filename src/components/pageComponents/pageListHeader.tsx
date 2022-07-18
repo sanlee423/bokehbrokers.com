@@ -47,7 +47,7 @@ export default function PageListHeader(props: PageListProps) {
             <SearchBar />
           </div>
         )}
-        <ToggleButtonGroup size="small" {...control}>
+        {/* <ToggleButtonGroup size="small" {...control}>
           <ToggleButton value="desc" key="desc">
             <Description />
           </ToggleButton>
@@ -57,7 +57,7 @@ export default function PageListHeader(props: PageListProps) {
           <ToggleButton value="text" key="text">
             <TextFields />
           </ToggleButton>
-        </ToggleButtonGroup>
+        </ToggleButtonGroup> */}
       </div>
 
       <Divider />

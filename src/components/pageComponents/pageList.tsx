@@ -4,11 +4,10 @@ import useSWR from 'swr';
 import {BrandResponse} from 'pages/api/brands';
 import {campediaTheme} from '@/utils/campediaTheme';
 import DescriptionListCard from '@/components/cards/descriptionListCard';
-import PhotoListCard from '@/components/cards/photoListCard';
-import TextListCard from '@/components/cards/textListCard';
 import PageListHeader from './pageListHeader';
 import fetcher from '@/utils/fetcher';
 import useWindowSize from '@/utils/windowDimensions';
+import FilterGroup from '../filterGroup/filterGroup';
 
 const useStyles = makeStyles(theme => ({
   pageContainer: {
@@ -25,6 +24,10 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between',
     width: '100%',
     height: '100%',
+  },
+  filterContainer: {
+    display: 'flex',
+    flexDirection: 'column',
   },
 }));
 
@@ -67,7 +70,13 @@ export default function PageList(props: PageListProps) {
     <>
       <PageListHeader alignmentState={setAlignment} />
       <div className={classes.productContainer}>
-        {width > 700 && <div id={'product-filter-container'}>filter</div>}
+        {width > 700 && (
+          <div
+            id={'product-filter-container'}
+            className={classes.filterContainer}>
+            <FilterGroup />
+          </div>
+        )}
         <div id={'product-list-container'}>
           {/* <div className={classes.pageContainer}> */}
           {obj && alignment === 'desc' && (
