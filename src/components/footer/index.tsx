@@ -3,12 +3,13 @@ import {makeStyles} from '@mui/styles';
 import Link from 'next/link';
 import {campediaTheme} from '@/utils/campediaTheme';
 import useWindowSize from '@/utils/windowDimensions';
+import {Theme} from '@mui/material';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
   footer: {
     height: '5vh',
     width: '100%',
-    background: '#4a4848',
+    background: theme.palette.primary.main,
   },
   footerText: {
     display: 'flex',

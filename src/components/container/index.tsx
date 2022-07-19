@@ -1,27 +1,22 @@
 import {campediaTheme} from '@/utils/campediaTheme';
 import useWindowSize from '@/utils/windowDimensions';
+import {Theme} from '@mui/material';
 import {makeStyles} from '@mui/styles';
 import React from 'react';
 import MainNav from '../dropdown/mainNav';
 import {Footer} from '../footer';
 import {Header} from '../header';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
   mainContainer: {
-    width: '100vw',
+    width: '100%',
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
     overflow: 'hidden',
   },
   pageContainer: {
-    overflowY: 'scroll',
-  },
-  webHeight: {
-    height: '82vh',
-  },
-  mobileHeight: {
-    height: '87vh',
+    overflowY: 'auto',
   },
 }));
 
@@ -39,13 +34,13 @@ export const Container: React.FC = ({children}) => {
         if (contentContainer) {
           contentContainer.style.width = `${width}px`;
           contentContainer.style.height = `${height * 0.87}px`;
-          contentContainer.style.overflowY = 'scroll';
+          contentContainer.style.overflowY = 'auto';
         }
       } else {
         if (contentContainer) {
           contentContainer.style.width = `${width}px`;
           contentContainer.style.height = `${height * 0.82}px`;
-          contentContainer.style.overflowY = 'scroll';
+          contentContainer.style.overflowY = 'auto';
         }
       }
     }

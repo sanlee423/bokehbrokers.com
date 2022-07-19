@@ -11,9 +11,9 @@ const StyledInputRoot = styled('div')(
   display: flex;
   font-weight: 500;
   width: 100%;
-  border: 1px solid #CDD2D7;
+  border: 1px solid rgb(86, 94, 96);
   border-radius: 0.25rem;
-  background: #F3F6F9;
+  background: white;
   align-items: center;
   justify-content: center;
 
@@ -29,6 +29,7 @@ const StyledInputElement = styled('input')(
   font-family: inherit;
   font-weight: 400;
   line-height: 1.5;
+  color: #2C3639;
   flex-grow: 1;
   color: black;
   background: inherit;
@@ -58,5 +59,10 @@ const CustomInput = React.forwardRef(function CustomInput(
 });
 
 export default function SearchBar() {
-  return <CustomInput id="search-bar" startAdornment={<SearchIcon />} />;
+  return (
+    <CustomInput
+      id="search-bar"
+      startAdornment={<SearchIcon style={{fill: '#2C3639'}} />}
+    />
+  );
 }

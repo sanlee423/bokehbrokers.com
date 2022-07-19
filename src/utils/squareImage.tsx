@@ -55,7 +55,10 @@ export default function SquareImage(props: SquareImageProps) {
         )
       ) : (
         <div className={classes.iconContainer}>
-          <CircularProgress className={classes.svgContainer} />
+          <CircularProgress
+            style={{color: campediaTheme.palette.primary.main}}
+            className={classes.svgContainer}
+          />
         </div>
       )}
     </>

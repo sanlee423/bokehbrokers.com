@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Logo} from './logo';
 import useWindowSize from '@/utils/windowDimensions';
 import {Hamburger} from '../dropdown/mobile/hamburger';

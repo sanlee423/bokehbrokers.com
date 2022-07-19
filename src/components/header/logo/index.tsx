@@ -5,6 +5,11 @@ import {campediaTheme} from '@/utils/campediaTheme';
 import {makeStyles} from '@mui/styles';
 
 const useStyles = makeStyles(theme => ({
+  logoSVG: {
+    cursor: 'pointer',
+    display: 'flex',
+    margin: '0 1%',
+  },
   hideLogo: {
     display: 'none',
   },
@@ -24,7 +29,7 @@ export const Logo: React.FC<LogoProps> = ({checked}) => {
   };
 
   return (
-    <div className="flex w-1/2 mx-2">
+    <div className={classes.logoSVG}>
       <a onClick={handleClick}>
         <CampediaSVG
           data-test="icon"

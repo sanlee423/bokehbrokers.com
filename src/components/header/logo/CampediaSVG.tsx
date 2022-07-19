@@ -18,7 +18,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
       <g>
         <path
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="6"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -27,7 +27,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
         />
         <path
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -36,7 +36,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
         />
         <path
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -45,7 +45,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
         />
         <path
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="4"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -54,7 +54,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
         />
         <path
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -63,7 +63,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
         />
         <path
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -72,7 +72,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
         />
         <path
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -81,7 +81,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
         />
         <path
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -91,7 +91,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <polyline
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -101,7 +101,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <line
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -114,7 +114,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <polyline
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -124,7 +124,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <polyline
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -134,7 +134,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <polyline
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -144,7 +144,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <polyline
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -153,7 +153,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
         />
         <path
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -163,7 +163,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <polyline
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -173,7 +173,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <polyline
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -182,7 +182,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
         />
         <path
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -192,7 +192,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <polyline
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -201,7 +201,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
         />
         <path
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="6"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -210,7 +210,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
         />
         <path
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -220,7 +220,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <line
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -232,7 +232,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
         />
         <path
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -241,7 +241,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
         />
         <path
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -250,7 +250,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
         />
         <path
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -259,7 +259,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
         />
         <path
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -268,7 +268,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
         />
         <path
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -277,7 +277,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
         />
         <path
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -286,7 +286,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
         />
         <path
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -295,7 +295,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
         />
         <path
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -305,7 +305,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <polyline
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -315,7 +315,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <polyline
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -325,7 +325,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <polyline
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -335,7 +335,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <polyline
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -345,7 +345,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <polyline
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -355,7 +355,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <line
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -368,7 +368,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <line
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -381,7 +381,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <line
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -394,7 +394,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <polyline
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -404,7 +404,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <polyline
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -414,7 +414,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <line
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -427,7 +427,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <line
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -440,7 +440,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <line
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -453,7 +453,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <line
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -466,7 +466,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <line
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -479,7 +479,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <polyline
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -489,7 +489,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <polyline
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -499,7 +499,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <line
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -512,7 +512,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <polyline
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -522,7 +522,7 @@ function CampediaSVG(props: React.SVGProps<SVGSVGElement>) {
 
         <line
           fill="none"
-          stroke="#000000"
+          stroke="#2C3639"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"

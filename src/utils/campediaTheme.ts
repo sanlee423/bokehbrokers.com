@@ -1,25 +1,30 @@
-import {createTheme} from '@mui/material/styles';
+import {createTheme, ThemeOptions} from '@mui/material/styles';
 
-export const campediaTheme = createTheme({
-  typography: {
-    fontFamily: 'Raleway, Arial',
-    fontSize: 12,
-  },
+const themeOptions: ThemeOptions = {
   palette: {
     primary: {
-      main: '#0052cc',
+      main: '#2C3639',
+      contrastText: '#DCD7C9',
     },
     secondary: {
-      main: '#edf2ff',
+      main: '#3F4E4F',
+      contrastText: '#DCD7C9',
     },
-  },
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 600,
-      md: 900,
-      lg: 1200,
-      xl: 1536,
+    background: {
+      default: '#f7f7f1',
+      paper: '#f3f3eb',
     },
+    text: {
+      primary: '#15191a',
+      secondary: '#2C3639',
+      disabled: '#506067',
+    },
+    divider: '#6d8285',
   },
-});
+  typography: {
+    fontFamily: 'Open Sans',
+    fontSize: 14,
+  },
+};
+
+export const campediaTheme = createTheme(themeOptions);
