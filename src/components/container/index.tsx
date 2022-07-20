@@ -33,13 +33,13 @@ export const Container: React.FC = ({children}) => {
       if (width < 700) {
         if (contentContainer) {
           contentContainer.style.width = `${width}px`;
-          contentContainer.style.height = `${height * 0.87}px`;
+          contentContainer.style.height = `${height * 0.89}px`;
           contentContainer.style.overflowY = 'auto';
         }
       } else {
         if (contentContainer) {
           contentContainer.style.width = `${width}px`;
-          contentContainer.style.height = `${height * 0.82}px`;
+          contentContainer.style.height = `${height * 0.84}px`;
           contentContainer.style.overflowY = 'auto';
         }
       }

@@ -4,7 +4,6 @@ import useWindowSize from '@/utils/windowDimensions';
 import {Hamburger} from '../dropdown/mobile/hamburger';
 import Link from 'next/link';
 import {Divider, Typography} from '@mui/material';
-import SearchBar from '../searchBar/searchBar';
 
 export const Header: React.FC = () => {
   const {width, height} = useWindowSize();
@@ -33,13 +32,13 @@ export const Header: React.FC = () => {
 
       if (headerContainer) {
         headerContainer.style.width = `${width}px`;
-        headerContainer.style.height = `${height * 0.08}px`;
+        headerContainer.style.height = `${height * 0.06}px`;
       }
 
       if (hamburgerMenu && checked) {
         hamburgerMenu.style.width = `${width}px`;
         hamburgerMenu.style.height = `${height}px`;
-        hamburgerMenu.style.top = `${height * 0.08}px`;
+        hamburgerMenu.style.top = `${height * 0.06}px`;
         hamburgerMenu.style.maxHeight = `${height}px`;
         document.body.style.overflow = 'hidden';
       } else if (hamburgerMenu && !checked) {
@@ -55,11 +54,6 @@ export const Header: React.FC = () => {
       id={'header-container'}
       className={`header-container ${checked ? 'header-container-dark' : ''}`}>
       <Logo checked={checked} />
-      {!checked && width < 700 && (
-        <div className={'searchbar-container'}>
-          <SearchBar />
-        </div>
-      )}
       {width < 700 && <Hamburger onChecked={handleCheck} />}
       <div
         id={'hamburger-primary-menu'}

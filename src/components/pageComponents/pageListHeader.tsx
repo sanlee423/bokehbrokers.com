@@ -1,12 +1,14 @@
 import React from 'react';
 import {makeStyles} from '@mui/styles';
-import {Divider, ToggleButton, ToggleButtonGroup} from '@mui/material';
+import {Divider} from '@mui/material';
 import {campediaTheme} from '@/utils/campediaTheme';
 import {toggleList} from './pageList';
 import Breadcrumb from '../breadcrumbs';
-import {Description, Image as ImageIcon, TextFields} from '@mui/icons-material';
 import useWindowSize from '@/utils/windowDimensions';
 import SearchBar from '../searchBar/searchBar';
+import {useRouter} from 'next/router';
+import BackButton from './backButton';
+import MobileFilterButton from './mobileFilterButton';
 
 const useStyles = makeStyles(theme => ({
   pageHeader: {
@@ -14,8 +16,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     verticalAlign: 'center',
-    height: '4vh',
-    margin: '1%',
+    height: '6%',
   },
 }));
 
@@ -25,44 +26,20 @@ interface PageListProps {
 
 export default function PageListHeader(props: PageListProps) {
   const classes = useStyles(campediaTheme);
+  const router = useRouter();
   const {width} = useWindowSize();
-  const handleChange = (
-    event: React.MouseEvent<HTMLElement>,
-    newAlignment: toggleList,
-  ) => {
-    props.alignmentState(newAlignment);
-  };
-
-  const control = {
-    onChange: handleChange,
-    exclusive: true,
-  };
 
   return (
     <>
       <div className={classes.pageHeader}>
-        <Breadcrumb />
-        {width > 700 && (
-          <div className={'searchbar-container'}>
-            <SearchBar />
-          </div>
-        )}
-        {/* <ToggleButtonGroup size="small" {...control}>
-          <ToggleButton value="desc" key="desc">
-            <Description />
-          </ToggleButton>
-          <ToggleButton value="image" key="image">
-            <ImageIcon />
-          </ToggleButton>
-          <ToggleButton value="text" key="text">
-            <TextFields />
-          </ToggleButton>
-        </ToggleButtonGroup> */}
+        {width < 700 ? <BackButton /> : <Breadcrumb />}
+        <div className={'searchbar-container'}>
+          <SearchBar />
+        </div>
+        {width < 700 && <MobileFilterButton />}
       </div>
 
       <Divider />
-
-      <br />
     </>
   );
 }
