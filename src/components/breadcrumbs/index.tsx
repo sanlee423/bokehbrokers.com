@@ -7,7 +7,10 @@ import {campediaTheme} from '@/utils/campediaTheme';
 import useWindowSize from '@/utils/windowDimensions';
 
 const useStyles = makeStyles(theme => ({
-  breadCrumb: {},
+  breadCrumb: {
+    width: '20%',
+    padding: '2%',
+  },
 }));
 
 export default function Breadcrumb() {
@@ -29,41 +32,39 @@ export default function Breadcrumb() {
 
   return (
     <div className={classes.breadCrumb}>
-      {width > 700 && (
-        <Breadcrumbs aria-label="breadcrumb">
-          {splitArray &&
-            splitArray.map((link, i) => {
-              if (i === 0) {
-                return (
-                  <Link key={link} underline="hover" color="inherit" href="/">
-                    Home
-                  </Link>
-                );
-              } else if (i === splitArray.length - 1) {
-                return (
-                  <Link
-                    key={link}
-                    underline="hover"
-                    color="text.primary"
-                    href={generateLink(asPath, link)}
-                    aria-current="page">
-                    {capitalizeText(link)}
-                  </Link>
-                );
-              } else {
-                return (
-                  <Link
-                    key={link}
-                    underline="hover"
-                    color="inherit"
-                    href={generateLink(asPath, link)}>
-                    {capitalizeText(link)}
-                  </Link>
-                );
-              }
-            })}
-        </Breadcrumbs>
-      )}
+      <Breadcrumbs aria-label="breadcrumb">
+        {splitArray &&
+          splitArray.map((link, i) => {
+            if (i === 0) {
+              return (
+                <Link key={link} underline="hover" color="inherit" href="/">
+                  Home
+                </Link>
+              );
+            } else if (i === splitArray.length - 1) {
+              return (
+                <Link
+                  key={link}
+                  underline="hover"
+                  color="text.primary"
+                  href={generateLink(asPath, link)}
+                  aria-current="page">
+                  {capitalizeText(link)}
+                </Link>
+              );
+            } else {
+              return (
+                <Link
+                  key={link}
+                  underline="hover"
+                  color="inherit"
+                  href={generateLink(asPath, link)}>
+                  {capitalizeText(link)}
+                </Link>
+              );
+            }
+          })}
+      </Breadcrumbs>
     </div>
   );
 }
