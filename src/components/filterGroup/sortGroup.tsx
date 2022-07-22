@@ -5,10 +5,11 @@ import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import {Typography} from '@mui/material';
+import {ToggleButton, Typography} from '@mui/material';
 import {campediaTheme} from '@/utils/campediaTheme';
+import {SortByAlpha} from '@mui/icons-material';
 
-export default function FilterGroup() {
+export default function SortGroup() {
   const [state, setState] = React.useState({
     camera: false,
     lens: false,
@@ -32,40 +33,42 @@ export default function FilterGroup() {
           <Typography
             sx={{color: campediaTheme.palette.primary.main, m: 0.5}}
             variant="h6">
-            Brand Filter Options
+            Sorting Options
           </Typography>
         </FormLabel>
 
         <FormGroup sx={{p: 1}}>
           <FormControlLabel
             control={
-              <Checkbox
-                checked={camera}
-                onChange={handleChange}
+              <ToggleButton
+                value="check"
+                selected={lens}
                 sx={{
                   color: campediaTheme.palette.primary.main,
                   '&.Mui-checked': {
                     color: campediaTheme.palette.primary.main,
                   },
                 }}
-                name="camera"
-              />
+                name="lens">
+                <SortByAlpha />
+              </ToggleButton>
             }
-            label="Camera"
+            label="Sort A-Z"
           />
           <FormControlLabel
             control={
-              <Checkbox
-                checked={lens}
-                onChange={handleChange}
+              <ToggleButton
+                value="check"
+                selected={lens}
                 sx={{
                   color: campediaTheme.palette.primary.main,
                   '&.Mui-checked': {
                     color: campediaTheme.palette.primary.main,
                   },
                 }}
-                name="lens"
-              />
+                name="lens">
+                <SortByAlpha />
+              </ToggleButton>
             }
             label="Lens"
           />

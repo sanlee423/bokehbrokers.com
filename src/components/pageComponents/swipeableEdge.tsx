@@ -8,6 +8,8 @@ import Typography from '@mui/material/Typography';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import FilterGroup from '../filterGroup/filterGroup';
 import {campediaTheme} from '@/utils/campediaTheme';
+import {Button, Divider} from '@mui/material';
+import SortGroup from '../filterGroup/sortGroup';
 
 const drawerBleeding = 56;
 
@@ -30,7 +32,7 @@ const StyledBox = styled(Box)(({theme}) => ({
 const Puller = styled(Box)(({theme}) => ({
   width: 30,
   height: 6,
-  backgroundColor: '#fff',
+  backgroundColor: theme.palette.primary.main,
   borderRadius: 3,
   position: 'absolute',
   top: 8,
@@ -68,11 +70,28 @@ export default function SwipeableEdgeDrawer(props: Props) {
             visibility: 'visible',
             right: 0,
             left: 0,
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
           }}
           theme={campediaTheme}>
-          <Puller theme={campediaTheme} />
-          <Typography sx={{p: 2, color: 'text.secondary'}}>Options</Typography>
+          <Button
+            size="medium"
+            variant="text"
+            onClick={props.handleClose}
+            disableRipple
+            sx={{
+              '&:hover': {
+                backgroundColor: '#fff',
+              },
+              p: 2,
+              color: campediaTheme.palette.primary.main,
+              textTransform: 'none',
+            }}>
+            Close
+          </Button>
         </StyledBox>
+        <Divider />
         <StyledBox
           sx={{
             px: 2,
@@ -82,7 +101,9 @@ export default function SwipeableEdgeDrawer(props: Props) {
           }}
           theme={campediaTheme}>
           <FilterGroup />
-          <Skeleton variant="rectangular" height="100%" />
+          <Divider />
+          <SortGroup />
+          {/* <Skeleton variant="rectangular" height="100%" /> */}
         </StyledBox>
       </SwipeableDrawer>
     </Root>
