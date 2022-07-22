@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
     width: '31.25em',
     '@media (max-width: 700px)': {
       width: '100%',
-      padding: '2%',
+      padding: '4%',
     },
   },
   priceContainer: {},

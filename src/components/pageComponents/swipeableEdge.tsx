@@ -20,17 +20,17 @@ interface Props {
 const Root = styled('div')(({theme}) => ({
   height: '100%',
   color: theme.palette.primary.main,
-  backgroundColor: theme.palette.background.default,
+  backgroundColor: '#fff',
 }));
 
 const StyledBox = styled(Box)(({theme}) => ({
-  backgroundColor: theme.palette.background.default,
+  backgroundColor: '#fff',
 }));
 
 const Puller = styled(Box)(({theme}) => ({
   width: 30,
   height: 6,
-  backgroundColor: theme.palette.primary.main,
+  backgroundColor: '#fff',
   borderRadius: 3,
   position: 'absolute',
   top: 8,

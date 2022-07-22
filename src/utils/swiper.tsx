@@ -13,9 +13,7 @@ import {campediaTheme} from './campediaTheme';
 import {makeStyles} from '@mui/styles';
 
 const useStyles = makeStyles(theme => ({
-  swiperSlide: {
-    padding: '10%',
-  },
+  swiperSlide: {},
 }));
 
 interface swiperProps {
