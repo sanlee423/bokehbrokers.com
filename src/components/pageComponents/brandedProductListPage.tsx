@@ -71,23 +71,18 @@ export default function BrandedProductListPage() {
     setImage(brandImage);
   }, [data, brandData, brandImage]);
 
-  const [alignment, setAlignment] = React.useState<toggleList>('desc');
   return (
     <div className={classes.pageContainer}>
       {brandDetails && <HeaderCard brandDetails={brandDetails} image={image} />}
-      <PageListHeader alignmentState={setAlignment} />
+      <PageListHeader />
 
       <br />
       <div className={classes.listContainer}>
-        {productList && alignment === 'desc' && (
+        {productList && (
           <ProductListDescriptiveCard productList={productList.data} />
         )}
-        {productList && alignment === 'image' && (
-          <ProductListPhotoCard productList={productList.data} />
-        )}
-        {productList && alignment === 'text' && (
-          <ProductListTextCard productList={productList.data} />
-        )}
+        {productList && <ProductListPhotoCard productList={productList.data} />}
+        {productList && <ProductListTextCard productList={productList.data} />}
       </div>
     </div>
   );
