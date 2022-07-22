@@ -6,7 +6,6 @@ import {toggleList} from './pageList';
 import Breadcrumb from '../breadcrumbs';
 import useWindowSize from '@/utils/windowDimensions';
 import SearchBar from '../searchBar/searchBar';
-import {useRouter} from 'next/router';
 import BackButton from './backButton';
 import MobileFilterButton from './mobileFilterButton';
 
@@ -16,7 +15,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     verticalAlign: 'center',
-    height: '6%',
+    height: '7%',
   },
 }));
 
@@ -26,7 +25,6 @@ interface PageListProps {
 
 export default function PageListHeader(props: PageListProps) {
   const classes = useStyles(campediaTheme);
-  const router = useRouter();
   const {width} = useWindowSize();
 
   return (

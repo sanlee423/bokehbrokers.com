@@ -53,7 +53,7 @@ export const Header: React.FC = () => {
     <div
       id={'header-container'}
       className={`header-container ${checked ? 'header-container-dark' : ''}`}>
-      <Logo checked={checked} />
+      <Logo checked={checked} height={height * 0.06} />
       {width < 700 && <Hamburger onChecked={handleCheck} />}
       <div
         id={'hamburger-primary-menu'}

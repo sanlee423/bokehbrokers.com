@@ -17,9 +17,10 @@ const useStyles = makeStyles(theme => ({
 
 interface LogoProps {
   checked: boolean;
+  height: number;
 }
 
-export const Logo: React.FC<LogoProps> = ({checked}) => {
+export const Logo: React.FC<LogoProps> = ({checked, height}) => {
   const router = useRouter();
   const classes = useStyles(campediaTheme);
 
@@ -34,8 +35,8 @@ export const Logo: React.FC<LogoProps> = ({checked}) => {
         <CampediaSVG
           data-test="icon"
           className={`text-white ${checked ? classes.hideLogo : ''}`}
-          width="58"
-          height="58"
+          width={height}
+          height={height}
         />
       </a>
     </div>

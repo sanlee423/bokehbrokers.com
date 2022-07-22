@@ -11,11 +11,13 @@ const StyledInputRoot = styled('div')(
   display: flex;
   font-weight: 500;
   width: 100%;
+  height: 90%;
   border: 1px solid rgb(86, 94, 96);
   border-radius: 0.25rem;
   background: white;
   align-items: center;
   justify-content: center;
+  align-items: center;
 
   &.${inputUnstyledClasses.focused} {
     outline: none;
@@ -35,7 +37,7 @@ const StyledInputElement = styled('input')(
   background: inherit;
   border: none;
   border-radius: inherit;
-  padding: 8px 10px;
+  padding: 0px 2px;
   outline: 0;
 `,
 );

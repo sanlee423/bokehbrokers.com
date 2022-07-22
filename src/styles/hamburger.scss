@@ -1,8 +1,11 @@
 .searchbar-container {
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
-  padding: 3% 2%;
+  vertical-align: center;
+  align-items: center;
+  padding: 0.5% 1%;
 }
 
 .hamburger-container {
