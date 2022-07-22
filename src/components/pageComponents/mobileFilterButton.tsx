@@ -4,6 +4,7 @@ import {FilterListRounded as FilterListIcon} from '@mui/icons-material';
 import {useRouter} from 'next/router';
 import {campediaTheme} from '@/utils/campediaTheme';
 import {MobileFilterList} from './mobileFilterList';
+import SwipeableEdgeDrawer from './swipeableEdge';
 
 export default function MobileFilterButton() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -29,11 +30,18 @@ export default function MobileFilterButton() {
         </IconButton>
       </Tooltip>
       {anchorEl && (
-        <MobileFilterList
-          handleClose={handleClose}
-          open={open}
-          anchorEl={anchorEl}
-        />
+        <>
+          <SwipeableEdgeDrawer
+            handleOpen={handleClick}
+            handleClose={handleClose}
+            open={open}
+          />
+          {/* <MobileFilterList
+            handleClose={handleClose}
+            open={open}
+            anchorEl={anchorEl}
+          /> */}
+        </>
       )}
     </>
   );

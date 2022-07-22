@@ -1,11 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@mui/styles';
 import useSWR from 'swr';
-import {BrandResponse} from 'pages/api/brands';
 import {campediaTheme} from '@/utils/campediaTheme';
-import DescriptionListCard from '@/components/cards/descriptionListCard';
-import PhotoListCard from '@/components/cards/photoListCard';
-import TextListCard from '@/components/cards/textListCard';
 import PageListHeader from './pageListHeader';
 import {
   BrandDetailsObject,
