@@ -25,6 +25,11 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between',
     width: '100%',
     height: '100%',
+    overflowY: 'scroll',
+    overflowX: 'hidden',
+  },
+  productListContainer: {
+    width: '100%',
   },
   filterContainer: {
     display: 'flex',
@@ -56,7 +61,7 @@ export default function PageList(props: PageListProps) {
 
       if (width < 700) {
         if (productListContainer) {
-          productListContainer.style.width = `${width}px`;
+          productListContainer.style.width = `100%`;
         }
       } else {
         if (productListContainer) {
@@ -70,15 +75,13 @@ export default function PageList(props: PageListProps) {
     }
   }, [setObj, data, width]);
 
-  const [alignment, setAlignment] = React.useState<toggleList>('desc');
-
   return (
     <>
       {loading ? (
         <CircularPageLoader />
       ) : (
         <>
-          <PageListHeader alignmentState={setAlignment} />
+          <PageListHeader />
           <div className={classes.productContainer}>
             {width > 700 && (
               <div
@@ -87,7 +90,9 @@ export default function PageList(props: PageListProps) {
                 <FilterGroup />
               </div>
             )}
-            <div id={'product-list-container'}>
+            <div
+              className={classes.productListContainer}
+              id={'product-list-container'}>
               {obj && (
                 <DescriptionListCard objList={obj} filterBy={props.filterBy} />
               )}

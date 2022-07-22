@@ -4,7 +4,6 @@ import {Grid, Icon, Typography} from '@mui/material';
 import Link from 'next/link';
 import {BrandResponse} from 'pages/api/brands';
 import SquareImage from '../../utils/squareImage';
-import useWindowSize from '@/utils/windowDimensions';
 import {campediaTheme} from '@/utils/campediaTheme';
 import {CameraResponse} from 'pages/api/cameras';
 import {
@@ -83,21 +82,13 @@ interface DescriptionListProps {
 
 export default function DescriptionListCard(props: DescriptionListProps) {
   const classes = useStyles(campediaTheme);
-  const [columns, setColumns] = React.useState(6);
-  const [xs, setXs] = React.useState(1);
-  const {width} = useWindowSize();
-
-  React.useEffect(() => {
-    setColumns(1);
-    setXs(1);
-  }, [width]);
 
   return (
     <div className={classes.flexBox}>
-      <Grid className={classes.gridContainer} container columns={columns}>
+      <Grid className={classes.gridContainer} container columns={1}>
         {props.objList.data.map(data => {
           return (
-            <Grid key={data.alt} className={classes.gridItem} item xs={xs}>
+            <Grid key={data.alt} className={classes.gridItem} item xs={1}>
               <Link href={`/${props.objList.type}/${data.alt}`} passHref>
                 <a className={classes.gridLink}>
                   <Icon className={classes.brandIcon}>
@@ -148,12 +139,18 @@ export default function DescriptionListCard(props: DescriptionListProps) {
                           noWrap>
                           {data.name}
                         </Typography>
+                        <Typography
+                          className={classes.cameraMisc}
+                          variant="body2"
+                          noWrap>
+                          {`Release Date: 01/01/1999`}
+                        </Typography>
                         <div>
                           <Typography
                             className={classes.cameraMisc}
                             variant="body2"
                             noWrap>
-                            $12
+                            $1666
                           </Typography>
                         </div>
                       </div>
@@ -167,12 +164,18 @@ export default function DescriptionListCard(props: DescriptionListProps) {
                           noWrap>
                           {data.name}
                         </Typography>
+                        <Typography
+                          className={classes.cameraMisc}
+                          variant="body2"
+                          noWrap>
+                          {`Release Date: ${data.alt}`}
+                        </Typography>
                         <div>
                           <Typography
                             className={classes.cameraMisc}
                             variant="body2"
                             noWrap>
-                            $12
+                            $1666
                           </Typography>
                         </div>
                       </div>

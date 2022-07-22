@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     overflow: 'hidden',
   },
   pageContainer: {
-    overflowY: 'auto',
+    overflow: 'hidden',
   },
 }));
 

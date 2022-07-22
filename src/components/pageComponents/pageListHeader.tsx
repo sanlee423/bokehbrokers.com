@@ -23,7 +23,7 @@ interface PageListProps {
   alignmentState: React.Dispatch<React.SetStateAction<toggleList>>;
 }
 
-export default function PageListHeader(props: PageListProps) {
+export default function PageListHeader() {
   const classes = useStyles(campediaTheme);
   const {width} = useWindowSize();
 
