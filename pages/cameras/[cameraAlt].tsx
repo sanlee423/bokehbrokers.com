@@ -2,8 +2,18 @@ import React, {useEffect, useState} from 'react';
 import {makeStyles, styled} from '@mui/styles';
 
 import {useRouter} from 'next/router';
-import {Box, Divider, Typography} from '@mui/material';
+import {
+  Box,
+  Divider,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Typography,
+} from '@mui/material';
 import {DataGrid as MuiDataGrid, GridColDef} from '@mui/x-data-grid';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Swiper from '@/utils/swiper';
 import useSWR from 'swr';
 import {
@@ -17,8 +27,19 @@ import {formatSpec, formatSpecValue} from '@/utils/specFormatter';
 import {campediaTheme} from '@/utils/campediaTheme';
 import {ImageListResponse} from 'src/types/imageTypes';
 import fetcher from '@/utils/fetcher';
+import {
+  MuiAccordion,
+  MuiAccordionDetails,
+  MuiAccordionSummary,
+} from '@/components/accordion/muiAccordion';
 
 const useStyles = makeStyles(theme => ({
+  accordion: {
+    '.MuiPaper-root.MuiAccordion-root': {
+      boxShadow: 'none',
+    },
+    transition: '100ms ease',
+  },
   cameraContainer: {
     marginTop: '2%',
     padding: '0 5%',
@@ -57,16 +78,6 @@ const useStyles = makeStyles(theme => ({
   priceContainer: {},
   swiper: {},
 }));
-
-const columns: GridColDef[] = [
-  {field: 'id', headerName: 'ID', width: 300},
-  {
-    field: 'value',
-    headerName: 'Value',
-    width: 300,
-    editable: false,
-  },
-];
 
 interface GridRows {
   id: string;
@@ -167,19 +178,30 @@ const CamerasByAlt: React.FC = () => {
       <br />
 
       {rows && (
-        <div>
-          <Typography variant={'h5'}>Camera Specifications</Typography>
-          <br />
-          <Box sx={{height: '400px', width: '100%'}}>
-            <DataGrid
-              disableSelectionOnClick
-              rows={rows}
-              columns={columns}
-              pageSize={100}
-              rowsPerPageOptions={[100]}
-            />
-          </Box>
-        </div>
+        <MuiAccordion className={classes.accordion} defaultExpanded={false}>
+          <MuiAccordionSummary
+            expandIcon={<KeyboardArrowDownIcon />}
+            aria-controls={`camera-spec-control`}
+            id={`camera-spec-id`}>
+            <Typography variant={'h5'}>Camera Specifications</Typography>
+          </MuiAccordionSummary>
+          <MuiAccordionDetails>
+            <Table aria-label="camera specifications">
+              <TableBody>
+                {rows.map(row => (
+                  <TableRow
+                    key={row.id}
+                    sx={{'&:last-child td, &:last-child th': {border: 0}}}>
+                    <TableCell component="th" scope="row">
+                      {row.id}
+                    </TableCell>
+                    <TableCell align="right">{row.value}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </MuiAccordionDetails>
+        </MuiAccordion>
       )}
       <br />
     </div>

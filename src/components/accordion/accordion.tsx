@@ -1,15 +1,13 @@
 import React from 'react';
-import {makeStyles, styled} from '@mui/styles';
-
-import {
-  Typography,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-} from '@mui/material';
+import {makeStyles} from '@mui/styles';
+import {Typography} from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-
 import {campediaTheme} from '@/utils/campediaTheme';
+import {
+  MuiAccordion,
+  MuiAccordionDetails,
+  MuiAccordionSummary,
+} from './muiAccordion';
 
 const useStyles = makeStyles(theme => ({
   accordionHeading: {
@@ -24,33 +22,6 @@ const useStyles = makeStyles(theme => ({
     },
     transition: '100ms ease',
   },
-}));
-
-const MuiAccordion = styled((props: any) => (
-  <Accordion disableGutters elevation={0} square {...props} />
-))(({theme}) => ({
-  border: 'none',
-  '&:not(:last-child)': {
-    borderBottom: 0,
-  },
-  '&:before': {
-    display: 'none',
-  },
-}));
-
-const MuiAccordionSummary = styled((props: any) => (
-  <AccordionSummary
-    expandIcon={<KeyboardArrowDownIcon sx={{fontSize: '0.9rem'}} />}
-    {...props}
-  />
-))(({theme}) => ({
-  flexDirection: 'row',
-  padding: '0',
-  '& .MuiAccordionSummary-content': {},
-}));
-
-const MuiAccordionDetails = styled(AccordionDetails)(({theme}) => ({
-  padding: '1% 1% 1% 1%',
 }));
 
 type AccordionProps = {
