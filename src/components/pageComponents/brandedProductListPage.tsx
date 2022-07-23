@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@mui/styles';
 import useSWR from 'swr';
 import {campediaTheme} from '@/utils/campediaTheme';
-import PageListHeader from './pageListHeader';
 import {
   BrandDetailsObject,
   BrandDetailsResponse,
@@ -13,15 +12,14 @@ import fetcher from '@/utils/fetcher';
 import HeaderCard from '../headerCard/headerCard';
 import {ProductListResponse} from 'pages/api/brands/[brandAlt]/products';
 import ProductListDescriptiveCard from '../brandCards/productListDescriptiveCard';
-import ProductListPhotoCard from '../brandCards/productListPhotoCard';
-import ProductListTextCard from '../brandCards/productListTextCard';
+import {Divider} from '@mui/material';
 
 const useStyles = makeStyles(theme => ({
   pageContainer: {
-    paddingTop: '2%',
-    paddingLeft: '5%',
-    paddingRight: '5%',
-    marginBottom: '3%',
+    padding: '2%',
+  },
+  divider: {
+    margin: '3%',
   },
   listContainer: {
     display: 'flex',
@@ -29,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'start',
     width: '100%',
     height: '100%',
-    overflowX: 'hidden',
+    overflowY: 'auto',
   },
 }));
 
@@ -70,15 +68,12 @@ export default function BrandedProductListPage() {
   return (
     <div className={classes.pageContainer}>
       {brandDetails && <HeaderCard brandDetails={brandDetails} image={image} />}
-      <PageListHeader />
-
-      <br />
+      {/* <PageListHeader /> -- Change to a dropdown picker for mobile and tabs for desktop */}
+      <Divider className={classes.divider} />
       <div className={classes.listContainer}>
         {productList && (
           <ProductListDescriptiveCard productList={productList.data} />
         )}
-        {productList && <ProductListPhotoCard productList={productList.data} />}
-        {productList && <ProductListTextCard productList={productList.data} />}
       </div>
     </div>
   );

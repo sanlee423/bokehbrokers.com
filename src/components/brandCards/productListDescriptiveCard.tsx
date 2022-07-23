@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {makeStyles} from '@mui/styles';
-import {Divider, Grid, Icon, Typography} from '@mui/material';
+import {Grid, Icon, Typography} from '@mui/material';
 import Link from 'next/link';
 import SquareImage from '../../utils/squareImage';
 import useWindowSize from '@/utils/windowDimensions';
@@ -14,14 +14,11 @@ import {getFormattedDate} from '@/utils/dateFormatter';
 import {ProductListObject} from 'pages/api/brands/[brandAlt]/products';
 
 const useStyles = makeStyles(theme => ({
-  alphaHeader: {
-    margin: '1% 5%',
-  },
   flexBox: {
-    margin: '1% 4%',
     width: '100%',
     height: '100%',
     justifyContent: 'center',
+    overflowY: 'scroll',
   },
   gridContainer: {
     justifyContent: 'flex-start',
@@ -40,30 +37,15 @@ const useStyles = makeStyles(theme => ({
   },
   gridItem: {
     margin: '1%',
-    padding: '1%',
-    height: '5rem',
     cursor: 'pointer',
-    borderRadius: '0.5rem',
-    boxShadow:
-      '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+    borderRadius: '0.25rem',
 
-    '&:hover': {
-      filter: 'brightness(105%)',
-      backgroundColor: '#393a3b',
-      transition: '300ms ease',
-
-      '& $listText': {
-        color: 'white',
-      },
-      '& $cameraName': {
-        color: 'white',
-      },
-      '& $cameraMisc': {
-        color: 'white',
-      },
-    },
+    border: '0.02px solid #ededed',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
+
+    boxShadow:
+      '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
   },
   listText: {
     width: 'auto',
@@ -83,11 +65,10 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 400,
   },
   brandIcon: {
-    width: '4.0rem',
-    height: '4.0rem',
+    width: '8.0rem',
+    height: '8.0rem',
     alignItems: 'center',
     backgroundColor: 'white',
-    borderRadius: '0.5rem',
   },
 }));
 
@@ -99,130 +80,98 @@ export default function ProductListDescriptiveCard(
   props: ProductListDescriptiveProps,
 ) {
   const classes = useStyles(campediaTheme);
-  const [columns, setColumns] = React.useState(6);
-  const [xs, setXs] = React.useState(1);
   const {width} = useWindowSize();
 
-  React.useEffect(() => {
-    if (width < 700) {
-      setColumns(2);
-      setXs(0.8);
-    } else {
-      setColumns(4);
-      setXs(1);
-    }
-  }, [width]);
-
   return (
-    <div>
-      {props.productList.map(productType => {
-        if (productType.data.length < 1) {
-          return <></>;
-        }
+    <div className={classes.descriptiveCardContainer}>
+      {props.productList.map((productType, i) => {
         return (
-          <>
-            <div key={productType.type} className={classes.alphaHeader}>
-              <Typography variant="h4">{productType.type}</Typography>
-              <Divider />
-            </div>
-            <div className={classes.flexBox}>
-              <Grid
-                className={classes.gridContainer}
-                container
-                columns={columns}>
-                {productType.data.map(data => {
-                  const productTypeText = productType.type.toLowerCase() as
-                    | 'lens'
-                    | 'cameras'
-                    | 'film';
-                  return (
-                    <Grid
-                      key={data.alt}
-                      className={classes.gridItem}
-                      item
-                      xs={xs}>
-                      <Link href={`/${productTypeText}/${data.alt}`} passHref>
-                        <a className={classes.gridLink}>
-                          <Icon className={classes.brandIcon}>
-                            <SquareImage
-                              alt={data.alt}
-                              type={productTypeText}
-                            />
-                          </Icon>
-                          {productTypeText === 'cameras' &&
-                            instanceOfCamera(data, productTypeText) && (
-                              <div className={classes.infoBox}>
-                                <Typography
-                                  className={classes.cameraName}
-                                  variant="body1"
-                                  noWrap>
-                                  {data.name}
-                                </Typography>
+          <div key={`${productType.type}-${i}`} className={classes.flexBox}>
+            <Grid className={classes.gridContainer} container columns={1}>
+              {productType.data.map(data => {
+                const productTypeText = productType.type.toLowerCase() as
+                  | 'lens'
+                  | 'cameras'
+                  | 'film';
+                return (
+                  <Grid key={data.alt} className={classes.gridItem} item xs={1}>
+                    <Link href={`/${productTypeText}/${data.alt}`} passHref>
+                      <a className={classes.gridLink}>
+                        <Icon className={classes.brandIcon}>
+                          <SquareImage alt={data.alt} type={productTypeText} />
+                        </Icon>
+                        {productTypeText === 'cameras' &&
+                          instanceOfCamera(data, productTypeText) && (
+                            <div className={classes.infoBox}>
+                              <Typography
+                                className={classes.cameraName}
+                                variant="body1"
+                                noWrap>
+                                {data.name}
+                              </Typography>
+                              <Typography
+                                className={classes.cameraMisc}
+                                variant="body2"
+                                noWrap>
+                                {`Release Date: ${getFormattedDate(
+                                  data.releaseDate,
+                                )}`}
+                              </Typography>
+                              <div>
                                 <Typography
                                   className={classes.cameraMisc}
                                   variant="body2"
                                   noWrap>
-                                  {`Release Date: ${getFormattedDate(
-                                    data.releaseDate,
-                                  )}`}
+                                  $1666
                                 </Typography>
-                                <div>
-                                  <Typography
-                                    className={classes.cameraMisc}
-                                    variant="body2"
-                                    noWrap>
-                                    $1666
-                                  </Typography>
-                                </div>
                               </div>
-                            )}
-                          {productTypeText === 'film' &&
-                            instanceOfFilm(data, productTypeText) && (
-                              <div className={classes.infoBox}>
+                            </div>
+                          )}
+                        {productTypeText === 'film' &&
+                          instanceOfFilm(data, productTypeText) && (
+                            <div className={classes.infoBox}>
+                              <Typography
+                                className={classes.cameraName}
+                                variant="body1"
+                                noWrap>
+                                {data.name}
+                              </Typography>
+                              <div>
                                 <Typography
-                                  className={classes.cameraName}
-                                  variant="body1"
+                                  className={classes.cameraMisc}
+                                  variant="body2"
                                   noWrap>
-                                  {data.name}
+                                  $12
                                 </Typography>
-                                <div>
-                                  <Typography
-                                    className={classes.cameraMisc}
-                                    variant="body2"
-                                    noWrap>
-                                    $12
-                                  </Typography>
-                                </div>
                               </div>
-                            )}
-                          {productTypeText === 'lens' &&
-                            instanceOfLens(data, productTypeText) && (
-                              <div className={classes.infoBox}>
+                            </div>
+                          )}
+                        {productTypeText === 'lens' &&
+                          instanceOfLens(data, productTypeText) && (
+                            <div className={classes.infoBox}>
+                              <Typography
+                                className={classes.cameraName}
+                                variant="body1"
+                                noWrap>
+                                {data.name}
+                              </Typography>
+                              <div>
                                 <Typography
-                                  className={classes.cameraName}
-                                  variant="body1"
+                                  className={classes.cameraMisc}
+                                  variant="body2"
                                   noWrap>
-                                  {data.name}
+                                  $12
                                 </Typography>
-                                <div>
-                                  <Typography
-                                    className={classes.cameraMisc}
-                                    variant="body2"
-                                    noWrap>
-                                    $12
-                                  </Typography>
-                                </div>
                               </div>
-                            )}
-                        </a>
-                      </Link>
-                    </Grid>
-                  );
-                })}
-              </Grid>
-            </div>
-            <br />
-          </>
+                            </div>
+                          )}
+                      </a>
+                    </Link>
+                  </Grid>
+                );
+              })}
+            </Grid>
+          </div>
         );
       })}
     </div>
