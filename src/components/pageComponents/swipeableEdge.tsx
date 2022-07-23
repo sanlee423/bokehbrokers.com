@@ -3,13 +3,11 @@ import {Global} from '@emotion/react';
 import {styled} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import Skeleton from '@mui/material/Skeleton';
-import Typography from '@mui/material/Typography';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import FilterGroup from '../filterGroup/filterGroup';
 import {campediaTheme} from '@/utils/campediaTheme';
 import {Button, Divider} from '@mui/material';
-import SortGroup from '../filterGroup/sortGroup';
+import MobileFilterGroup from '../groupComponents/mobile/mobileFilterGroup';
+import MobileSortGroup from '../groupComponents/mobile/mobileSortGroup';
 
 const drawerBleeding = 56;
 
@@ -27,16 +25,6 @@ const Root = styled('div')(({theme}) => ({
 
 const StyledBox = styled(Box)(({theme}) => ({
   backgroundColor: '#fff',
-}));
-
-const Puller = styled(Box)(({theme}) => ({
-  width: 30,
-  height: 6,
-  backgroundColor: theme.palette.primary.main,
-  borderRadius: 3,
-  position: 'absolute',
-  top: 8,
-  left: 'calc(50% - 15px)',
 }));
 
 export default function SwipeableEdgeDrawer(props: Props) {
@@ -100,9 +88,9 @@ export default function SwipeableEdgeDrawer(props: Props) {
             overflow: 'auto',
           }}
           theme={campediaTheme}>
-          <FilterGroup />
+          <MobileFilterGroup />
           <Divider />
-          <SortGroup />
+          <MobileSortGroup />
           {/* <Skeleton variant="rectangular" height="100%" /> */}
         </StyledBox>
       </SwipeableDrawer>

@@ -32,7 +32,7 @@ export default function FilterGroup() {
           <Typography
             sx={{color: campediaTheme.palette.primary.main, m: 0.5}}
             variant="h6">
-            Brand Filter Options
+            Filter Options
           </Typography>
         </FormLabel>
 

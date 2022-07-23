@@ -20,6 +20,7 @@ import DescriptionCard from '@/components/descriptionCard/descriptionCard';
 import useWindowSize from '@/utils/windowDimensions';
 import fetcher from '@/utils/fetcher';
 import Breadcrumb from '@/components/breadcrumbs';
+import BackButton from '@/components/pageComponents/backButton';
 
 const useStyles = makeStyles(theme => ({
   homeContainer: {
@@ -90,7 +91,6 @@ const Brands: React.FC = () => {
       <div className={classes.brandContainer}>
         {brandDetails && (
           <>
-            <Breadcrumb />
             <HeaderCard brandDetails={brandDetails} image={image} />
             <Divider />
 

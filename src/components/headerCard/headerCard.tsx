@@ -6,9 +6,18 @@ import {BrandDetailsObject} from 'pages/api/brands/[brandAlt]';
 import Link from 'next/link';
 import {campediaTheme} from '@/utils/campediaTheme';
 import {ImagePreviewResponse} from 'src/types/imageTypes';
+import useWindowSize from '@/utils/windowDimensions';
+import Breadcrumb from '../breadcrumbs';
+import BackButton from '../pageComponents/backButton';
 
 const useStyles = makeStyles(theme => ({
   headerContainer: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+  },
+  brandHeaderContainer: {
     width: '100%',
     display: 'flex',
     flexDiection: 'row',
@@ -51,35 +60,39 @@ type BrandHeaderProps = {
 
 const HeaderCard: React.FC<BrandHeaderProps> = ({brandDetails, image}) => {
   const classes = useStyles(campediaTheme);
+  const {width} = useWindowSize();
 
   return (
     <div className={classes.headerContainer}>
-      {image && (
-        <img
-          alt={brandDetails.alt}
-          className={classes.headerImage}
-          src={image.imgSrc}
-        />
-      )}
-      <div>
-        <Typography className={classes.headerTitle} variant="h4">
-          {brandDetails.name}
-        </Typography>
-        <div className={classes.headerLinkContainer}>
-          {brandDetails.website && (
-            <Tooltip title={brandDetails.name + ' Official Website'}>
-              <Link href={brandDetails.website} aria-label="Official Website">
-                <a className={classes.headerLink}>Official website</a>
-              </Link>
-            </Tooltip>
-          )}
-          {brandDetails.source && (
-            <Tooltip title="Source">
-              <Link href={brandDetails.source} aria-label="Source">
-                <a className={classes.headerLink}>Source</a>
-              </Link>
-            </Tooltip>
-          )}
+      {width > 700 ? <Breadcrumb /> : <BackButton />}
+      <div className={classes.brandHeaderContainer}>
+        {image && (
+          <img
+            alt={brandDetails.alt}
+            className={classes.headerImage}
+            src={image.imgSrc}
+          />
+        )}
+        <div>
+          <Typography className={classes.headerTitle} variant="h4">
+            {brandDetails.name}
+          </Typography>
+          <div className={classes.headerLinkContainer}>
+            {brandDetails.website && (
+              <Tooltip title={brandDetails.name + ' Official Website'}>
+                <Link href={brandDetails.website} aria-label="Official Website">
+                  <a className={classes.headerLink}>Official website</a>
+                </Link>
+              </Tooltip>
+            )}
+            {brandDetails.source && (
+              <Tooltip title="Source">
+                <Link href={brandDetails.source} aria-label="Source">
+                  <a className={classes.headerLink}>Source</a>
+                </Link>
+              </Tooltip>
+            )}
+          </div>
         </div>
       </div>
     </div>

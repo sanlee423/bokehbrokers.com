@@ -8,7 +8,7 @@ import ArchiveIcon from '@mui/icons-material/Archive';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import {campediaTheme} from '@/utils/campediaTheme';
-import FilterGroup from '@/components/filterGroup/filterGroup';
+import FilterGroup from '@/components/groupComponents/filterGroup';
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu

@@ -30,7 +30,7 @@ export default function PageListHeader() {
   return (
     <>
       <div className={classes.pageHeader}>
-        {width < 700 ? <BackButton /> : <Breadcrumb />}
+        {width < 700 && <BackButton />}
         <div className={'searchbar-container'}>
           <SearchBar />
         </div>

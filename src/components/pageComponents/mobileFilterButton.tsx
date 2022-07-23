@@ -1,12 +1,18 @@
 import React from 'react';
 import {IconButton, Tooltip} from '@mui/material';
-import {FilterListRounded as FilterListIcon} from '@mui/icons-material';
-import {useRouter} from 'next/router';
+import {FilterAlt as FilterAltIcon} from '@mui/icons-material';
 import {campediaTheme} from '@/utils/campediaTheme';
-import {MobileFilterList} from './mobileFilterList';
 import SwipeableEdgeDrawer from './swipeableEdge';
+import {makeStyles} from '@mui/styles';
+
+const useStyles = makeStyles(theme => ({
+  filterButtonContainer: {
+    padding: '4px',
+  },
+}));
 
 export default function MobileFilterButton() {
+  const classes = useStyles(campediaTheme);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -18,7 +24,7 @@ export default function MobileFilterButton() {
   };
 
   return (
-    <>
+    <div className={classes.filterButtonContainer}>
       <Tooltip title="Select Options" arrow>
         <IconButton
           onClick={handleClick}
@@ -26,7 +32,7 @@ export default function MobileFilterButton() {
           aria-controls={open ? 'select-options-menu' : undefined}
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}>
-          <FilterListIcon style={{fill: campediaTheme.palette.primary.main}} />
+          <FilterAltIcon style={{fill: campediaTheme.palette.primary.main}} />
         </IconButton>
       </Tooltip>
       {anchorEl && (
@@ -43,6 +49,6 @@ export default function MobileFilterButton() {
           /> */}
         </>
       )}
-    </>
+    </div>
   );
 }

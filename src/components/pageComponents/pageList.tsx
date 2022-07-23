@@ -7,7 +7,7 @@ import DescriptionListCard from '@/components/cards/descriptionListCard';
 import PageListHeader from './pageListHeader';
 import fetcher from '@/utils/fetcher';
 import useWindowSize from '@/utils/windowDimensions';
-import FilterGroup from '../filterGroup/filterGroup';
+import FilterGroup from '../groupComponents/filterGroup';
 import CircularPageLoader from './circularPageLoader';
 
 const useStyles = makeStyles(theme => ({

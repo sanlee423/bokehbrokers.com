@@ -29,18 +29,14 @@ export const Container: React.FC = ({children}) => {
       const contentContainer = document.getElementById(
         'page-content-container',
       );
-
-      if (width < 700) {
-        if (contentContainer) {
+      if (contentContainer) {
+        contentContainer.style.overflowY = 'hidden';
+        if (width < 700) {
           contentContainer.style.width = `${width}px`;
           contentContainer.style.height = `${height * 0.89}px`;
-          contentContainer.style.overflowY = 'auto';
-        }
-      } else {
-        if (contentContainer) {
+        } else {
           contentContainer.style.width = `${width}px`;
           contentContainer.style.height = `${height * 0.84}px`;
-          contentContainer.style.overflowY = 'auto';
         }
       }
     }

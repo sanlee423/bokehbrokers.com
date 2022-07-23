@@ -4,18 +4,19 @@ import Link from '@mui/material/Link';
 import {useRouter} from 'next/router';
 import {makeStyles} from '@mui/styles';
 import {campediaTheme} from '@/utils/campediaTheme';
-import useWindowSize from '@/utils/windowDimensions';
 
 const useStyles = makeStyles(theme => ({
   breadCrumb: {
-    width: '20%',
-    padding: '2%',
+    width: '100%',
+    padding: '1%',
+  },
+  breadCrumbLink: {
+    fontSize: '14px',
   },
 }));
 
 export default function Breadcrumb() {
   const classes = useStyles(campediaTheme);
-  const {width} = useWindowSize();
   const {asPath} = useRouter();
   const splitArray = asPath.split('/');
   splitArray[0] = 'home';
@@ -32,18 +33,24 @@ export default function Breadcrumb() {
 
   return (
     <div className={classes.breadCrumb}>
-      <Breadcrumbs aria-label="breadcrumb">
+      <Breadcrumbs className={classes.breadCrumbLink} aria-label="breadcrumb">
         {splitArray &&
           splitArray.map((link, i) => {
             if (i === 0) {
               return (
-                <Link key={link} underline="hover" color="inherit" href="/">
+                <Link
+                  className={classes.breadCrumbLink}
+                  key={link}
+                  underline="hover"
+                  color="inherit"
+                  href="/">
                   Home
                 </Link>
               );
             } else if (i === splitArray.length - 1) {
               return (
                 <Link
+                  className={classes.breadCrumbLink}
                   key={link}
                   underline="hover"
                   color="text.primary"
@@ -55,6 +62,7 @@ export default function Breadcrumb() {
             } else {
               return (
                 <Link
+                  className={classes.breadCrumbLink}
                   key={link}
                   underline="hover"
                   color="inherit"
