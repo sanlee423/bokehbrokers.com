@@ -27,7 +27,6 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'start',
     width: '100%',
     height: '100%',
-    overflowY: 'auto',
   },
 }));
 

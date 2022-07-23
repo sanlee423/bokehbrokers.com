@@ -14,11 +14,11 @@ import {getFormattedDate} from '@/utils/dateFormatter';
 import {ProductListObject} from 'pages/api/brands/[brandAlt]/products';
 
 const useStyles = makeStyles(theme => ({
+  descriptiveCardContainer: {overflowY: 'scroll'},
   flexBox: {
     width: '100%',
     height: '100%',
     justifyContent: 'center',
-    overflowY: 'scroll',
   },
   gridContainer: {
     justifyContent: 'flex-start',
