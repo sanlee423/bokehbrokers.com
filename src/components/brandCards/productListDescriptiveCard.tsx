@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {makeStyles} from '@mui/styles';
+import {makeStyles, styled} from '@mui/styles';
 import {Grid, Icon, Theme, Typography} from '@mui/material';
 import Link from 'next/link';
 import SquareImage from '../../utils/squareImage';
@@ -95,6 +95,13 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
+const StyledTab = styled(Tab)(({theme}: {theme: Theme}) => ({
+  color: theme.palette.primary.main,
+  fontFamily: theme.typography.fontFamily,
+  fontSize: '1rem',
+  textTransform: 'none',
+}));
+
 interface ProductListDescriptiveProps {
   productList: ProductListObject;
 }
@@ -113,12 +120,18 @@ export default function ProductListDescriptiveCard(
     <>
       <div className={classes.tabLabel}>
         <Tabs
+          sx={{
+            '& .MuiTabs-indicator': {
+              backgroundColor: campediaTheme.palette.primary.main,
+            },
+          }}
           value={value}
           onChange={handleChange}
           aria-label="brand-product-tabs">
           {props.productList.map((productType, i) => {
             return (
-              <Tab
+              <StyledTab
+                theme={campediaTheme}
                 key={`${productType.type}-${i}`}
                 label={productType.type}
                 id={`simple-tab-${i}`}

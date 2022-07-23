@@ -22,7 +22,7 @@ const themeOptions: ThemeOptions = {
     divider: '#6d8285',
   },
   typography: {
-    fontFamily: 'Open Sans',
+    fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
     fontSize: 14,
   },
 };
