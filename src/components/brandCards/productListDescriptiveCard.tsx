@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {makeStyles} from '@mui/styles';
-import {Grid, Icon, Typography} from '@mui/material';
+import {Grid, Icon, Theme, Typography} from '@mui/material';
 import Link from 'next/link';
 import SquareImage from '../../utils/squareImage';
 import {campediaTheme} from '@/utils/campediaTheme';
@@ -11,22 +11,22 @@ import {
 } from '../cards/objDecider';
 import {getFormattedDate} from '@/utils/dateFormatter';
 import {ProductListObject} from 'pages/api/brands/[brandAlt]/products';
-import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
-const useStyles = makeStyles(theme => ({
-  descriptiveCardContainer: {overflowY: 'scroll'},
-  flexBox: {
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
+const useStyles = makeStyles((theme: Theme) => ({
+  tabLabel: {
+    borderBottom: `1px solid ${theme.palette.primary.main}`,
+    marginBottom: '8px',
+  },
+  tabPanels: {
+    height: 'max-content',
+    overflowY: 'scroll',
   },
   gridContainer: {
     justifyContent: 'flex-start',
     justifyItems: 'center',
     alignItems: 'center',
-    overflowY: 'scroll',
   },
   gridLink: {
     height: '100%',
@@ -83,8 +83,6 @@ interface TabPanelProps {
 
 function TabPanel(props: TabPanelProps) {
   const {children, value, index, ...other} = props;
-
-  console.log(value, index);
   return (
     <div
       role="tabpanel"
@@ -92,7 +90,7 @@ function TabPanel(props: TabPanelProps) {
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}>
-      {value === index && <Box sx={{p: 3}}>{children}</Box>}
+      {value === index && <>{children}</>}
     </div>
   );
 }
@@ -112,8 +110,8 @@ export default function ProductListDescriptiveCard(
   };
 
   return (
-    <div className={classes.descriptiveCardContainer}>
-      <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
+    <>
+      <div className={classes.tabLabel}>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -129,7 +127,7 @@ export default function ProductListDescriptiveCard(
             );
           })}
         </Tabs>
-      </Box>
+      </div>
       {props.productList.map((productType, i) => {
         if (productType.data.length < 1) {
           return (
@@ -139,9 +137,12 @@ export default function ProductListDescriptiveCard(
           );
         } else {
           return (
-            <TabPanel key={`${productType.type}--${i}`} value={value} index={i}>
-              <div className={classes.flexBox}>
-                <Grid className={classes.gridContainer} container columns={1}>
+            <div className={classes.tabPanels}>
+              <TabPanel
+                key={`${productType.type}--${i}`}
+                value={value}
+                index={i}>
+                <Grid className={classes.gridContainer} columns={1}>
                   {productType.data.map(data => {
                     const productTypeText = productType.type.toLowerCase() as
                       | 'lens'
@@ -232,11 +233,11 @@ export default function ProductListDescriptiveCard(
                     );
                   })}
                 </Grid>
-              </div>
-            </TabPanel>
+              </TabPanel>
+            </div>
           );
         }
       })}
-    </div>
+    </>
   );
 }

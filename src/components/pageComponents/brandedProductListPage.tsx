@@ -17,16 +17,14 @@ import {Divider} from '@mui/material';
 const useStyles = makeStyles(theme => ({
   pageContainer: {
     padding: '2%',
+    height: '100%',
+    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
   },
   divider: {
     margin: '3%',
-  },
-  listContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'start',
-    width: '100%',
-    height: '100%',
   },
 }));
 
@@ -69,11 +67,9 @@ export default function BrandedProductListPage() {
       {brandDetails && <HeaderCard brandDetails={brandDetails} image={image} />}
       {/* <PageListHeader /> -- Change to a dropdown picker for mobile and tabs for desktop */}
       <Divider className={classes.divider} />
-      <div className={classes.listContainer}>
-        {productList && (
-          <ProductListDescriptiveCard productList={productList.data} />
-        )}
-      </div>
+      {productList && (
+        <ProductListDescriptiveCard productList={productList.data} />
+      )}
     </div>
   );
 }
