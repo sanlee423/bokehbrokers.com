@@ -10,10 +10,10 @@ export default async function lensImageListHandler(
 ) {
   if (req.method === 'GET') {
     const {lensAlt} = req.query;
-    const cameraResponse = await axInstance.get<ImageListResponse>(
+    const lensResponse = await axInstance.get<ImageListResponse>(
       CAMPEDIA_API_URL + '/image/lens/' + lensAlt + '/list',
     );
 
-    return res.status(200).json(cameraResponse.data);
+    return res.status(200).json(lensResponse.data);
   }
 }
