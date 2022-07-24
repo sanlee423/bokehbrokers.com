@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {makeStyles, styled} from '@mui/styles';
+import {makeStyles} from '@mui/styles';
 import {Grid, Icon, Theme, Typography} from '@mui/material';
 import Link from 'next/link';
 import SquareImage from '../../utils/squareImage';
@@ -11,8 +11,7 @@ import {
 } from '../cards/objDecider';
 import {getFormattedDate} from '@/utils/dateFormatter';
 import {ProductListObject} from 'pages/api/brands/[brandAlt]/products';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
+import {StyledTab, StyledTabs, TabPanel} from '../tabs';
 
 const useStyles = makeStyles((theme: Theme) => ({
   tabLabel: {
@@ -75,33 +74,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
-
-function TabPanel(props: TabPanelProps) {
-  const {children, value, index, ...other} = props;
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}>
-      {value === index && <>{children}</>}
-    </div>
-  );
-}
-
-const StyledTab = styled(Tab)(({theme}: {theme: Theme}) => ({
-  color: theme.palette.primary.main,
-  fontFamily: theme.typography.fontFamily,
-  fontSize: '1rem',
-  textTransform: 'none',
-}));
-
 interface ProductListDescriptiveProps {
   productList: ProductListObject;
 }
@@ -119,12 +91,7 @@ export default function ProductListDescriptiveCard(
   return (
     <>
       <div className={classes.tabLabel}>
-        <Tabs
-          sx={{
-            '& .MuiTabs-indicator': {
-              backgroundColor: campediaTheme.palette.primary.main,
-            },
-          }}
+        <StyledTabs
           value={value}
           onChange={handleChange}
           aria-label="brand-product-tabs">
@@ -139,7 +106,7 @@ export default function ProductListDescriptiveCard(
               />
             );
           })}
-        </Tabs>
+        </StyledTabs>
       </div>
       {props.productList.map((productType, i) => {
         if (productType.data.length < 1) {
