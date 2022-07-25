@@ -8,7 +8,7 @@ import {campediaTheme} from '@/utils/campediaTheme';
 import {ImageListResponse} from 'src/types/imageTypes';
 import fetcher from '@/utils/fetcher';
 import CircularPageLoader from '@/components/pageComponents/circularPageLoader';
-import {LensData, LensDetailsResponse} from 'pages/api/lens/[lensAlt]';
+import {FilmData, FilmDetailsResponse} from 'pages/api/film/[filmAlt]';
 
 const useStyles = makeStyles(theme => ({
   accordion: {
@@ -60,31 +60,30 @@ const useStyles = makeStyles(theme => ({
   swiper: {},
 }));
 
-const LensByAlt: React.FC = () => {
+const FilmByAlt: React.FC = () => {
   const classes = useStyles(campediaTheme);
   const router = useRouter();
-  const {lensAlt} = router.query;
-  const [lens, setLens] = useState<LensData>();
+  const {filmAlt} = router.query;
+  const [film, setFilm] = useState<FilmData>();
   const [loading, setLoading] = useState<boolean>(true);
-  const {data: lensResponse} = useSWR<LensDetailsResponse>(
-    lensAlt ? `/api/lens/${lensAlt}` : null,
-    lensAlt ? fetcher : null,
+  const {data: filmResponse} = useSWR<FilmDetailsResponse>(
+    filmAlt ? `/api/film/${filmAlt}` : null,
+    filmAlt ? fetcher : null,
   );
   const [images, setImages] = React.useState<ImageListResponse>();
-  const {data: lensImages} = useSWR<ImageListResponse>(
-    lensAlt ? `/api/image/lens/${lensAlt}/list` : null,
-    lensAlt ? fetcher : null,
+  const {data: filmImages} = useSWR<ImageListResponse>(
+    filmAlt ? `/api/image/film/${filmAlt}/list` : null,
+    filmAlt ? fetcher : null,
   );
 
   useEffect(() => {
-    console.log(lensResponse);
-    if (lensResponse) {
-      const lensData: LensData = lensResponse.data;
-      setLens(lensData);
+    if (filmResponse) {
+      const filmData: FilmData = filmResponse.data;
+      setFilm(filmData);
     }
-    setImages(lensImages);
+    setImages(filmImages);
     setLoading(false);
-  }, [lensImages, lensResponse, setLoading]);
+  }, [filmImages, filmResponse, setLoading]);
 
   return (
     <div className={classes.cameraContainer}>
@@ -92,9 +91,9 @@ const LensByAlt: React.FC = () => {
         <CircularPageLoader />
       ) : (
         <>
-          {lens && (
+          {film && (
             <>
-              <Typography variant={'h4'}>{lens.name}</Typography>
+              <Typography variant={'h4'}>{film.name}</Typography>
               {/* {camera.releaseDate && (
                 <Typography
                   variant={'body1'}>{`Release Date: ${getFormattedDate(
@@ -123,4 +122,4 @@ const LensByAlt: React.FC = () => {
   );
 };
 
-export default LensByAlt;
+export default FilmByAlt;

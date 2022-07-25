@@ -8,8 +8,8 @@ export interface LensData {
   lensMount: string;
   maxiumumFocalLength: number;
   minimumFocalLength: number;
-  maximumAperture: number;
-  minimumAperture: number;
+  maximumAperture: string;
+  minimumAperture: string;
   alt: string;
   name: string;
   brandId: number;
