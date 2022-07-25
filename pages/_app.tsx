@@ -6,6 +6,7 @@ import '@/styles/hamburger.scss';
 import '@/styles/navbar.scss';
 import '@/styles/swiper.scss';
 import '@/styles/nprogress.scss';
+import '@/styles/readmore.scss';
 import {Container} from '@/components/container';
 import {campediaTheme} from '@/utils/campediaTheme';
 import NProgress from 'nprogress';

@@ -24,6 +24,7 @@ import {ImageListResponse} from 'src/types/imageTypes';
 import fetcher from '@/utils/fetcher';
 import {StyledTab, StyledTabs, TabPanel} from '@/components/tabs';
 import CircularPageLoader from '@/components/pageComponents/circularPageLoader';
+import {ReadMore} from '@/components/readMore';
 
 const useStyles = makeStyles(theme => ({
   accordion: {
@@ -42,7 +43,7 @@ const useStyles = makeStyles(theme => ({
     overflowY: 'scroll',
 
     '& > *': {
-      margin: '8px 0',
+      margin: '4px 0',
     },
   },
   cameraBody: {
@@ -172,13 +173,13 @@ const CamerasByAlt: React.FC = () => {
             aria-label="product-tabs">
             <StyledTab
               theme={campediaTheme}
-              label={'Description'}
+              label={'Product Description'}
               id={`simple-tab-0`}
               aria-controls={`simple-tabpanel-0`}
             />
             <StyledTab
               theme={campediaTheme}
-              label={'Specifications'}
+              label={'Product Specifications'}
               id={`simple-tab-0`}
               aria-controls={`simple-tabpanel-0`}
             />
@@ -186,7 +187,11 @@ const CamerasByAlt: React.FC = () => {
           {camera?.description ? (
             <div className={classes.tabPanel}>
               <TabPanel value={tabValue} index={0}>
-                <Typography variant={'body1'}>{camera.description}</Typography>
+                <ReadMore>
+                  <Typography variant={'body1'}>
+                    {camera.description}
+                  </Typography>
+                </ReadMore>
               </TabPanel>
             </div>
           ) : (
@@ -201,20 +206,24 @@ const CamerasByAlt: React.FC = () => {
                 key={`product-specifications`}
                 value={tabValue}
                 index={1}>
-                <Table aria-label="camera specifications">
-                  <TableBody>
-                    {rows.map(row => (
-                      <TableRow
-                        key={row.id}
-                        sx={{'&:last-child td, &:last-child th': {border: 0}}}>
-                        <TableCell component="th" scope="row">
-                          {row.id}
-                        </TableCell>
-                        <TableCell align="right">{row.value}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                <ReadMore>
+                  <Table aria-label="camera specifications">
+                    <TableBody>
+                      {rows.map(row => (
+                        <TableRow
+                          key={row.id}
+                          sx={{
+                            '&:last-child td, &:last-child th': {border: 0},
+                          }}>
+                          <TableCell component="th" scope="row">
+                            {row.id}
+                          </TableCell>
+                          <TableCell align="right">{row.value}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </ReadMore>
               </TabPanel>
             </>
           ) : (
@@ -224,6 +233,14 @@ const CamerasByAlt: React.FC = () => {
           )}
         </>
       )}
+
+      <Divider />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   );
 };

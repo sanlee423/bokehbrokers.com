@@ -1,0 +1,51 @@
+.readmore-hidden {
+  width: 100%;
+  -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+  display: '-webkit-box';
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  max-height: 162px;
+  overflow: hidden;
+  transition: all 0.2s cubic-bezier(0, 1, 0, 1);
+}
+
+.readmore-open {
+  width: 100%;
+  max-height: 400rem;
+  transition: all 0.2s cubic-bezier(0.9, 0, 0.8, 0.2);
+}
+
+@keyframes open {
+  from {
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+  }
+  to {
+    line-clamp: initial;
+    -webkit-line-clamp: initial;
+  }
+}
+
+@keyframes close {
+  from {
+    line-clamp: initial;
+    -webkit-line-clamp: initial;
+  }
+  to {
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+  }
+}
+
+.text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin: 12px 0;
+  animation: close 0.1s linear 0.1s forwards;
+}
+.open .text {
+  animation: open 0.1s linear 0s forwards;
+}
