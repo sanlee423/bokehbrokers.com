@@ -1,23 +1,22 @@
 import React from 'react';
 import {makeStyles} from '@mui/styles';
-import {Typography, Tooltip} from '@mui/material';
+import {Typography, Tooltip, Theme} from '@mui/material';
 
 import {campediaTheme} from '@/utils/campediaTheme';
 import Link from 'next/link';
 import {ChevronRight} from '@mui/icons-material';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
   titleText: {
-    fontWeight: 800,
-    padding: '0.7rem 0',
-    '@media (max-width: 600px)': {
-      fontSize: '1.5rem',
-    },
+    fontWeight: 600,
+    padding: '10px 15px',
+    margin: '1rem 0',
+    fontSize: '1.5rem',
   },
   titleLink: {
     color: 'black',
     '&:hover': {
-      color: '#1976d2',
+      color: theme.palette.primary.main,
     },
   },
 }));
@@ -35,7 +34,7 @@ const LinkedTitle: React.FC<LinkedTitleProps> = ({title, link, icon}) => {
     <Tooltip title={title}>
       <Link href={link} aria-label={title}>
         <a className={classes.titleLink}>
-          <Typography className={classes.titleText} variant="h6">
+          <Typography className={classes.titleText} variant="body1">
             {title} {icon && <ChevronRight />}
           </Typography>
         </a>

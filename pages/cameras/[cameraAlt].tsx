@@ -189,8 +189,8 @@ const CamerasByAlt: React.FC = () => {
               <StyledTab
                 theme={campediaTheme}
                 label={'Product Specifications'}
-                id={`simple-tab-0`}
-                aria-controls={`simple-tabpanel-0`}
+                id={`simple-tab-1`}
+                aria-controls={`simple-tabpanel-1`}
               />
             </StyledTabs>
             {camera?.description ? (

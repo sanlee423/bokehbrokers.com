@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@mui/styles';
 import {useRouter} from 'next/router';
-import {Divider} from '@mui/material';
+import {Divider, Typography} from '@mui/material';
 import useSWR from 'swr';
 import {
   BrandDetailsObject,
@@ -22,6 +22,9 @@ import fetcher from '@/utils/fetcher';
 import Breadcrumb from '@/components/breadcrumbs';
 import BackButton from '@/components/pageComponents/backButton';
 import Head from 'next/head';
+import {StyledTab, StyledTabs, TabPanel} from '@/components/tabs';
+import {ReadMore} from '@/components/readMore';
+import CircularPageLoader from '@/components/pageComponents/circularPageLoader';
 
 const useStyles = makeStyles(theme => ({
   homeContainer: {
@@ -42,7 +45,12 @@ const useStyles = makeStyles(theme => ({
     height: '100%',
 
     '& > *': {
-      margin: '0% 0% 2% 0%',
+      margin: '2% 0%',
+    },
+  },
+  tabPanel: {
+    '& > *': {
+      margin: '2% 0',
     },
   },
 }));
@@ -54,6 +62,10 @@ const Brands: React.FC = () => {
   const [brandDetails, setBrandDetails] = useState<BrandDetailsObject>();
   const [brandCameras, setBrandCameras] = useState<BrandCameraObject[]>();
   const [image, setImage] = React.useState<ImagePreviewResponse>();
+  const [tabValue, setTabValue] = React.useState(0);
+  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+    setTabValue(newValue);
+  };
 
   const {width} = useWindowSize();
   const {data: brandData} = useSWR<BrandDetailsResponse>(
@@ -98,44 +110,62 @@ const Brands: React.FC = () => {
             <>
               <HeaderCard brandDetails={brandDetails} image={image} />
               <Divider />
-
-              {brandDetails.description &&
-                (width < 700 ? (
-                  <CollapsibleText
-                    title={'Description'}
-                    text={brandDetails.description}
-                    defaultExpanded={true}
-                  />
-                ) : (
-                  <DescriptionCard
-                    title={'Description'}
-                    description={brandDetails.description ?? ''}
-                  />
-                ))}
-
-              {brandDetails.history &&
-                (width < 700 ? (
-                  <CollapsibleText
-                    title={'History'}
-                    text={brandDetails.history}
-                    defaultExpanded={false}
-                  />
-                ) : (
-                  <DescriptionCard
-                    title={'History'}
-                    description={brandDetails.history ?? ''}
-                  />
-                ))}
-
-              <Divider />
-
               {brandCameras && brandCameras.length > 0 && (
                 <LinkedTitle
-                  title={'View all products'}
+                  title={'View Products'}
                   link={router.asPath + '/products'}
                   icon={true}
                 />
               )}
+              <Divider />
+              <StyledTabs
+                value={tabValue}
+                onChange={handleTabChange}
+                aria-label="product-tabs">
+                <StyledTab
+                  theme={campediaTheme}
+                  label={'Brand Introduction'}
+                  id={`simple-tab-0`}
+                  aria-controls={`simple-tabpanel-0`}
+                />
+                <StyledTab
+                  theme={campediaTheme}
+                  label={'Brand History'}
+                  id={`simple-tab-1`}
+                  aria-controls={`simple-tabpanel-1`}
+                />
+              </StyledTabs>
+              {brandDetails.description ? (
+                <div className={classes.tabPanel}>
+                  <TabPanel value={tabValue} index={0}>
+                    <ReadMore>
+                      <Typography variant={'body1'}>
+                        {brandDetails.description}
+                      </Typography>
+                    </ReadMore>
+                  </TabPanel>
+                </div>
+              ) : (
+                <TabPanel key={`brand-introduction`} value={tabValue} index={0}>
+                  <CircularPageLoader />
+                </TabPanel>
+              )}
+              {brandDetails.history ? (
+                <div className={classes.tabPanel}>
+                  <TabPanel value={tabValue} index={1}>
+                    <ReadMore>
+                      <Typography variant={'body1'}>
+                        {brandDetails.history}
+                      </Typography>
+                    </ReadMore>
+                  </TabPanel>
+                </div>
+              ) : (
+                <TabPanel key={`brand-history`} value={tabValue} index={1}>
+                  <CircularPageLoader />
+                </TabPanel>
+              )}
+              <Divider />
             </>
           )}
         </div>
