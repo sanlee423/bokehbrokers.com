@@ -25,6 +25,7 @@ import fetcher from '@/utils/fetcher';
 import {StyledTab, StyledTabs, TabPanel} from '@/components/tabs';
 import CircularPageLoader from '@/components/pageComponents/circularPageLoader';
 import {ReadMore} from '@/components/readMore';
+import {PriceLineChart} from '@/components/graphs/priceLineChart';
 
 const useStyles = makeStyles(theme => ({
   accordion: {
@@ -233,10 +234,10 @@ const CamerasByAlt: React.FC = () => {
           )}
         </>
       )}
-
       <Divider />
       <br />
-      <br />
+      <Typography variant={'h5'}>Historical Price</Typography>
+      <PriceLineChart data={''} />
       <br />
       <br />
       <br />
