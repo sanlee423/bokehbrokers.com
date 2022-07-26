@@ -21,6 +21,7 @@ import useWindowSize from '@/utils/windowDimensions';
 import fetcher from '@/utils/fetcher';
 import Breadcrumb from '@/components/breadcrumbs';
 import BackButton from '@/components/pageComponents/backButton';
+import Head from 'next/head';
 
 const useStyles = makeStyles(theme => ({
   homeContainer: {
@@ -87,54 +88,59 @@ const Brands: React.FC = () => {
   ]);
 
   return (
-    <div className={classes.homeContainer}>
-      <div className={classes.brandContainer}>
-        {brandDetails && (
-          <>
-            <HeaderCard brandDetails={brandDetails} image={image} />
-            <Divider />
+    <>
+      <Head>
+        <title>Bokeh Broker | Brands - {brandAlt}</title>
+      </Head>
+      <div className={classes.homeContainer}>
+        <div className={classes.brandContainer}>
+          {brandDetails && (
+            <>
+              <HeaderCard brandDetails={brandDetails} image={image} />
+              <Divider />
 
-            {brandDetails.description &&
-              (width < 700 ? (
-                <CollapsibleText
-                  title={'Description'}
-                  text={brandDetails.description}
-                  defaultExpanded={true}
-                />
-              ) : (
-                <DescriptionCard
-                  title={'Description'}
-                  description={brandDetails.description ?? ''}
-                />
-              ))}
+              {brandDetails.description &&
+                (width < 700 ? (
+                  <CollapsibleText
+                    title={'Description'}
+                    text={brandDetails.description}
+                    defaultExpanded={true}
+                  />
+                ) : (
+                  <DescriptionCard
+                    title={'Description'}
+                    description={brandDetails.description ?? ''}
+                  />
+                ))}
 
-            {brandDetails.history &&
-              (width < 700 ? (
-                <CollapsibleText
-                  title={'History'}
-                  text={brandDetails.history}
-                  defaultExpanded={false}
-                />
-              ) : (
-                <DescriptionCard
-                  title={'History'}
-                  description={brandDetails.history ?? ''}
-                />
-              ))}
+              {brandDetails.history &&
+                (width < 700 ? (
+                  <CollapsibleText
+                    title={'History'}
+                    text={brandDetails.history}
+                    defaultExpanded={false}
+                  />
+                ) : (
+                  <DescriptionCard
+                    title={'History'}
+                    description={brandDetails.history ?? ''}
+                  />
+                ))}
 
-            <Divider />
+              <Divider />
 
-            {brandCameras && brandCameras.length > 0 && (
-              <LinkedTitle
-                title={'View all products'}
-                link={router.asPath + '/products'}
-                icon={true}
-              />
-            )}
-          </>
-        )}
+              {brandCameras && brandCameras.length > 0 && (
+                <LinkedTitle
+                  title={'View all products'}
+                  link={router.asPath + '/products'}
+                  icon={true}
+                />
+              )}
+            </>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

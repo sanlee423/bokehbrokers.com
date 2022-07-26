@@ -1,7 +1,15 @@
+import Favicon from '@/components/favicon';
 import {ServerStyleSheets} from '@mui/styles';
-import Document, {DocumentContext, DocumentInitialProps} from 'next/document';
+import Document, {
+  Head,
+  Html,
+  Main,
+  NextScript,
+  DocumentContext,
+  DocumentInitialProps,
+} from 'next/document';
 
-class CustomDocument extends Document {
+class MyDocument extends Document {
   static async getInitialProps(
     ctx: DocumentContext,
   ): Promise<DocumentInitialProps> {
@@ -18,6 +26,21 @@ class CustomDocument extends Document {
 
     return initialProps;
   }
+
+  render(): JSX.Element {
+    return (
+      <Html>
+        <Head>
+          <meta charSet="utf-8" />
+          <Favicon />
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
+  }
 }
 
-export default CustomDocument;
+export default MyDocument;

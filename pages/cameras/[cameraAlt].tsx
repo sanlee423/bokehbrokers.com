@@ -26,6 +26,7 @@ import {StyledTab, StyledTabs, TabPanel} from '@/components/tabs';
 import CircularPageLoader from '@/components/pageComponents/circularPageLoader';
 import {ReadMore} from '@/components/readMore';
 import {PriceLineChart} from '@/components/graphs/priceLineChart';
+import Head from 'next/head';
 
 const useStyles = makeStyles(theme => ({
   accordion: {
@@ -136,113 +137,124 @@ const CamerasByAlt: React.FC = () => {
   };
 
   return (
-    <div className={classes.cameraContainer}>
-      {loading ? (
-        <CircularPageLoader />
-      ) : (
-        <>
-          {camera && (
-            <>
-              <Typography variant={'h4'}>{camera.name}</Typography>
-              {camera.releaseDate && (
-                <Typography
-                  variant={'body1'}>{`Release Date: ${getFormattedDate(
-                  camera.releaseDate,
-                )}`}</Typography>
+    <>
+      <Head>
+        <title>Bokeh Broker | Camera - {cameraAlt}</title>
+      </Head>
+      <div className={classes.cameraContainer}>
+        {loading ? (
+          <CircularPageLoader />
+        ) : (
+          <>
+            {camera && (
+              <>
+                <Typography variant={'h4'}>{camera.name}</Typography>
+                {camera.releaseDate && (
+                  <Typography
+                    variant={'body1'}>{`Release Date: ${getFormattedDate(
+                    camera.releaseDate,
+                  )}`}</Typography>
+                )}
+              </>
+            )}
+
+            <div className={classes.cameraBody}>
+              {images && (
+                <div className={classes.swiperContainer}>
+                  <Swiper
+                    styleName={classes.swiper}
+                    imageUrls={images.imgSrc}
+                  />
+                </div>
               )}
-            </>
-          )}
-
-          <div className={classes.cameraBody}>
-            {images && (
-              <div className={classes.swiperContainer}>
-                <Swiper styleName={classes.swiper} imageUrls={images.imgSrc} />
-              </div>
-            )}
-            {cameraSpecs?.msrp && (
-              <div className={classes.priceContainer}>
-                <Typography
-                  variant={'h5'}>{`MSRP $${cameraSpecs.msrp}`}</Typography>
-              </div>
-            )}
-          </div>
-
-          <Divider />
-          <StyledTabs
-            value={tabValue}
-            onChange={handleTabChange}
-            aria-label="product-tabs">
-            <StyledTab
-              theme={campediaTheme}
-              label={'Product Description'}
-              id={`simple-tab-0`}
-              aria-controls={`simple-tabpanel-0`}
-            />
-            <StyledTab
-              theme={campediaTheme}
-              label={'Product Specifications'}
-              id={`simple-tab-0`}
-              aria-controls={`simple-tabpanel-0`}
-            />
-          </StyledTabs>
-          {camera?.description ? (
-            <div className={classes.tabPanel}>
-              <TabPanel value={tabValue} index={0}>
-                <ReadMore>
-                  <Typography variant={'body1'}>
-                    {camera.description}
-                  </Typography>
-                </ReadMore>
-              </TabPanel>
+              {cameraSpecs?.msrp && (
+                <div className={classes.priceContainer}>
+                  <Typography
+                    variant={'h5'}>{`MSRP $${cameraSpecs.msrp}`}</Typography>
+                </div>
+              )}
             </div>
-          ) : (
-            <TabPanel key={`product-description`} value={tabValue} index={0}>
-              <CircularPageLoader />
-            </TabPanel>
-          )}
 
-          {rows ? (
-            <>
+            <Divider />
+            <StyledTabs
+              value={tabValue}
+              onChange={handleTabChange}
+              aria-label="product-tabs">
+              <StyledTab
+                theme={campediaTheme}
+                label={'Product Description'}
+                id={`simple-tab-0`}
+                aria-controls={`simple-tabpanel-0`}
+              />
+              <StyledTab
+                theme={campediaTheme}
+                label={'Product Specifications'}
+                id={`simple-tab-0`}
+                aria-controls={`simple-tabpanel-0`}
+              />
+            </StyledTabs>
+            {camera?.description ? (
+              <div className={classes.tabPanel}>
+                <TabPanel value={tabValue} index={0}>
+                  <ReadMore>
+                    <Typography variant={'body1'}>
+                      {camera.description}
+                    </Typography>
+                  </ReadMore>
+                </TabPanel>
+              </div>
+            ) : (
+              <TabPanel key={`product-description`} value={tabValue} index={0}>
+                <CircularPageLoader />
+              </TabPanel>
+            )}
+
+            {rows ? (
+              <>
+                <TabPanel
+                  key={`product-specifications`}
+                  value={tabValue}
+                  index={1}>
+                  <ReadMore>
+                    <Table aria-label="camera specifications">
+                      <TableBody>
+                        {rows.map(row => (
+                          <TableRow
+                            key={row.id}
+                            sx={{
+                              '&:last-child td, &:last-child th': {border: 0},
+                            }}>
+                            <TableCell component="th" scope="row">
+                              {row.id}
+                            </TableCell>
+                            <TableCell align="right">{row.value}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </ReadMore>
+                </TabPanel>
+              </>
+            ) : (
               <TabPanel
                 key={`product-specifications`}
                 value={tabValue}
                 index={1}>
-                <ReadMore>
-                  <Table aria-label="camera specifications">
-                    <TableBody>
-                      {rows.map(row => (
-                        <TableRow
-                          key={row.id}
-                          sx={{
-                            '&:last-child td, &:last-child th': {border: 0},
-                          }}>
-                          <TableCell component="th" scope="row">
-                            {row.id}
-                          </TableCell>
-                          <TableCell align="right">{row.value}</TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </ReadMore>
+                <CircularPageLoader />
               </TabPanel>
-            </>
-          ) : (
-            <TabPanel key={`product-specifications`} value={tabValue} index={1}>
-              <CircularPageLoader />
-            </TabPanel>
-          )}
-        </>
-      )}
-      <Divider />
-      <br />
-      <Typography variant={'h5'}>Historical Price</Typography>
-      <PriceLineChart data={''} />
-      <br />
-      <br />
-      <br />
-      <br />
-    </div>
+            )}
+          </>
+        )}
+        <Divider />
+        <br />
+        <Typography variant={'h5'}>Historical Price</Typography>
+        <PriceLineChart data={''} />
+        <br />
+        <br />
+        <br />
+        <br />
+      </div>
+    </>
   );
 };
 

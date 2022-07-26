@@ -9,6 +9,7 @@ import {ImageListResponse} from 'src/types/imageTypes';
 import fetcher from '@/utils/fetcher';
 import CircularPageLoader from '@/components/pageComponents/circularPageLoader';
 import {LensData, LensDetailsResponse} from 'pages/api/lens/[lensAlt]';
+import Head from 'next/head';
 
 const useStyles = makeStyles(theme => ({
   accordion: {
@@ -87,39 +88,47 @@ const LensByAlt: React.FC = () => {
   }, [lensImages, lensResponse, setLoading]);
 
   return (
-    <div className={classes.cameraContainer}>
-      {loading ? (
-        <CircularPageLoader />
-      ) : (
-        <>
-          {lens && (
-            <>
-              <Typography variant={'h4'}>{lens.name}</Typography>
-              {/* {camera.releaseDate && (
+    <>
+      <Head>
+        <title>Bokeh Broker | Lens - {lensAlt}</title>
+      </Head>
+      <div className={classes.cameraContainer}>
+        {loading ? (
+          <CircularPageLoader />
+        ) : (
+          <>
+            {lens && (
+              <>
+                <Typography variant={'h4'}>{lens.name}</Typography>
+                {/* {camera.releaseDate && (
                 <Typography
                   variant={'body1'}>{`Release Date: ${getFormattedDate(
                   camera.releaseDate,
                 )}`}</Typography>
               )} */}
-            </>
-          )}
-
-          <div className={classes.cameraBody}>
-            {images && (
-              <div className={classes.swiperContainer}>
-                <Swiper styleName={classes.swiper} imageUrls={images.imgSrc} />
-              </div>
+              </>
             )}
-            {/* {cameraSpecs?.msrp && (
+
+            <div className={classes.cameraBody}>
+              {images && (
+                <div className={classes.swiperContainer}>
+                  <Swiper
+                    styleName={classes.swiper}
+                    imageUrls={images.imgSrc}
+                  />
+                </div>
+              )}
+              {/* {cameraSpecs?.msrp && (
               <div className={classes.priceContainer}>
                 <Typography
                   variant={'h5'}>{`MSRP $${cameraSpecs.msrp}`}</Typography>
               </div>
             )} */}
-          </div>
-        </>
-      )}
-    </div>
+            </div>
+          </>
+        )}
+      </div>
+    </>
   );
 };
 
