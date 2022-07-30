@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@mui/styles';
 import {useRouter} from 'next/router';
 import {
+  Button,
   Divider,
   Table,
   TableBody,
@@ -27,6 +28,10 @@ import CircularPageLoader from '@/components/pageComponents/circularPageLoader';
 import {ReadMore} from '@/components/readMore';
 import {PriceLineChart} from '@/components/graphs/priceLineChart';
 import Head from 'next/head';
+import {
+  CameraVariants,
+  CameraVariantsResponse,
+} from 'pages/api/cameras/[cameraAlt]/variants';
 
 const useStyles = makeStyles(theme => ({
   accordion: {
@@ -103,14 +108,22 @@ const CamerasByAlt: React.FC = () => {
   const classes = useStyles(campediaTheme);
   const router = useRouter();
   const {cameraAlt} = router.query;
-  const [camera, setCamera] = useState<CameraData>();
-  const [cameraSpecs, setCameraSpecs] = useState<CameraSpecs>();
   const [rows, setRows] = useState<GridRows[]>();
   const [loading, setLoading] = useState<boolean>(true);
+
+  const [camera, setCamera] = useState<CameraData>();
+  const [cameraSpecs, setCameraSpecs] = useState<CameraSpecs>();
   const {data: cameraResponse} = useSWR<CameraDetailsResponse>(
     cameraAlt ? `/api/cameras/${cameraAlt}` : null,
     cameraAlt ? fetcher : null,
   );
+
+  const [variants, setVariants] = useState<CameraVariants[]>();
+  const {data: cameraVariantResponse} = useSWR<CameraVariantsResponse>(
+    cameraAlt ? `/api/cameras/${cameraAlt}/variants` : null,
+    cameraAlt ? fetcher : null,
+  );
+
   const [images, setImages] = React.useState<ImageListResponse>();
   const {data: cameraImages} = useSWR<ImageListResponse>(
     cameraAlt ? `/api/image/cameras/${cameraAlt}/list` : null,
@@ -127,9 +140,18 @@ const CamerasByAlt: React.FC = () => {
       const specs = buildDataGridRows(cameraSpecs);
       setRows(specs);
     }
+    if (cameraVariantResponse) {
+      setVariants(cameraVariantResponse.data);
+    }
     setImages(cameraImages);
     setLoading(false);
-  }, [cameraImages, cameraResponse, cameraSpecs, setLoading]);
+  }, [
+    cameraImages,
+    cameraResponse,
+    cameraSpecs,
+    cameraVariantResponse,
+    setLoading,
+  ]);
 
   const [tabValue, setTabValue] = React.useState(0);
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -167,6 +189,14 @@ const CamerasByAlt: React.FC = () => {
                   />
                 </div>
               )}
+              {variants &&
+                variants.map(variant => {
+                  return (
+                    <Button key={variant.alt} size={'small'}>
+                      {variant.name}
+                    </Button>
+                  );
+                })}
               {cameraSpecs?.msrp && (
                 <div className={classes.priceContainer}>
                   <Typography
