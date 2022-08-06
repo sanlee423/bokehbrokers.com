@@ -3,8 +3,19 @@ import InputUnstyled, {
   InputUnstyledProps,
   inputUnstyledClasses,
 } from '@mui/base/InputUnstyled';
-import {Search as SearchIcon} from '@mui/icons-material';
 import {styled} from '@mui/system';
+import algoliasearch from 'algoliasearch/lite';
+import {
+  InstantSearch,
+  InstantSearchServerState,
+  SearchBox,
+} from 'react-instantsearch-hooks-web';
+
+const ALGOLIA_BRANDS_INDEX = process.env.ALGOLIA_BRANDS_INDEX;
+const searchClient = algoliasearch(
+  process.env.ALGOLIA_APP_ID ?? '',
+  process.env.ALGOLIA_API_KEY ?? '',
+);
 
 const StyledInputRoot = styled('div')(
   ({theme}) => `
@@ -47,6 +58,7 @@ const CustomInput = React.forwardRef(function CustomInput(
   ref: React.ForwardedRef<HTMLDivElement>,
 ) {
   const {components, ...other} = props;
+
   return (
     <InputUnstyled
       components={{
@@ -60,11 +72,20 @@ const CustomInput = React.forwardRef(function CustomInput(
   );
 });
 
-export default function SearchBar() {
+export default function SearchBar({
+  serverState,
+  url,
+}: {
+  serverState?: InstantSearchServerState;
+  url: string;
+}) {
   return (
-    <CustomInput
-      id="search-bar"
-      startAdornment={<SearchIcon style={{fill: '#2C3639'}} />}
-    />
+    <>
+      <InstantSearch
+        searchClient={searchClient}
+        indexName={ALGOLIA_BRANDS_INDEX ?? ''}>
+        <SearchBox />
+      </InstantSearch>
+    </>
   );
 }

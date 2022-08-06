@@ -6,3 +6,10 @@ export function getFormattedDate(inputDate: string) {
 
   return month + '/' + day + '/' + year;
 }
+
+export function getFormattedYear(inputDate: string) {
+  const date = new Date(inputDate);
+  const year = date.getFullYear();
+
+  return year;
+}

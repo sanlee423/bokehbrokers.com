@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@mui/styles';
 import {useRouter} from 'next/router';
 import {
-  Button,
   Divider,
   Table,
   TableBody,
@@ -18,7 +17,7 @@ import {
   CameraPair,
   CameraSpecs,
 } from 'pages/api/cameras/[cameraAlt]';
-import {getFormattedDate} from '@/utils/dateFormatter';
+import {getFormattedYear} from '@/utils/dateFormatter';
 import {formatSpec, formatSpecValue} from '@/utils/specFormatter';
 import {campediaTheme} from '@/utils/campediaTheme';
 import {ImageListResponse} from 'src/types/imageTypes';
@@ -32,6 +31,8 @@ import {
   CameraVariants,
   CameraVariantsResponse,
 } from 'pages/api/cameras/[cameraAlt]/variants';
+import DropDownMaterial from '@/components/dropdownMaterial';
+import PriceContainer from '@/components/priceContainer';
 
 const useStyles = makeStyles(theme => ({
   accordion: {
@@ -48,30 +49,43 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     height: '100%',
     overflowY: 'scroll',
-
-    '& > *': {
-      margin: '4px 0',
-    },
   },
   cameraBody: {
-    padding: '1%',
     display: 'flex',
     flexDirection: 'row',
     width: '100%',
 
     '& > *': {
-      marginRight: '3%',
+      margin: '12px 0',
     },
 
     '@media (max-width: 700px)': {
       flexDirection: 'column',
     },
   },
+  variantPriceBox: {
+    border: '0.1px grey solid',
+
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    width: '100%',
+    padding: '10px',
+
+    '@media (max-width: 700px)': {
+      border: 0,
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      padding: '0px',
+    },
+  },
   swiperContainer: {
     width: '31.25em',
+    padding: '4%',
+
     '@media (max-width: 700px)': {
       width: '100%',
-      padding: '4%',
     },
   },
   tabPanel: {
@@ -79,7 +93,6 @@ const useStyles = makeStyles(theme => ({
       margin: '2% 0',
     },
   },
-  priceContainer: {},
   swiper: {},
 }));
 
@@ -170,13 +183,9 @@ const CamerasByAlt: React.FC = () => {
           <>
             {camera && (
               <>
-                <Typography variant={'h4'}>{camera.name}</Typography>
-                {camera.releaseDate && (
-                  <Typography
-                    variant={'body1'}>{`Release Date: ${getFormattedDate(
-                    camera.releaseDate,
-                  )}`}</Typography>
-                )}
+                <Typography variant={'h5'}>{`${camera.name} (${
+                  camera.releaseDate && getFormattedYear(camera.releaseDate)
+                })`}</Typography>
               </>
             )}
 
@@ -189,20 +198,25 @@ const CamerasByAlt: React.FC = () => {
                   />
                 </div>
               )}
-              {variants &&
-                variants.map(variant => {
-                  return (
-                    <Button key={variant.alt} size={'small'}>
-                      {variant.name}
-                    </Button>
-                  );
-                })}
-              {cameraSpecs?.msrp && (
-                <div className={classes.priceContainer}>
-                  <Typography
-                    variant={'h5'}>{`MSRP $${cameraSpecs.msrp}`}</Typography>
-                </div>
-              )}
+              <div className={classes.variantPriceBox}>
+                {variants && (
+                  <>
+                    <DropDownMaterial
+                      size={'medium'}
+                      title={'Models'}
+                      menuItems={variants.map(v => v.name)}
+                    />
+                    <Divider />
+                  </>
+                )}
+                {cameraSpecs?.msrp && camera?.alt && (
+                  <PriceContainer
+                    alt={camera.alt}
+                    variant={'silverchrome'}
+                    msrp={cameraSpecs.msrp}
+                  />
+                )}
+              </div>
             </div>
 
             <Divider />
