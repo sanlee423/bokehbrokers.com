@@ -3,7 +3,6 @@ import {makeStyles} from '@mui/styles';
 import {Divider} from '@mui/material';
 import {campediaTheme} from '@/utils/campediaTheme';
 import {toggleList} from './pageList';
-import Breadcrumb from '../breadcrumbs';
 import useWindowSize from '@/utils/windowDimensions';
 import SearchBar from '../searchBar/searchBar';
 import BackButton from './backButton';
@@ -32,7 +31,7 @@ export default function PageListHeader() {
       <div className={classes.pageHeader}>
         {width < 700 && <BackButton />}
         <div className={'searchbar-container'}>
-          <SearchBar />
+          <SearchBar url={''} />
         </div>
         {width < 700 && <MobileFilterButton />}
       </div>
