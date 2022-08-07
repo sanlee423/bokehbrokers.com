@@ -7,12 +7,6 @@ import {makeStyles, styled} from '@mui/styles';
 import {campediaTheme} from '@/utils/campediaTheme';
 import {Theme} from '@mui/material';
 
-interface DropDownMaterialInterface {
-  menuItems: string[];
-  title: string;
-  size?: 'small' | 'medium';
-}
-
 const useStyles = makeStyles(theme => ({
   accordion: {
     '.MuiPaper-root.MuiAccordion-root': {
@@ -49,17 +43,22 @@ export const StyledSelect = styled((props: any) => (
   },
 }));
 
+interface DropDownMaterialInterface {
+  menuItems: string[];
+  title: string;
+  activeItem: string;
+  handleChange: (event: SelectChangeEvent<string>) => void;
+  size?: 'small' | 'medium';
+}
+
 export default function DropDownMaterial({
   menuItems,
   title,
+  activeItem,
+  handleChange,
   size = 'small',
 }: DropDownMaterialInterface) {
   const classes = useStyles(campediaTheme);
-  const [item, setItem] = React.useState<string>(menuItems[0]);
-
-  const handleChange = (event: SelectChangeEvent<string>) => {
-    setItem(event.target.value);
-  };
 
   return (
     <StyledFormControl variant="standard" size={size}>
@@ -67,7 +66,7 @@ export default function DropDownMaterial({
       <StyledSelect
         labelId="demo-select-small"
         id="demo-select-small"
-        value={item}
+        value={activeItem}
         label="Age"
         onChange={handleChange}>
         {menuItems.map((menuItem, i) => {

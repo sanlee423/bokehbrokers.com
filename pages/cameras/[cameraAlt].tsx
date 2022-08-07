@@ -3,6 +3,7 @@ import {makeStyles} from '@mui/styles';
 import {useRouter} from 'next/router';
 import {
   Divider,
+  SelectChangeEvent,
   Table,
   TableBody,
   TableCell,
@@ -33,6 +34,7 @@ import {
 } from 'pages/api/cameras/[cameraAlt]/variants';
 import DropDownMaterial from '@/components/dropdownMaterial';
 import PriceContainer from '@/components/priceContainer';
+import PageTitle from '@/components/header/pageTitle';
 
 const useStyles = makeStyles(theme => ({
   accordion: {
@@ -137,10 +139,37 @@ const CamerasByAlt: React.FC = () => {
     cameraAlt ? fetcher : null,
   );
 
+  const [selectedVariant, setSelectedVariant] = useState<string>('');
+  const handleVariantChange = (event: SelectChangeEvent<string>) => {
+    setSelectedVariant(event.target.value);
+  };
+
+  const getAlt = (obj: CameraVariants[], str: string) => {
+    const val = obj.filter(variant => variant.name === str);
+    return val.length > 0 ? val[0].alt : '';
+  };
+
+  const formulateImageUrl = (
+    selectedVariant: string,
+    variantObject: CameraVariants[] | undefined,
+    cameraAlt: string | string[] | undefined,
+  ) => {
+    if (variantObject && variantObject.length === 0) {
+      return `/api/image/cameras/${cameraAlt}/list`;
+    } else if (cameraAlt && selectedVariant && variantObject) {
+      return `/api/image/cameras/${cameraAlt}-${getAlt(
+        variantObject,
+        selectedVariant,
+      )}/list`;
+    } else {
+      return null;
+    }
+  };
+
   const [images, setImages] = React.useState<ImageListResponse>();
   const {data: cameraImages} = useSWR<ImageListResponse>(
-    cameraAlt ? `/api/image/cameras/${cameraAlt}/list` : null,
-    cameraAlt ? fetcher : null,
+    formulateImageUrl(selectedVariant, variants, cameraAlt),
+    cameraAlt && selectedVariant && variants ? fetcher : null,
   );
 
   useEffect(() => {
@@ -156,6 +185,9 @@ const CamerasByAlt: React.FC = () => {
     if (cameraVariantResponse) {
       setVariants(cameraVariantResponse.data);
     }
+    if (variants && variants.length > 0 && selectedVariant === '') {
+      setSelectedVariant(variants[0].name);
+    }
     setImages(cameraImages);
     setLoading(false);
   }, [
@@ -163,7 +195,9 @@ const CamerasByAlt: React.FC = () => {
     cameraResponse,
     cameraSpecs,
     cameraVariantResponse,
+    selectedVariant,
     setLoading,
+    variants,
   ]);
 
   const [tabValue, setTabValue] = React.useState(0);
@@ -173,9 +207,7 @@ const CamerasByAlt: React.FC = () => {
 
   return (
     <>
-      <Head>
-        <title>Bokeh Broker | Camera - {cameraAlt}</title>
-      </Head>
+      <PageTitle title={camera?.name} />
       <div className={classes.cameraContainer}>
         {loading ? (
           <CircularPageLoader />
@@ -199,11 +231,13 @@ const CamerasByAlt: React.FC = () => {
                 </div>
               )}
               <div className={classes.variantPriceBox}>
-                {variants && (
+                {selectedVariant && variants && (
                   <>
                     <DropDownMaterial
                       size={'medium'}
                       title={'Models'}
+                      activeItem={selectedVariant}
+                      handleChange={handleVariantChange}
                       menuItems={variants.map(v => v.name)}
                     />
                     <Divider />

@@ -1,5 +1,5 @@
+import PageTitle from '@/components/header/pageTitle';
 import BrandedProductListPage from '@/components/pageComponents/brandedProductListPage';
-import Head from 'next/head';
 import {useRouter} from 'next/router';
 import React from 'react';
 
@@ -9,9 +9,7 @@ const BrandProducts: React.FC = () => {
 
   return (
     <>
-      <Head>
-        <title>Bokeh Broker | {brandAlt} Products</title>
-      </Head>
+      <PageTitle title={brandAlt as string} />
       <BrandedProductListPage />
     </>
   );

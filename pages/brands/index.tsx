@@ -1,13 +1,11 @@
 import React from 'react';
 import PageList from '@/components/pageComponents/pageList';
-import Head from 'next/head';
+import PageTitle from '@/components/header/pageTitle';
 
 const Brands: React.FC = () => {
   return (
     <>
-      <Head>
-        <title>Bokeh Broker | Brands</title>
-      </Head>
+      <PageTitle />
       <PageList type={'brands'} />
     </>
   );
