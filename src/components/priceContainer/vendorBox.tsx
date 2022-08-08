@@ -54,18 +54,16 @@ export default function VendorBox(props: VendorBoxProps) {
         </ListItemAvatar>
         <ListItemText
           primary={
-            <React.Fragment>
-              <Typography
-                sx={{display: 'inline'}}
-                component="span"
-                variant="body1"
-                color="text.primary">
-                $6084.75
-              </Typography>
-            </React.Fragment>
+            <Typography
+              sx={{display: 'inline'}}
+              component="span"
+              variant="body1"
+              color="text.primary">
+              $6084.75
+            </Typography>
           }
           secondary={
-            <React.Fragment>
+            <>
               <Typography
                 sx={{display: 'inline'}}
                 component="span"
@@ -76,7 +74,7 @@ export default function VendorBox(props: VendorBoxProps) {
               <Typography variant="body2" color="text.primary">
                 🌟🌟🌟🌟🌟 (702)
               </Typography>
-            </React.Fragment>
+            </>
           }
         />
       </ListItem>

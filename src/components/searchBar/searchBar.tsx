@@ -1,8 +1,4 @@
 import * as React from 'react';
-import InputUnstyled, {
-  InputUnstyledProps,
-  inputUnstyledClasses,
-} from '@mui/base/InputUnstyled';
 import {styled} from '@mui/system';
 import algoliasearch from 'algoliasearch/lite';
 import {
@@ -10,6 +6,7 @@ import {
   InstantSearchServerState,
   SearchBox,
 } from 'react-instantsearch-hooks-web';
+import {Input, InputProps} from '@mui/material';
 
 const ALGOLIA_BRANDS_INDEX = process.env.ALGOLIA_BRANDS_INDEX;
 const searchClient = algoliasearch(
@@ -29,10 +26,6 @@ const StyledInputRoot = styled('div')(
   align-items: center;
   justify-content: center;
   align-items: center;
-
-  &.${inputUnstyledClasses.focused} {
-    outline: none;
-  }
 `,
 );
 
@@ -54,13 +47,13 @@ const StyledInputElement = styled('input')(
 );
 
 const CustomInput = React.forwardRef(function CustomInput(
-  props: InputUnstyledProps,
+  props: InputProps,
   ref: React.ForwardedRef<HTMLDivElement>,
 ) {
   const {components, ...other} = props;
 
   return (
-    <InputUnstyled
+    <Input
       components={{
         Root: StyledInputRoot,
         Input: StyledInputElement,

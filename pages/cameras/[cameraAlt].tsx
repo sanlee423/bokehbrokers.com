@@ -1,39 +1,26 @@
 import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@mui/styles';
 import {useRouter} from 'next/router';
-import {
-  Divider,
-  SelectChangeEvent,
-  Table,
-  TableBody,
-  TableCell,
-  TableRow,
-  Typography,
-} from '@mui/material';
+import {Divider, SelectChangeEvent, Typography} from '@mui/material';
 import Swiper from '@/utils/swiper';
 import useSWR from 'swr';
 import {
   CameraData,
-  CameraDetailsResponse,
   CameraPair,
   CameraSpecs,
 } from 'pages/api/cameras/[cameraAlt]';
-import {getFormattedYear} from '@/utils/dateFormatter';
-import {formatSpec, formatSpecValue} from '@/utils/specFormatter';
 import {campediaTheme} from '@/utils/campediaTheme';
 import {ImageListResponse} from 'src/types/imageTypes';
 import fetcher from '@/utils/fetcher';
-import {StyledTab, StyledTabs, TabPanel} from '@/components/tabs';
 import CircularPageLoader from '@/components/pageComponents/circularPageLoader';
-import {ReadMore} from '@/components/readMore';
 import {PriceLineChart} from '@/components/graphs/priceLineChart';
-import Head from 'next/head';
-import {
-  CameraVariants,
-  CameraVariantsResponse,
-} from 'pages/api/cameras/[cameraAlt]/variants';
 import DropDownMaterial from '@/components/dropdownMaterial';
 import PriceContainer from '@/components/priceContainer';
+import {useVariants} from 'src/hooks/useVariants';
+import {useCameras} from 'src/hooks/useCameraByAlt';
+import PageByAltHeader from '@/components/pageByAltComponents/pageByAltHeader';
+import PageByAltTabs from '@/components/pageByAltComponents/pageByAltTabs';
+import {CameraVariants} from 'pages/api/cameras/[cameraAlt]/variants';
 import PageTitle from '@/components/header/pageTitle';
 
 const useStyles = makeStyles(theme => ({
@@ -90,54 +77,22 @@ const useStyles = makeStyles(theme => ({
       width: '100%',
     },
   },
-  tabPanel: {
-    '& > *': {
-      margin: '2% 0',
-    },
-  },
+
   swiper: {},
 }));
-
-interface GridRows {
-  id: string;
-  value: string;
-}
-
-function buildDataGridRows(cameraSpecs: CameraSpecs): GridRows[] {
-  const res: GridRows[] = [];
-
-  for (const [key, value] of Object.entries(cameraSpecs)) {
-    if (key === 'id' || key === 'cameraId') {
-      continue;
-    }
-
-    if (value !== null) {
-      res.push({id: formatSpec(key), value: formatSpecValue(key, value)});
-    }
-  }
-
-  return res;
-}
 
 const CamerasByAlt: React.FC = () => {
   const classes = useStyles(campediaTheme);
   const router = useRouter();
   const {cameraAlt} = router.query;
-  const [rows, setRows] = useState<GridRows[]>();
   const [loading, setLoading] = useState<boolean>(true);
 
   const [camera, setCamera] = useState<CameraData>();
   const [cameraSpecs, setCameraSpecs] = useState<CameraSpecs>();
-  const {data: cameraResponse} = useSWR<CameraDetailsResponse>(
-    cameraAlt ? `/api/cameras/${cameraAlt}` : null,
-    cameraAlt ? fetcher : null,
-  );
+  const {data: cameraResponse} = useCameras(cameraAlt);
 
   const [variants, setVariants] = useState<CameraVariants[]>();
-  const {data: cameraVariantResponse} = useSWR<CameraVariantsResponse>(
-    cameraAlt ? `/api/cameras/${cameraAlt}/variants` : null,
-    cameraAlt ? fetcher : null,
-  );
+  const {data: cameraVariantResponse} = useVariants(cameraAlt);
 
   const [selectedVariant, setSelectedVariant] = useState<string>('');
   const handleVariantChange = (event: SelectChangeEvent<string>) => {
@@ -178,10 +133,6 @@ const CamerasByAlt: React.FC = () => {
       setCamera(cameraData.camera);
       setCameraSpecs(cameraData.specs);
     }
-    if (cameraSpecs) {
-      const specs = buildDataGridRows(cameraSpecs);
-      setRows(specs);
-    }
     if (cameraVariantResponse) {
       setVariants(cameraVariantResponse.data);
     }
@@ -214,11 +165,11 @@ const CamerasByAlt: React.FC = () => {
         ) : (
           <>
             {camera && (
-              <>
-                <Typography variant={'h5'}>{`${camera.name} (${
-                  camera.releaseDate && getFormattedYear(camera.releaseDate)
-                })`}</Typography>
-              </>
+              <PageByAltHeader
+                loading={loading}
+                name={camera.name}
+                date={camera.releaseDate}
+              />
             )}
 
             <div className={classes.cameraBody}>
@@ -254,73 +205,12 @@ const CamerasByAlt: React.FC = () => {
             </div>
 
             <Divider />
-            <StyledTabs
-              value={tabValue}
-              onChange={handleTabChange}
-              aria-label="product-tabs">
-              <StyledTab
-                theme={campediaTheme}
-                label={'Product Description'}
-                id={`simple-tab-0`}
-                aria-controls={`simple-tabpanel-0`}
-              />
-              <StyledTab
-                theme={campediaTheme}
-                label={'Product Specifications'}
-                id={`simple-tab-1`}
-                aria-controls={`simple-tabpanel-1`}
-              />
-            </StyledTabs>
-            {camera?.description ? (
-              <div className={classes.tabPanel}>
-                <TabPanel value={tabValue} index={0}>
-                  <ReadMore>
-                    <Typography variant={'body1'}>
-                      {camera.description}
-                    </Typography>
-                  </ReadMore>
-                </TabPanel>
-              </div>
-            ) : (
-              <TabPanel key={`product-description`} value={tabValue} index={0}>
-                <CircularPageLoader />
-              </TabPanel>
-            )}
-
-            {rows ? (
-              <>
-                <TabPanel
-                  key={`product-specifications`}
-                  value={tabValue}
-                  index={1}>
-                  <ReadMore>
-                    <Table aria-label="camera specifications">
-                      <TableBody>
-                        {rows.map(row => (
-                          <TableRow
-                            key={row.id}
-                            sx={{
-                              '&:last-child td, &:last-child th': {border: 0},
-                            }}>
-                            <TableCell component="th" scope="row">
-                              {row.id}
-                            </TableCell>
-                            <TableCell align="right">{row.value}</TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </ReadMore>
-                </TabPanel>
-              </>
-            ) : (
-              <TabPanel
-                key={`product-specifications`}
-                value={tabValue}
-                index={1}>
-                <CircularPageLoader />
-              </TabPanel>
-            )}
+            <PageByAltTabs
+              tabValue={tabValue}
+              handleTabChange={handleTabChange}
+              description={camera?.description}
+              cameraSpecs={cameraSpecs}
+            />
           </>
         )}
         <Divider />
