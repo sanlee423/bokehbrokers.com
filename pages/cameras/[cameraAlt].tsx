@@ -22,6 +22,8 @@ import PageByAltHeader from '@/components/pageByAltComponents/pageByAltHeader';
 import PageByAltTabs from '@/components/pageByAltComponents/pageByAltTabs';
 import {CameraVariants} from 'pages/api/cameras/[cameraAlt]/variants';
 import PageTitle from '@/components/header/pageTitle';
+import {useAltImage} from 'src/hooks/useAltImage';
+import ErrorBoundary from 'src/errorBoundary';
 
 const useStyles = makeStyles(theme => ({
   accordion: {
@@ -86,46 +88,23 @@ const CamerasByAlt: React.FC = () => {
   const router = useRouter();
   const {cameraAlt} = router.query;
   const [loading, setLoading] = useState<boolean>(true);
-
   const [camera, setCamera] = useState<CameraData>();
   const [cameraSpecs, setCameraSpecs] = useState<CameraSpecs>();
-  const {data: cameraResponse} = useCameras(cameraAlt);
-
   const [variants, setVariants] = useState<CameraVariants[]>();
-  const {data: cameraVariantResponse} = useVariants(cameraAlt);
-
   const [selectedVariant, setSelectedVariant] = useState<string>('');
+  const [images, setImages] = React.useState<ImageListResponse>();
+
+  const {data: cameraResponse} = useCameras(cameraAlt);
+  const {data: cameraVariantResponse} = useVariants(cameraAlt as string);
+  const {data: cameraImages} = useAltImage(
+    selectedVariant,
+    variants,
+    cameraAlt as string,
+  );
+
   const handleVariantChange = (event: SelectChangeEvent<string>) => {
     setSelectedVariant(event.target.value);
   };
-
-  const getAlt = (obj: CameraVariants[], str: string) => {
-    const val = obj.filter(variant => variant.name === str);
-    return val.length > 0 ? val[0].alt : '';
-  };
-
-  const formulateImageUrl = (
-    selectedVariant: string,
-    variantObject: CameraVariants[] | undefined,
-    cameraAlt: string | string[] | undefined,
-  ) => {
-    if (variantObject && variantObject.length === 0) {
-      return `/api/image/cameras/${cameraAlt}/list`;
-    } else if (cameraAlt && selectedVariant && variantObject) {
-      return `/api/image/cameras/${cameraAlt}-${getAlt(
-        variantObject,
-        selectedVariant,
-      )}/list`;
-    } else {
-      return null;
-    }
-  };
-
-  const [images, setImages] = React.useState<ImageListResponse>();
-  const {data: cameraImages} = useSWR<ImageListResponse>(
-    formulateImageUrl(selectedVariant, variants, cameraAlt),
-    cameraAlt && selectedVariant && variants ? fetcher : null,
-  );
 
   useEffect(() => {
     if (cameraResponse) {
@@ -157,7 +136,7 @@ const CamerasByAlt: React.FC = () => {
   };
 
   return (
-    <>
+    <ErrorBoundary>
       <PageTitle title={camera?.name} />
       <div className={classes.cameraContainer}>
         {loading ? (
@@ -222,7 +201,7 @@ const CamerasByAlt: React.FC = () => {
         <br />
         <br />
       </div>
-    </>
+    </ErrorBoundary>
   );
 };
 
