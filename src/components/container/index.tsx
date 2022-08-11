@@ -13,40 +13,18 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
-    overflow: 'hidden',
-  },
-  pageContainer: {
-    overflow: 'hidden',
+    overflow: 'auto',
   },
 }));
 
 export const Container: React.FC = ({children}) => {
   const classes = useStyles(campediaTheme);
-  const {width, height} = useWindowSize();
-
-  React.useEffect(() => {
-    if (document !== null) {
-      const contentContainer = document.getElementById(
-        'page-content-container',
-      );
-      if (contentContainer) {
-        contentContainer.style.overflowY = 'hidden';
-        if (width < 700) {
-          contentContainer.style.width = `${width}px`;
-          contentContainer.style.height = `${height * 0.89}px`;
-        } else {
-          contentContainer.style.width = `${width}px`;
-          contentContainer.style.height = `${height * 0.84}px`;
-        }
-      }
-    }
-  }, [width, height]);
 
   return (
     <div className={classes.mainContainer}>
       <Header />
       <MainNav />
-      <div id={'page-content-container'}>{children}</div>
+      <div>{children}</div>
       <Footer />
     </div>
   );

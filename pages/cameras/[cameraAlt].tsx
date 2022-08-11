@@ -197,9 +197,6 @@ const CamerasByAlt: React.FC = () => {
         <Typography variant={'h5'}>Historical Price</Typography>
         <PriceLineChart data={''} />
         <br />
-        <br />
-        <br />
-        <br />
       </div>
     </ErrorBoundary>
   );
