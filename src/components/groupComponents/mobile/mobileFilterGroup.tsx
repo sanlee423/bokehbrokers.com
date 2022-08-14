@@ -6,6 +6,7 @@ import {FormGroup, ToggleButton, Typography} from '@mui/material';
 import {campediaTheme} from '@/utils/campediaTheme';
 import {styled} from '@mui/material/styles';
 import {makeStyles} from '@mui/styles';
+import {RefinementList} from 'react-instantsearch-hooks-web';
 
 const useStyles = makeStyles(theme => ({
   filterGroupContainer: {
@@ -29,7 +30,11 @@ export const CustomToggleButton = styled(ToggleButton)(({theme}) => ({
   },
 }));
 
-export default function MobileFilterGroup() {
+interface MobileFilterGroupInterface {
+  attribute: string;
+}
+
+export default function MobileFilterGroup(props: MobileFilterGroupInterface) {
   const classes = useStyles(campediaTheme);
   const [state, setState] = React.useState({
     camera: false,
@@ -68,6 +73,7 @@ export default function MobileFilterGroup() {
           Manufacturer Type
         </Typography>
         <FormGroup className={classes.filterGroupContainer}>
+          <RefinementList attribute={props.attribute} />
           <CustomToggleButton
             theme={campediaTheme}
             size={'small'}

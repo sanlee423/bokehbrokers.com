@@ -193,10 +193,8 @@ const CamerasByAlt: React.FC = () => {
           </>
         )}
         <Divider />
-        <br />
         <Typography variant={'h5'}>Historical Price</Typography>
         <PriceLineChart data={''} />
-        <br />
       </div>
     </ErrorBoundary>
   );

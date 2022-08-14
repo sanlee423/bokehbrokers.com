@@ -11,7 +11,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function MobileFilterButton() {
+interface MobileFilterButtonInterface {
+  attribute: string;
+}
+
+export default function MobileFilterButton(props: MobileFilterButtonInterface) {
   const classes = useStyles(campediaTheme);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -41,12 +45,8 @@ export default function MobileFilterButton() {
             handleOpen={handleClick}
             handleClose={handleClose}
             open={open}
+            attribute={props.attribute}
           />
-          {/* <MobileFilterList
-            handleClose={handleClose}
-            open={open}
-            anchorEl={anchorEl}
-          /> */}
         </>
       )}
     </div>

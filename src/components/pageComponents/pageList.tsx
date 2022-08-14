@@ -4,11 +4,14 @@ import useSWR from 'swr';
 import {BrandResponse} from 'pages/api/brands';
 import {campediaTheme} from '@/utils/campediaTheme';
 import DescriptionListCard from '@/components/cards/descriptionListCard';
-import PageListHeader from './pageListHeader';
 import fetcher from '@/utils/fetcher';
 import useWindowSize from '@/utils/windowDimensions';
 import FilterGroup from '../groupComponents/filterGroup';
 import CircularPageLoader from './circularPageLoader';
+import BackButton from './backButton';
+import MobileFilterButton from './mobileFilterButton';
+import {Divider} from '@mui/material';
+import SearchBar from '../searchBar/searchBar';
 
 const useStyles = makeStyles(theme => ({
   pageContainer: {
@@ -34,6 +37,13 @@ const useStyles = makeStyles(theme => ({
   filterContainer: {
     display: 'flex',
     flexDirection: 'column',
+  },
+  pageHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    verticalAlign: 'center',
+    height: '7%',
   },
 }));
 
@@ -81,7 +91,19 @@ export default function PageList(props: PageListProps) {
         <CircularPageLoader />
       ) : (
         <>
-          <PageListHeader />
+          <>
+            <div className={classes.pageHeader}>
+              {width < 700 && <BackButton />}
+              <div className={'searchbar-container'}>
+                <SearchBar />
+              </div>
+              {width < 700 && (
+                <MobileFilterButton attribute="Manufacturer Type" />
+              )}
+            </div>
+
+            <Divider />
+          </>
           <div className={classes.productContainer}>
             {width > 700 && (
               <div

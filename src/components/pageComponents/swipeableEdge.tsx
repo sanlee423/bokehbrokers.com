@@ -14,16 +14,17 @@ const drawerBleeding = 56;
 interface Props {
   handleOpen: (event: React.MouseEvent<HTMLElement>) => void;
   handleClose: () => void;
+  attribute: string;
   open: boolean;
 }
 
-const Root = styled('div')(({theme}) => ({
+export const Root = styled('div')(({theme}) => ({
   height: '100%',
   color: theme.palette.primary.main,
   backgroundColor: '#fff',
 }));
 
-const StyledBox = styled(Box)(({theme}) => ({
+export const StyledBox = styled(Box)(({theme}) => ({
   backgroundColor: '#fff',
 }));
 
@@ -88,7 +89,7 @@ export default function SwipeableEdgeDrawer(props: Props) {
             overflow: 'auto',
           }}
           theme={campediaTheme}>
-          <MobileFilterGroup />
+          <MobileFilterGroup attribute={props.attribute} />
           <Divider />
           <MobileSortGroup />
           {/* <Skeleton variant="rectangular" height="100%" /> */}
