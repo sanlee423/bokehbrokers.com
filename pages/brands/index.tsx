@@ -26,9 +26,7 @@ import Link from 'next/link';
 import SquareImage from '@/utils/squareImage';
 import {FilterAlt as FilterAltIcon} from '@mui/icons-material';
 import {Global} from '@emotion/react';
-import {styled} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import {Root, StyledBox} from '@/components/pageComponents/swipeableEdge';
 
@@ -47,6 +45,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     verticalAlign: 'center',
     height: '7%',
+    margin: '1%',
 
     '& > *': {
       margin: 'auto',
@@ -59,7 +58,27 @@ const useStyles = makeStyles(theme => ({
   },
   filterContainer: {
     // border: '1px solid red',
-    width: '15%',
+    width: '20%',
+    padding: '1%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  filterBy: {
+    width: '100%',
+    padding: '5%',
+    border: '0.02px solid #ededed',
+    borderRadius: '0.25rem',
+    whiteSpace: 'nowrap',
+    boxShadow:
+      '0 5px 7px -1px rgb(0 0 0 / 0.1), 0 2px 3px -2px rgb(0 0 0 / 0.1)',
+    overflow: 'hidden',
+  },
+  mobileFilterBy: {
+    padding: '0.5%',
+
+    '& > *': {
+      margin: '2% 0',
+    },
   },
   paginationContainer: {
     // border: '1px solid red',
@@ -70,12 +89,16 @@ const useStyles = makeStyles(theme => ({
   },
   productListContainer: {
     // border: '1px solid blue',
-    width: '100%',
+    width: '85%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'stretch',
     verticalAlign: 'center',
+
+    '@media (max-width: 700px)': {
+      width: '100%',
+    },
   },
   productContainer: {
     width: '98%',
@@ -209,7 +232,11 @@ const Brands: React.FC = () => {
                           overflow: 'auto',
                         }}
                         theme={campediaTheme}>
-                        <RefinementList attribute={'Manufacturer Type'} />
+                        <div className={classes.mobileFilterBy}>
+                          <Typography>Manufacturer Type</Typography>
+                          <RefinementList attribute={'Manufacturer Type'} />
+                        </div>
+                        <Divider />
                       </StyledBox>
                     </SwipeableDrawer>
                   </Root>
@@ -221,8 +248,10 @@ const Brands: React.FC = () => {
           <div className={classes.contentContainer}>
             {width > 700 && (
               <div className={classes.filterContainer}>
-                <Typography>Manufacturer Type</Typography>
-                <RefinementList attribute={'Manufacturer Type'} />
+                <div className={classes.filterBy}>
+                  <Typography>Manufacturer Type</Typography>
+                  <RefinementList attribute={'Manufacturer Type'} />
+                </div>
               </div>
             )}
             <div className={classes.productListContainer}>

@@ -1,0 +1,240 @@
+.ais-SearchBox {
+  width: 75%;
+}
+
+.ais-SearchBox-form {
+  background-color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 0.875rem;
+  height: 2.5rem;
+  line-height: 1.25rem;
+  position: relative;
+  width: 100%;
+}
+
+.ais-SearchBox-input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  border: 1px solid #3f4e4f;
+  border-radius: 3px;
+  box-shadow: inset 0 1px 4px 0 rgb(119 122 175 / 30%);
+  caret-color: #3f4e4f;
+  color: #3f4e4f;
+  flex: 1 1 0%;
+  font: inherit;
+  max-width: 100%;
+  padding-left: 2.5rem;
+}
+
+.ais-SearchBox-input:focus {
+  border-color: #6d8285;
+  box-shadow: 0 1px 0 0 rgba(35, 38, 59, 0.05);
+  outline: medium none currentcolor;
+}
+
+.ais-Menu-searchBox .ais-SearchBox-form,
+.ais-RefinementList-searchBox .ais-SearchBox-form {
+  height: 2rem;
+}
+
+.ais-SearchBox-form:before {
+  background: transparent
+    url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%235a5e9a%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Ccircle%20cx%3D%2211%22%20cy%3D%2211%22%20r%3D%228%22%3E%3C%2Fcircle%3E%3Cline%20x1%3D%2221%22%20y1%3D%2221%22%20x2%3D%2216.65%22%20y2%3D%2216.65%22%3E%3C%2Fline%3E%3C%2Fsvg%3E')
+    repeat scroll 0 0;
+  content: '';
+  height: 1rem;
+  left: 1rem;
+  margin-top: -0.5rem;
+  position: absolute;
+  top: 50%;
+  width: 1rem;
+}
+
+.ais-Menu-searchBox .ais-SearchBox-form:before,
+.ais-RefinementList-searchBox .ais-SearchBox-form:before {
+  left: 0.5rem;
+}
+
+.ais-SearchBox-loadingIndicator[hidden],
+.ais-SearchBox-reset[hidden],
+.ais-SearchBox-submit {
+  display: none;
+}
+
+.ais-ClearRefinements-button,
+.ais-CurrentRefinements-delete,
+.ais-CurrentRefinements-reset,
+.ais-GeoSearch-redo,
+.ais-GeoSearch-reset,
+.ais-HierarchicalMenu-showMore,
+.ais-InfiniteHits-loadMore,
+.ais-InfiniteHits-loadPrevious,
+.ais-InfiniteResults-loadMore,
+.ais-Menu-showMore,
+.ais-RangeInput-submit,
+.ais-RefinementList-showMore,
+.ais-SearchBox-reset,
+.ais-SearchBox-submit,
+.ais-VoiceSearch-button {
+  padding: 0;
+  overflow: visible;
+  font: inherit;
+  line-height: normal;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.ais-SearchBox-loadingIndicator,
+.ais-SearchBox-reset {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  fill: #484c7a;
+  height: 20px;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  width: 20px;
+}
+
+.ais-Breadcrumb-list,
+.ais-CurrentRefinements-list,
+.ais-HierarchicalMenu-list,
+.ais-Hits-list,
+.ais-InfiniteHits-list,
+.ais-InfiniteResults-list,
+.ais-Menu-list,
+.ais-NumericMenu-list,
+.ais-Pagination-list,
+.ais-RatingMenu-list,
+.ais-RefinementList-list,
+.ais-Results-list,
+.ais-ToggleRefinement-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ais-HierarchicalMenu-item,
+.ais-Menu-item,
+.ais-NumericMenu-label,
+.ais-RatingMenu-item,
+.ais-RefinementList-item,
+.ais-ToggleRefinement-label {
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1.75rem;
+}
+
+.ais-HierarchicalMenu-link,
+.ais-Menu-link,
+.ais-RatingMenu-link,
+.ais-RefinementList-label {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+}
+
+.ais-Breadcrumb-list,
+.ais-CurrentRefinements-list,
+.ais-HierarchicalMenu-list,
+.ais-Hits-list,
+.ais-InfiniteHits-list,
+.ais-InfiniteResults-list,
+.ais-Menu-list,
+.ais-NumericMenu-list,
+.ais-Pagination-list,
+.ais-RatingMenu-list,
+.ais-RefinementList-list,
+.ais-Results-list,
+.ais-ToggleRefinement-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ais-RefinementList-count {
+  background: #3f4e4f none repeat scroll 0 0;
+  border: 1px solid #3f4e4f;
+  border-radius: 99999px;
+  color: #fff;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1rem;
+  margin-left: 0.5rem;
+  overflow: hidden;
+  padding: 0 0.25rem;
+}
+
+.ais-RefinementList-labelText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ais-RefinementList-checkbox {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  background-position: 50%;
+  background-size: 180%;
+  border: 1px solid currentcolor;
+  border-radius: 3px;
+  color: #d6d6e7;
+  cursor: inherit;
+  height: 1rem;
+  margin: 0 0.5rem 0 0;
+  min-width: 1rem;
+}
+
+.ais-Hits-item,
+.ais-InfiniteHits-item {
+  align-items: center;
+}
+
+.ais-RefinementList-item--selected .ais-RefinementList-checkbox {
+  background-image: url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%235468ff%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%2220%206%209%2017%204%2012%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E');
+  background-size: 14px;
+  border-color: currentcolor;
+  box-shadow: inset 0 1px 0 0 rgba(35, 38, 59, 0.05);
+  color: #3f4e4f;
+}
+
+.ais-RefinementList-item--selected .ais-RefinementList-checkbox:focus {
+  box-shadow: inset 0 1px 0 0 rgba(35, 38, 59, 0.05), 0 0 0 1px currentcolor;
+}
+
+.ais-RefinementList-item--selected {
+  font-weight: 600;
+}
