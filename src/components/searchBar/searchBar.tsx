@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {styled} from '@mui/system';
 import algoliasearch from 'algoliasearch/lite';
-import {InstantSearch, SearchBox} from 'react-instantsearch-hooks-web';
+import {InstantSearch, SearchBox} from 'react-instantsearch-dom';
 
 const ALGOLIA_BRANDS_INDEX = process.env.ALGOLIA_BRANDS_INDEX;
 const searchClient = algoliasearch(

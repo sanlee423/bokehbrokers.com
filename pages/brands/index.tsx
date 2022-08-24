@@ -6,6 +6,7 @@ import useWindowSize from '@/utils/windowDimensions';
 import {
   Button,
   Divider,
+  Drawer,
   Icon,
   IconButton,
   Tooltip,
@@ -14,21 +15,23 @@ import {
 import algoliasearch from 'algoliasearch/lite';
 import {
   InstantSearch,
-  SearchBox,
   Hits,
   Highlight,
   Pagination,
   Configure,
   RefinementList,
-} from 'react-instantsearch-hooks-web';
+  connectSearchBox,
+  RefinementItem,
+} from 'react-instantsearch-dom';
 import BackButton from '@/components/pageComponents/backButton';
 import Link from 'next/link';
 import SquareImage from '@/utils/squareImage';
 import {FilterAlt as FilterAltIcon} from '@mui/icons-material';
 import {Global} from '@emotion/react';
-import CssBaseline from '@mui/material/CssBaseline';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import {Root, StyledBox} from '@/components/pageComponents/swipeableEdge';
+import {StyledBox} from '@/components/pageComponents/swipeableEdge';
+import {useRouter} from 'next/router';
+import {orderBy} from 'lodash';
 
 const ALGOLIA_BRANDS_INDEX = process.env.ALGOLIA_BRANDS_INDEX;
 const searchClient = algoliasearch(
@@ -134,18 +137,34 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Brands: React.FC = () => {
+  const router = useRouter();
   const {width} = useWindowSize();
   const classes = useStyles(campediaTheme);
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
+  const [open, setOpen] = React.useState<boolean>(false);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+    setOpen(true);
   };
   const handleClose = () => {
-    setAnchorEl(null);
+    setOpen(false);
   };
+
+  const SearchBox = ({
+    currentRefinement,
+    refine,
+  }: {
+    currentRefinement: string;
+    refine: (e: string) => void;
+  }) => (
+    <input
+      type="search"
+      value={currentRefinement}
+      onChange={event => refine(event.currentTarget.value)}
+    />
+  );
+
+  const CustomSearchBox = connectSearchBox(SearchBox);
 
   return (
     <>
@@ -157,7 +176,7 @@ const Brands: React.FC = () => {
           <Configure hitsPerPage={40} />
           <div className={classes.pageHeader}>
             {width < 700 && <BackButton />}
-            <SearchBox />
+            <CustomSearchBox />
             {width < 700 && (
               <div className={classes.mobileFilterContainer}>
                 <Tooltip title="Select Options" arrow>
@@ -172,75 +191,76 @@ const Brands: React.FC = () => {
                     />
                   </IconButton>
                 </Tooltip>
-                {anchorEl && (
-                  <Root theme={campediaTheme}>
-                    <CssBaseline />
-                    <Global
-                      styles={{
-                        '.MuiDrawer-root > .MuiPaper-root': {
-                          height: `calc(80% - 56px)`,
-                          overflow: 'visible',
+                <Global
+                  styles={{
+                    '.MuiDrawer-root > .MuiPaper-root': {
+                      height: `calc(80% - 56px)`,
+                      overflow: 'visible',
+                    },
+                  }}
+                />
+                <SwipeableDrawer
+                  anchor="bottom"
+                  open={open}
+                  onClose={handleClose}
+                  onOpen={handleClick}
+                  swipeAreaWidth={56}
+                  disableSwipeToOpen={true}
+                  variant="temporary"
+                  ModalProps={{
+                    keepMounted: true,
+                  }}>
+                  <StyledBox
+                    sx={{
+                      position: 'absolute',
+                      top: -56,
+                      borderTopLeftRadius: 8,
+                      borderTopRightRadius: 8,
+                      visibility: 'visible',
+                      right: 0,
+                      left: 0,
+                      display: open ? 'flex' : 'none',
+                      flexDirection: 'row',
+                      justifyContent: 'flex-end',
+                    }}
+                    theme={campediaTheme}>
+                    <Button
+                      size="medium"
+                      variant="text"
+                      onClick={handleClose}
+                      disableRipple
+                      sx={{
+                        '&:hover': {
+                          backgroundColor: '#fff',
                         },
-                      }}
-                    />
-                    <SwipeableDrawer
-                      anchor="bottom"
-                      open={open}
-                      onClose={handleClose}
-                      onOpen={handleClick}
-                      swipeAreaWidth={56}
-                      disableSwipeToOpen={true}
-                      ModalProps={{
-                        keepMounted: true,
+                        p: 2,
+                        color: campediaTheme.palette.primary.main,
+                        textTransform: 'none',
                       }}>
-                      <StyledBox
-                        sx={{
-                          position: 'absolute',
-                          top: -56,
-                          borderTopLeftRadius: 8,
-                          borderTopRightRadius: 8,
-                          visibility: 'visible',
-                          right: 0,
-                          left: 0,
-                          display: 'flex',
-                          flexDirection: 'row',
-                          justifyContent: 'flex-end',
-                        }}
-                        theme={campediaTheme}>
-                        <Button
-                          size="medium"
-                          variant="text"
-                          onClick={handleClose}
-                          disableRipple
-                          sx={{
-                            '&:hover': {
-                              backgroundColor: '#fff',
-                            },
-                            p: 2,
-                            color: campediaTheme.palette.primary.main,
-                            textTransform: 'none',
-                          }}>
-                          Close
-                        </Button>
-                      </StyledBox>
-                      <Divider />
-                      <StyledBox
-                        sx={{
-                          px: 2,
-                          pb: 2,
-                          height: '100%',
-                          overflow: 'auto',
-                        }}
-                        theme={campediaTheme}>
-                        <div className={classes.mobileFilterBy}>
-                          <Typography>Manufacturer Type</Typography>
-                          <RefinementList attribute={'Manufacturer Type'} />
-                        </div>
-                        <Divider />
-                      </StyledBox>
-                    </SwipeableDrawer>
-                  </Root>
-                )}
+                      Close
+                    </Button>
+                  </StyledBox>
+                  <Divider />
+                  <StyledBox
+                    sx={{
+                      px: 2,
+                      pb: 2,
+                      height: '100%',
+                      overflow: 'auto',
+                    }}
+                    theme={campediaTheme}>
+                    <div className={classes.mobileFilterBy}>
+                      <Typography>Manufacturer Type</Typography>
+                      <RefinementList
+                        attribute={'Manufacturer Type'}
+                        transformItems={(
+                          items: Array<RefinementItem<string>>,
+                        ) => orderBy(items, 'label', 'asc')}
+                      />
+                    </div>
+                    <Divider />
+                  </StyledBox>
+                </SwipeableDrawer>
               </div>
             )}
           </div>
@@ -250,7 +270,12 @@ const Brands: React.FC = () => {
               <div className={classes.filterContainer}>
                 <div className={classes.filterBy}>
                   <Typography>Manufacturer Type</Typography>
-                  <RefinementList attribute={'Manufacturer Type'} />
+                  <RefinementList
+                    attribute={'Manufacturer Type'}
+                    transformItems={(items: Array<RefinementItem<string>>) =>
+                      orderBy(items, 'label', 'asc')
+                    }
+                  />
                 </div>
               </div>
             )}

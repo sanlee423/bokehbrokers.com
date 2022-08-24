@@ -6,7 +6,7 @@ import {FormGroup, ToggleButton, Typography} from '@mui/material';
 import {campediaTheme} from '@/utils/campediaTheme';
 import {styled} from '@mui/material/styles';
 import {makeStyles} from '@mui/styles';
-import {RefinementList} from 'react-instantsearch-hooks-web';
+import {RefinementList} from 'react-instantsearch-dom';
 
 const useStyles = makeStyles(theme => ({
   filterGroupContainer: {
