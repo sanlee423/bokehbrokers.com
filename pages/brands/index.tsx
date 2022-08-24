@@ -1,14 +1,17 @@
 import React from 'react';
 import PageTitle from '@/components/header/pageTitle';
-import {makeStyles} from '@mui/styles';
+import {makeStyles, styled} from '@mui/styles';
 import {campediaTheme} from '@/utils/campediaTheme';
 import useWindowSize from '@/utils/windowDimensions';
 import {
+  alpha,
   Button,
   Divider,
   Drawer,
   Icon,
   IconButton,
+  InputBase,
+  Theme,
   Tooltip,
   Typography,
 } from '@mui/material';
@@ -26,7 +29,7 @@ import {
 import BackButton from '@/components/pageComponents/backButton';
 import Link from 'next/link';
 import SquareImage from '@/utils/squareImage';
-import {FilterAlt as FilterAltIcon} from '@mui/icons-material';
+import {FilterAlt as FilterAltIcon, SearchOutlined} from '@mui/icons-material';
 import {Global} from '@emotion/react';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import {StyledBox} from '@/components/pageComponents/swipeableEdge';
@@ -44,10 +47,11 @@ const useStyles = makeStyles(theme => ({
   pageHeader: {
     // border: '1px solid green',
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     verticalAlign: 'center',
     height: '7%',
+    width: '100%',
     margin: '1%',
 
     '& > *': {
@@ -150,6 +154,46 @@ const Brands: React.FC = () => {
     setOpen(false);
   };
 
+  const Search = styled('div')(({theme}: {theme: Theme}) => ({
+    width: '40%',
+    display: 'flex',
+    flexDirection: 'row',
+    borderRadius: '0.25rem',
+    border: '1px solid black',
+    backgroundColor: alpha('#fff', 0.15),
+  }));
+
+  const SearchIconWrapper = styled('div')(({theme}: {theme: Theme}) => ({
+    height: '100%',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    verticalAlign: 'center',
+    justifyContent: 'center',
+    marginTop: '4px',
+  }));
+
+  interface StyledInputProps {
+    currentRefinement: string;
+    placeholder: string;
+    refine: (e: string) => void;
+  }
+
+  const StyledInputBase = styled((props: StyledInputProps) => (
+    <InputBase
+      type="search"
+      value={props.currentRefinement}
+      aria-label={'search'}
+      onChange={event => props.refine(event.currentTarget.value)}
+    />
+  ))(({theme}: {theme: Theme}) => ({
+    color: theme.palette.primary.main,
+    '& .MuiInputBase-input': {
+      paddingLeft: '3rem',
+      width: '100%',
+    },
+  }));
+
   const SearchBox = ({
     currentRefinement,
     refine,
@@ -157,11 +201,16 @@ const Brands: React.FC = () => {
     currentRefinement: string;
     refine: (e: string) => void;
   }) => (
-    <input
-      type="search"
-      value={currentRefinement}
-      onChange={event => refine(event.currentTarget.value)}
-    />
+    <Search theme={campediaTheme}>
+      <SearchIconWrapper>
+        <SearchOutlined />
+      </SearchIconWrapper>
+      <StyledInputBase
+        placeholder="Search…"
+        currentRefinement={currentRefinement}
+        refine={refine}
+      />
+    </Search>
   );
 
   const CustomSearchBox = connectSearchBox(SearchBox);
