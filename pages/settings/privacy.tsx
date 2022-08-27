@@ -11,6 +11,9 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'start',
     height: '100%',
     margin: '4% 20%',
+    '& > *': {
+      marginBottom: '6%',
+    },
   },
   bulletList: {
     margin: '0 1%',
@@ -27,7 +30,6 @@ const PrivacyPolicy: React.FC = () => {
       <div className={classes.pageContainer}>
         <Typography variant="h4">Privacy Policy</Typography>
         <Divider />
-        <br />
         <Typography variant="body2">
           We collect your personal information in order to provide and
           continually improve our products and services. Here are the types of

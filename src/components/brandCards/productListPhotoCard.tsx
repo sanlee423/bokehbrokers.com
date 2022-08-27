@@ -116,7 +116,6 @@ export default function ProductListPhotoCard(props: ProductListPhotoProps) {
                 })}
               </Grid>
             </div>
-            <br />
           </>
         );
       })}

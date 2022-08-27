@@ -120,7 +120,6 @@ export default function PhotoListCard(props: PhotoListProps) {
                     })}
                   </Grid>
                 </div>
-                <br />
               </>
             )}
           </>

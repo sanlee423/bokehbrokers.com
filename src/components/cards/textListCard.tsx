@@ -101,7 +101,6 @@ export default function TextListCard(props: TextListCardProps) {
                     );
                   })}
                 </Grid>
-                <br />
               </>
             )}
           </>

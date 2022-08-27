@@ -94,7 +94,6 @@ export default function ProductListTextCard(props: ProductListTextCardProps) {
                 );
               })}
             </Grid>
-            <br />
           </>
         );
       })}

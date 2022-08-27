@@ -7,8 +7,6 @@ import {
   alpha,
   Button,
   Divider,
-  Drawer,
-  Icon,
   IconButton,
   InputBase,
   Theme,
@@ -18,23 +16,20 @@ import {
 import algoliasearch from 'algoliasearch/lite';
 import {
   InstantSearch,
-  Hits,
-  Highlight,
   Pagination,
   Configure,
   RefinementList,
   connectSearchBox,
   RefinementItem,
+  Hits,
 } from 'react-instantsearch-dom';
 import BackButton from '@/components/pageComponents/backButton';
-import Link from 'next/link';
-import SquareImage from '@/utils/squareImage';
 import {FilterAlt as FilterAltIcon, SearchOutlined} from '@mui/icons-material';
 import {Global} from '@emotion/react';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import {StyledBox} from '@/components/pageComponents/swipeableEdge';
-import {useRouter} from 'next/router';
 import {orderBy} from 'lodash';
+import BrandInfiniteHits from '@/components/hitBrand/BrandInfiniteHits';
 
 const ALGOLIA_BRANDS_INDEX = process.env.ALGOLIA_BRANDS_INDEX;
 const searchClient = algoliasearch(
@@ -45,7 +40,6 @@ const searchClient = algoliasearch(
 const useStyles = makeStyles(theme => ({
   pageContainer: {},
   pageHeader: {
-    // border: '1px solid green',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -64,7 +58,6 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
   },
   filterContainer: {
-    // border: '1px solid red',
     width: '20%',
     padding: '1%',
     display: 'flex',
@@ -88,14 +81,12 @@ const useStyles = makeStyles(theme => ({
     },
   },
   paginationContainer: {
-    // border: '1px solid red',
     display: 'flex',
     flexDirection: 'row',
     width: '100%',
     height: '50px',
   },
   productListContainer: {
-    // border: '1px solid blue',
     width: '85%',
     display: 'flex',
     flexDirection: 'column',
@@ -141,7 +132,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Brands: React.FC = () => {
-  const router = useRouter();
   const {width} = useWindowSize();
   const classes = useStyles(campediaTheme);
 
@@ -155,12 +145,15 @@ const Brands: React.FC = () => {
   };
 
   const Search = styled('div')(({theme}: {theme: Theme}) => ({
-    width: '40%',
+    width: '40rem',
     display: 'flex',
     flexDirection: 'row',
     borderRadius: '0.25rem',
     border: '1px solid black',
     backgroundColor: alpha('#fff', 0.15),
+    '@media (max-width: 700px)': {
+      width: '18rem',
+    },
   }));
 
   const SearchIconWrapper = styled('div')(({theme}: {theme: Theme}) => ({
@@ -171,6 +164,7 @@ const Brands: React.FC = () => {
     verticalAlign: 'center',
     justifyContent: 'center',
     marginTop: '4px',
+    marginLeft: '2px',
   }));
 
   interface StyledInputProps {
@@ -183,14 +177,20 @@ const Brands: React.FC = () => {
     <InputBase
       type="search"
       value={props.currentRefinement}
-      aria-label={'search'}
+      placeholder={props.placeholder}
+      aria-label={props.placeholder}
       onChange={event => props.refine(event.currentTarget.value)}
     />
   ))(({theme}: {theme: Theme}) => ({
+    width: '100%',
     color: theme.palette.primary.main,
-    '& .MuiInputBase-input': {
-      paddingLeft: '3rem',
-      width: '100%',
+    '&.MuiInputBase-root': {
+      '.MuiInputBase-input': {
+        padding: '4px 10px 5px',
+        margin: '0 5px 0',
+        width: '100%',
+        fontSize: '10px',
+      },
     },
   }));
 
@@ -222,7 +222,7 @@ const Brands: React.FC = () => {
         <InstantSearch
           searchClient={searchClient}
           indexName={ALGOLIA_BRANDS_INDEX ?? ''}>
-          <Configure hitsPerPage={40} />
+          <Configure />
           <div className={classes.pageHeader}>
             {width < 700 && <BackButton />}
             <CustomSearchBox />
@@ -329,7 +329,7 @@ const Brands: React.FC = () => {
               </div>
             )}
             <div className={classes.productListContainer}>
-              <Hits hitComponent={Hit} />
+              <BrandInfiniteHits />
             </div>
           </div>
           <div className={classes.paginationContainer}>
@@ -340,23 +340,5 @@ const Brands: React.FC = () => {
     </>
   );
 };
-
-function Hit({hit}: {hit: any}) {
-  const classes = useStyles(campediaTheme);
-  return (
-    <div key={hit.alt} className={classes.productContainer}>
-      <Link href={`/brands/${hit.alt}`} passHref>
-        <a className={classes.productLink}>
-          <Icon className={classes.productIcon}>
-            <SquareImage alt={hit.alt} type={'brands'} />
-          </Icon>
-          <Typography variant="body1" noWrap>
-            <Highlight attribute="name" hit={hit} />
-          </Typography>
-        </a>
-      </Link>
-    </div>
-  );
-}
 
 export default Brands;
