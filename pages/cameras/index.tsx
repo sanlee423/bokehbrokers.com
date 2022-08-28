@@ -1,5 +1,4 @@
 import React from 'react';
-import PageList from '@/components/pageComponents/pageList';
 import PageTitle from '@/components/header/pageTitle';
 import useWindowSize from '@/utils/windowDimensions';
 import {campediaTheme} from '@/utils/campediaTheme';
@@ -28,7 +27,7 @@ import {
 import BackButton from '@/components/pageComponents/backButton';
 import {Global} from '@emotion/react';
 import {StyledBox} from '@/components/pageComponents/swipeableEdge';
-import CameraInfiniteHits from '@/components/hitCamera/CameranfiniteHits';
+import CameraInfiniteHits from '@/components/hitCamera/CameraInfiniteHits';
 import {orderBy} from 'lodash';
 
 const ALGOLIA_CAMERAS_INDEX = process.env.ALGOLIA_CAMERAS_INDEX;

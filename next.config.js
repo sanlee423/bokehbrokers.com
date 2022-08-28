@@ -36,5 +36,6 @@ module.exports = withPlugins([], {
     ALGOLIA_API_KEY: process.env.ALGOLIA_API_KEY,
     ALGOLIA_BRANDS_INDEX: process.env.ALGOLIA_BRANDS_INDEX,
     ALGOLIA_CAMERAS_INDEX: process.env.ALGOLIA_CAMERAS_INDEX,
+    ALGOLIA_LENS_INDEX: process.env.ALGOLIA_LENS_INDEX,
   },
 });
